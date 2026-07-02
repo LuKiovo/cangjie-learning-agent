@@ -140,3 +140,13 @@ Checks:
 - Local teacher slide PDFs are documented as reference-only material.
 - The slide PDF folder is ignored by Git.
 - Searchable course knowledge remains `.md` or `.txt` under `knowledge_base/official`.
+
+## 15. Course-Aligned Knowledge Index
+
+Status: initialized.
+
+Checks:
+
+- The official knowledge base contains a searchable HCCDA beginner course index.
+- The index covers all six teacher slide topics.
+- The existing keyword search can match course topics from the index.
