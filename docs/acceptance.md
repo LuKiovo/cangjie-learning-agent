@@ -10,3 +10,13 @@ Checks:
 - `.gitignore` excludes `Agents.md`.
 - Initial repository files do not include local-only project notes.
 - `cjpm run` starts the Cangjie executable.
+
+## 2. Knowledge Base Layout
+
+Status: initialized.
+
+Checks:
+
+- Official documents have a local directory.
+- User notes have a local directory.
+- The first version limits knowledge files to `.md` and `.txt`.

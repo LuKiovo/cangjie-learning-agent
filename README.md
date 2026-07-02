@@ -6,6 +6,15 @@
 
 本项目计划使用仓颉语言实现一个学习助手，基于本地仓颉官方文档和用户自建 `.md/.txt` 知识库回答语法问题，并在回答中标注资料来源。
 
+## Knowledge Base
+
+Local knowledge files are stored in:
+
+- `knowledge_base/official/`
+- `knowledge_base/user_notes/`
+
+The first version only targets `.md` and `.txt` files.
+
 ## Run
 
 ```powershell
