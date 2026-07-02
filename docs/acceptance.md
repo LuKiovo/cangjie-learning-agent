@@ -71,3 +71,13 @@ Checks:
 - The Cangjie CLI accepts one keyword argument.
 - The Cangjie CLI searches local `.md` and `.txt` knowledge files.
 - The Cangjie CLI prints matched source paths and total match count.
+
+## 8. Source-Backed Answer Skeleton
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI prints an answer section for a keyword query.
+- The answer section depends on whether local sources matched.
+- The matched sources remain visible before the answer section.

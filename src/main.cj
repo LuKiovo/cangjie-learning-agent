@@ -112,7 +112,14 @@ main(): Int64 {
         println("Matched sources:")
         let officialMatches = searchKnowledgeFiles("official", officialPath, query)
         let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
-        println("Total matches: ${officialMatches + userNotesMatches}")
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        println("Agent answer:")
+        if (totalMatches > 0) {
+            println("I found local knowledge sources related to '${query}'. Please review the matched sources above.")
+        } else {
+            println("I did not find a local source for '${query}'. Add official docs or user notes, then search again.")
+        }
     } else {
         println("Search query: none")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
