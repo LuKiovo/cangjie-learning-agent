@@ -131,8 +131,9 @@ main(): Int64 {
     println("Sources:")
     printKnowledgeFiles("official", officialPath)
     printKnowledgeFiles("user notes", userNotesPath)
-    if (args.size > 1) {
-        let query = args[1]
+    if (args.size > 2 && args[1] == "ask") {
+        let query = args[2]
+        println("Question: ${query}")
         println("Search query: ${query}")
         println("Matched sources:")
         let officialMatches = searchKnowledgeFiles("official", officialPath, query)
@@ -141,12 +142,20 @@ main(): Int64 {
         println("Total matches: ${totalMatches}")
         println("Agent answer:")
         if (totalMatches > 0) {
-            println("I found local knowledge sources related to '${query}'. Please review the matched sources above.")
+            println("I found local knowledge sources related to your Cangjie syntax question. Please review the matched sources above.")
         } else {
-            println("I did not find a local source for '${query}'. Add official docs or user notes, then search again.")
+            println("I did not find a local source for this Cangjie syntax question. Add official docs or user notes, then ask again.")
         }
+    } else if (args.size > 1) {
+        let query = args[1]
+        println("Search query: ${query}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFiles("official", officialPath, query)
+        let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
+        println("Total matches: ${officialMatches + userNotesMatches}")
     } else {
         println("Search query: none")
+        println("Tip: use ask <question> to ask a Cangjie syntax question.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")

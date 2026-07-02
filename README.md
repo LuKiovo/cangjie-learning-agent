@@ -29,6 +29,12 @@ Search local knowledge files:
 target\manual\main.exe Cangjie
 ```
 
+Ask a Cangjie syntax question:
+
+```powershell
+target\manual\main.exe ask Cangjie
+```
+
 Add a user note:
 
 ```powershell

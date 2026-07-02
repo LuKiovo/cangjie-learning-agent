@@ -102,3 +102,13 @@ Checks:
 - User examples are saved under `knowledge_base/user_notes/examples`.
 - User error notes are saved under `knowledge_base/user_notes/errors`.
 - The existing recursive search discovers files in all user note subdirectories.
+
+## 11. Ask Syntax Question
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `ask <question>`.
+- The command searches local knowledge files for related sources.
+- The command prints an answer section with matched sources visible.
