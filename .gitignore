@@ -1,0 +1,22 @@
+Agents.md
+.agents/
+.codex/
+.git-template/
+
+# Build outputs
+build/
+dist/
+out/
+target/
+
+# Local config and secrets
+.env
+.env.*
+*.local
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+Desktop.ini
