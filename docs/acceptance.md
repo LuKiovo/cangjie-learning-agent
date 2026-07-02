@@ -121,3 +121,12 @@ Checks:
 
 - Query commands show matched sources instead of listing every source first.
 - The default no-query command still lists all local sources for inspection.
+
+## 13. Learning Suggestion
+
+Status: initialized.
+
+Checks:
+
+- `ask <question>` prints a learning suggestion when sources match.
+- `ask <question>` prints a different learning suggestion when no source matches.
