@@ -18,7 +18,9 @@ The first version only targets `.md` and `.txt` files.
 ## Run
 
 ```powershell
-cjpm run
+New-Item -ItemType Directory -Force target\manual
+cjc src\main.cj --output-dir target\manual
+target\manual\main.exe
 ```
 
 ## Planned Acceptance Items

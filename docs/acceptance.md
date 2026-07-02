@@ -27,5 +27,17 @@ Status: initialized.
 
 Checks:
 
-- `cjpm run` prints the local official document path.
-- `cjpm run` prints the local user notes path.
+- The Cangjie executable prints the local official document path.
+- The Cangjie executable prints the local user notes path.
+
+## 4. Knowledge File Counter
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI recursively scans `knowledge_base/official`.
+- The Cangjie CLI recursively scans `knowledge_base/user_notes`.
+- The Cangjie CLI counts only `.md` and `.txt` files.
+
+Note: after importing `std.fs`, `cjpm run` can fail in this workspace path with `Invalid utf8 byte sequence`; direct `cjc` compilation succeeds and is used for verification.
