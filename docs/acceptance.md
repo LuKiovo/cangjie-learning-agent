@@ -20,3 +20,12 @@ Checks:
 - Official documents have a local directory.
 - User notes have a local directory.
 - The first version limits knowledge files to `.md` and `.txt`.
+
+## 3. Knowledge Base CLI Entry
+
+Status: initialized.
+
+Checks:
+
+- `cjpm run` prints the local official document path.
+- `cjpm run` prints the local user notes path.
