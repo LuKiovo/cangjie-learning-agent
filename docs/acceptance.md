@@ -130,3 +130,13 @@ Checks:
 
 - `ask <question>` prints a learning suggestion when sources match.
 - `ask <question>` prints a different learning suggestion when no source matches.
+
+## 14. Course Slide Reference Policy
+
+Status: initialized.
+
+Checks:
+
+- Local teacher slide PDFs are documented as reference-only material.
+- The slide PDF folder is ignored by Git.
+- Searchable course knowledge remains `.md` or `.txt` under `knowledge_base/official`.

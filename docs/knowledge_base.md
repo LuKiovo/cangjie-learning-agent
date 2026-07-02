@@ -9,3 +9,11 @@ The project keeps local knowledge files under `knowledge_base/`.
   - `errors/`: personal compiler error notes.
 
 Only `.md` and `.txt` files are in scope for the first version.
+
+## Course Slides
+
+The local course slide folder is ignored by Git:
+
+- `HCCDA-Cangjie 仓颉编程语言入门级开发者认证-授课-PDF/`
+
+Use the slides as reference material, but do not commit the PDF files. When a slide section should become searchable, summarize or export it into `.md` or `.txt` and place it under `knowledge_base/official/`.

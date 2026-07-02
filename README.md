@@ -15,6 +15,8 @@ Local knowledge files are stored in:
 
 The first version only targets `.md` and `.txt` files.
 
+Teacher slides can be kept locally in `HCCDA-Cangjie 仓颉编程语言入门级开发者认证-授课-PDF/`. The PDF folder is ignored by Git; searchable content should be converted or summarized into `.md` or `.txt`.
+
 ## Run
 
 ```powershell
