@@ -3,10 +3,25 @@ package cangjie_learning_agent
 import std.env.*
 import std.fs.*
 
+func printHelp(): Unit {
+    println("Cangjie Learning Agent commands:")
+    println("- ask <question>: ask a Cangjie syntax question")
+    println("- <keyword>: search local knowledge files")
+    println("- add-note <name> <content>: add a syntax note")
+    println("- add-example <name> <content>: add example code notes")
+    println("- add-error <name> <content>: add compiler error notes")
+    println("- help: show command help")
+}
+
 main(): Int64 {
     let args = getCommandLine()
     let officialPath = Path("knowledge_base/official")
     let userNotesPath = Path("knowledge_base/user_notes")
+
+    if (args.size > 1 && args[1] == "help") {
+        printHelp()
+        return 0
+    }
 
     if (args.size > 3 && args[1] == "add-note") {
         let notePath = addUserKnowledge("syntax_notes", args[2], args[3])
@@ -69,6 +84,7 @@ main(): Int64 {
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")
         println("Tip: use add-error <name> <content> to add compiler error notes.")
+        println("Tip: use help to show all commands.")
     }
     return 0
 }

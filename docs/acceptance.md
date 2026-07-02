@@ -170,3 +170,13 @@ Checks:
 - Agent answer text lives outside `main.cj`.
 - `main.cj` delegates answer printing to the agent module.
 - Existing `ask` output remains unchanged.
+
+## 18. CLI Help
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `help`.
+- The help output lists query and knowledge-add commands.
+- The default no-query output points users to `help`.

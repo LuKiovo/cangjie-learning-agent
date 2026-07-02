@@ -39,6 +39,12 @@ Ask a Cangjie syntax question:
 target\manual\main.exe ask Cangjie
 ```
 
+Show CLI help:
+
+```powershell
+target\manual\main.exe help
+```
+
 Add a user note:
 
 ```powershell
