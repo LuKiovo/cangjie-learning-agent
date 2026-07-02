@@ -112,3 +112,12 @@ Checks:
 - The Cangjie CLI supports `ask <question>`.
 - The command searches local knowledge files for related sources.
 - The command prints an answer section with matched sources visible.
+
+## 12. Focused Answer Sources
+
+Status: initialized.
+
+Checks:
+
+- Query commands show matched sources instead of listing every source first.
+- The default no-query command still lists all local sources for inspection.

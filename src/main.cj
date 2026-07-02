@@ -128,9 +128,6 @@ main(): Int64 {
     println("Knowledge characters:")
     println("- official: ${officialCharacters}")
     println("- user notes: ${userNotesCharacters}")
-    println("Sources:")
-    printKnowledgeFiles("official", officialPath)
-    printKnowledgeFiles("user notes", userNotesPath)
     if (args.size > 2 && args[1] == "ask") {
         let query = args[2]
         println("Question: ${query}")
@@ -154,6 +151,9 @@ main(): Int64 {
         let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
         println("Total matches: ${officialMatches + userNotesMatches}")
     } else {
+        println("Sources:")
+        printKnowledgeFiles("official", officialPath)
+        printKnowledgeFiles("user notes", userNotesPath)
         println("Search query: none")
         println("Tip: use ask <question> to ask a Cangjie syntax question.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
