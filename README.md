@@ -29,6 +29,12 @@ Search local knowledge files:
 target\manual\main.exe Cangjie
 ```
 
+Add a user note:
+
+```powershell
+target\manual\main.exe add-note syntax_note Cangjie-syntax-note
+```
+
 ## Planned Acceptance Items
 
 1. 项目骨架初始化

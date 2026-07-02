@@ -83,10 +83,23 @@ func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
     return matches
 }
 
+func addUserNote(name: String, content: String): Path {
+    let path = Path("knowledge_base/user_notes").join(name + ".md")
+    File.writeTo(path, content.toArray())
+    return path
+}
+
 main(): Int64 {
     let args = getCommandLine()
     let officialPath = Path("knowledge_base/official")
     let userNotesPath = Path("knowledge_base/user_notes")
+
+    if (args.size > 3 && args[1] == "add-note") {
+        let notePath = addUserNote(args[2], args[3])
+        println("Added user note: ${notePath.toString()}")
+        return 0
+    }
+
     let officialCount = countKnowledgeFiles(officialPath)
     let userNotesCount = countKnowledgeFiles(userNotesPath)
     let officialCharacters = countKnowledgeCharacters(officialPath)
@@ -123,6 +136,7 @@ main(): Int64 {
     } else {
         println("Search query: none")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
+        println("Tip: use add-note <name> <content> to add a local user note.")
     }
     return 0
 }

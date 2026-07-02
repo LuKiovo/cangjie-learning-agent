@@ -81,3 +81,13 @@ Checks:
 - The Cangjie CLI prints an answer section for a keyword query.
 - The answer section depends on whether local sources matched.
 - The matched sources remain visible before the answer section.
+
+## 9. Add User Note
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `add-note <name> <content>`.
+- The note is saved under `knowledge_base/user_notes`.
+- The saved note can be discovered by the existing keyword search.
