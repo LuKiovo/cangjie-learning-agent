@@ -1,5 +1,6 @@
 package cangjie_learning_agent
 
+import std.env.*
 import std.fs.*
 
 func isKnowledgeFile(name: String): Bool {
@@ -61,7 +62,29 @@ func printKnowledgeFiles(label: String, path: Path): Unit {
     }
 }
 
+func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
+    if (!exists(path)) {
+        return 0
+    }
+
+    var matches: Int64 = 0
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            matches += searchKnowledgeFiles(label, item.path, query)
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            if (text.contains(query)) {
+                println("- ${label}: ${item.path.toString()}")
+                matches += 1
+            }
+        }
+    }
+    return matches
+}
+
 main(): Int64 {
+    let args = getCommandLine()
     let officialPath = Path("knowledge_base/official")
     let userNotesPath = Path("knowledge_base/user_notes")
     let officialCount = countKnowledgeFiles(officialPath)
@@ -83,5 +106,16 @@ main(): Int64 {
     println("Sources:")
     printKnowledgeFiles("official", officialPath)
     printKnowledgeFiles("user notes", userNotesPath)
+    if (args.size > 1) {
+        let query = args[1]
+        println("Search query: ${query}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFiles("official", officialPath, query)
+        let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
+        println("Total matches: ${officialMatches + userNotesMatches}")
+    } else {
+        println("Search query: none")
+        println("Tip: pass a keyword after the executable to search local knowledge files.")
+    }
     return 0
 }

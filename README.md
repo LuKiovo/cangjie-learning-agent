@@ -23,6 +23,12 @@ cjc src\main.cj --output-dir target\manual
 target\manual\main.exe
 ```
 
+Search local knowledge files:
+
+```powershell
+target\manual\main.exe Cangjie
+```
+
 ## Planned Acceptance Items
 
 1. 项目骨架初始化

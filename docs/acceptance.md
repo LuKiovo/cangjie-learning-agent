@@ -61,3 +61,13 @@ Checks:
 - The Cangjie CLI reads local `.md` and `.txt` files as UTF-8 text.
 - The Cangjie CLI reports total text characters for official documents.
 - The Cangjie CLI reports total text characters for user notes.
+
+## 7. Keyword Search
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI accepts one keyword argument.
+- The Cangjie CLI searches local `.md` and `.txt` knowledge files.
+- The Cangjie CLI prints matched source paths and total match count.
