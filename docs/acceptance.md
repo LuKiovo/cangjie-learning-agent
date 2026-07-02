@@ -41,3 +41,13 @@ Checks:
 - The Cangjie CLI counts only `.md` and `.txt` files.
 
 Note: after importing `std.fs`, `cjpm run` can fail in this workspace path with `Invalid utf8 byte sequence`; direct `cjc` compilation succeeds and is used for verification.
+
+## 5. Source File Listing
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI lists `.md` and `.txt` files from official documents.
+- The Cangjie CLI lists `.md` and `.txt` files from user notes.
+- Each listed source includes its knowledge area label.

@@ -23,6 +23,21 @@ func countKnowledgeFiles(path: Path): Int64 {
     return count
 }
 
+func printKnowledgeFiles(label: String, path: Path): Unit {
+    if (!exists(path)) {
+        return
+    }
+
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            printKnowledgeFiles(label, item.path)
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            println("- ${label}: ${item.path.toString()}")
+        }
+    }
+}
+
 main(): Int64 {
     let officialPath = Path("knowledge_base/official")
     let userNotesPath = Path("knowledge_base/user_notes")
@@ -37,5 +52,8 @@ main(): Int64 {
     println("Knowledge files:")
     println("- official: ${officialCount}")
     println("- user notes: ${userNotesCount}")
+    println("Sources:")
+    printKnowledgeFiles("official", officialPath)
+    printKnowledgeFiles("user notes", userNotesPath)
     return 0
 }
