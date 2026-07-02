@@ -51,3 +51,13 @@ Checks:
 - The Cangjie CLI lists `.md` and `.txt` files from official documents.
 - The Cangjie CLI lists `.md` and `.txt` files from user notes.
 - Each listed source includes its knowledge area label.
+
+## 6. Knowledge File Reading
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI reads local `.md` and `.txt` files as UTF-8 text.
+- The Cangjie CLI reports total text characters for official documents.
+- The Cangjie CLI reports total text characters for user notes.

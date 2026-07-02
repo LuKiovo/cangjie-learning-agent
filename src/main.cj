@@ -23,6 +23,29 @@ func countKnowledgeFiles(path: Path): Int64 {
     return count
 }
 
+func readKnowledgeText(path: Path): String {
+    let bytes = File.readFrom(path)
+    return String.fromUtf8(bytes)
+}
+
+func countKnowledgeCharacters(path: Path): Int64 {
+    if (!exists(path)) {
+        return 0
+    }
+
+    var count: Int64 = 0
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            count += countKnowledgeCharacters(item.path)
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            count += text.size
+        }
+    }
+    return count
+}
+
 func printKnowledgeFiles(label: String, path: Path): Unit {
     if (!exists(path)) {
         return
@@ -43,6 +66,8 @@ main(): Int64 {
     let userNotesPath = Path("knowledge_base/user_notes")
     let officialCount = countKnowledgeFiles(officialPath)
     let userNotesCount = countKnowledgeFiles(userNotesPath)
+    let officialCharacters = countKnowledgeCharacters(officialPath)
+    let userNotesCharacters = countKnowledgeCharacters(userNotesPath)
 
     println("Cangjie Learning Agent")
     println("Status: project skeleton is ready.")
@@ -52,6 +77,9 @@ main(): Int64 {
     println("Knowledge files:")
     println("- official: ${officialCount}")
     println("- user notes: ${userNotesCount}")
+    println("Knowledge characters:")
+    println("- official: ${officialCharacters}")
+    println("- user notes: ${userNotesCharacters}")
     println("Sources:")
     printKnowledgeFiles("official", officialPath)
     printKnowledgeFiles("user notes", userNotesPath)
