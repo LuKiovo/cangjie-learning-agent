@@ -160,3 +160,13 @@ Checks:
 - Knowledge base logic lives outside `main.cj`.
 - `main.cj` keeps the command-line flow.
 - Existing `ask` behavior remains unchanged after the split.
+
+## 17. Agent Answer Module
+
+Status: initialized.
+
+Checks:
+
+- Agent answer text lives outside `main.cj`.
+- `main.cj` delegates answer printing to the agent module.
+- Existing `ask` output remains unchanged.
