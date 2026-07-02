@@ -35,6 +35,18 @@ Add a user note:
 target\manual\main.exe add-note syntax_note Cangjie-syntax-note
 ```
 
+Add categorized personal knowledge:
+
+```powershell
+target\manual\main.exe add-note var_note Cangjie-var-note
+target\manual\main.exe add-example hello_example Cangjie-hello-example
+target\manual\main.exe add-error semicolon_error Cangjie-error-note
+```
+
+## IDE
+
+This project can be opened in CodeArts IDE for Cangjie from the repository root.
+
 ## Planned Acceptance Items
 
 1. 项目骨架初始化

@@ -8,3 +8,9 @@ Suggested content:
 - Example code
 - Common compiler errors
 - Teacher or class notes
+
+Subdirectories:
+
+- `syntax_notes/`
+- `examples/`
+- `errors/`

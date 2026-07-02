@@ -91,3 +91,14 @@ Checks:
 - The Cangjie CLI supports `add-note <name> <content>`.
 - The note is saved under `knowledge_base/user_notes`.
 - The saved note can be discovered by the existing keyword search.
+
+## 10. Personalized Knowledge Categories
+
+Status: initialized.
+
+Checks:
+
+- User syntax notes are saved under `knowledge_base/user_notes/syntax_notes`.
+- User examples are saved under `knowledge_base/user_notes/examples`.
+- User error notes are saved under `knowledge_base/user_notes/errors`.
+- The existing recursive search discovers files in all user note subdirectories.

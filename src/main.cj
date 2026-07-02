@@ -83,8 +83,8 @@ func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
     return matches
 }
 
-func addUserNote(name: String, content: String): Path {
-    let path = Path("knowledge_base/user_notes").join(name + ".md")
+func addUserKnowledge(category: String, name: String, content: String): Path {
+    let path = Path("knowledge_base/user_notes").join(category).join(name + ".md")
     File.writeTo(path, content.toArray())
     return path
 }
@@ -95,8 +95,20 @@ main(): Int64 {
     let userNotesPath = Path("knowledge_base/user_notes")
 
     if (args.size > 3 && args[1] == "add-note") {
-        let notePath = addUserNote(args[2], args[3])
-        println("Added user note: ${notePath.toString()}")
+        let notePath = addUserKnowledge("syntax_notes", args[2], args[3])
+        println("Added syntax note: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "add-example") {
+        let notePath = addUserKnowledge("examples", args[2], args[3])
+        println("Added example: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "add-error") {
+        let notePath = addUserKnowledge("errors", args[2], args[3])
+        println("Added error note: ${notePath.toString()}")
         return 0
     }
 
@@ -136,7 +148,9 @@ main(): Int64 {
     } else {
         println("Search query: none")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
-        println("Tip: use add-note <name> <content> to add a local user note.")
+        println("Tip: use add-note <name> <content> to add a syntax note.")
+        println("Tip: use add-example <name> <content> to add example code notes.")
+        println("Tip: use add-error <name> <content> to add compiler error notes.")
     }
     return 0
 }

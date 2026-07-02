@@ -1,0 +1,1 @@
+Cangjie-error-note
