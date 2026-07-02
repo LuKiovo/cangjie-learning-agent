@@ -23,7 +23,7 @@ The repository includes `knowledge_base/official/hccda_beginner_index.md` as a s
 
 ```powershell
 New-Item -ItemType Directory -Force target\manual
-cjc src\main.cj --output-dir target\manual
+cjc -p src --output-dir target\manual
 target\manual\main.exe
 ```
 

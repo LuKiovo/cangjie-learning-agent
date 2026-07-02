@@ -150,3 +150,13 @@ Checks:
 - The official knowledge base contains a searchable HCCDA beginner course index.
 - The index covers all six teacher slide topics.
 - The existing keyword search can match course topics from the index.
+
+## 16. Knowledge Module Split
+
+Status: initialized.
+
+Checks:
+
+- Knowledge base logic lives outside `main.cj`.
+- `main.cj` keeps the command-line flow.
+- Existing `ask` behavior remains unchanged after the split.
