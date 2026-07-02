@@ -4,7 +4,7 @@
   description = "A Cangjie learning assistant agent with a local knowledge base."
   version = "1.0.0"
   target-dir = ""
-  src-dir = ""
+  src-dir = "src"
   output-type = "executable"
   compile-option = ""
   override-compile-option = ""
