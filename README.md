@@ -6,6 +6,12 @@
 
 本项目计划使用仓颉语言实现一个学习助手，基于本地仓颉官方文档和用户自建 `.md/.txt` 知识库回答语法问题，并在回答中标注资料来源。
 
+## Run
+
+```powershell
+cjpm run
+```
+
 ## Planned Acceptance Items
 
 1. 项目骨架初始化
