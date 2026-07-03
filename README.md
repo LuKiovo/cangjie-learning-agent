@@ -71,6 +71,14 @@ target\manual\main.exe demo
 
 See [docs/demo.md](docs/demo.md) for the full classroom demo script.
 
+Check LLM API configuration:
+
+```powershell
+target\manual\main.exe llm-status
+```
+
+See [docs/llm.md](docs/llm.md) for environment variable details.
+
 Show CLI help:
 
 ```powershell

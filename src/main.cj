@@ -11,6 +11,7 @@ func printHelp(): Unit {
     println("- sources <keyword>: list matched source files only")
     println("- review-error <keyword>: review local compiler error notes")
     println("- demo: show a recommended classroom demo flow")
+    println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
     println("- add-example <name> <content>: add example code notes")
@@ -47,6 +48,11 @@ main(): Int64 {
         println("6. target\\manual\\main.exe review-error Cangjie-error-note")
         println("7. target\\manual\\main.exe add-note my_note Cangjie-my-note")
         println("8. target\\manual\\main.exe ask Cangjie-my-note")
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "llm-status") {
+        printLlmStatus()
         return 0
     }
 
@@ -133,6 +139,7 @@ main(): Int64 {
         println("Tip: use sources <keyword> to list matched source files only.")
         println("Tip: use review-error <keyword> to review compiler error notes.")
         println("Tip: use demo to show a recommended classroom demo flow.")
+        println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")

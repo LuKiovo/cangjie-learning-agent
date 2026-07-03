@@ -240,3 +240,13 @@ Checks:
 - The repository contains a classroom demo script.
 - The script covers build, help, stats, sources, ask, practice, error review, add-note, and follow-up search.
 - The CLI `demo` command and the document use the same demonstration flow.
+
+## 25. LLM Configuration Status
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `llm-status`.
+- LLM endpoint, model, and API key are read from environment variables.
+- The command reports only whether the API key is configured and never prints the key value.
