@@ -290,3 +290,13 @@ Checks:
 - README describes project goal, implemented features, run commands, demo flow, course alignment, and current limits.
 - Project status document separates completed and incomplete items.
 - Documentation does not claim real LLM API calls or GUI are complete.
+
+## 30. Source-backed LLM Prompt Preview
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `prompt <question>`.
+- The command searches local knowledge files before building the prompt preview.
+- The prompt preview includes match count, primary source, and answer rules for future LLM API integration.

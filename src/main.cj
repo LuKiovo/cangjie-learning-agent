@@ -9,6 +9,7 @@ func printHelp(): Unit {
     println("- practice <topic>: generate a source-backed practice task")
     println("- stats: show local knowledge base statistics")
     println("- sources <keyword>: list matched source files only")
+    println("- prompt <question>: preview a source-backed LLM prompt")
     println("- review-error <keyword>: review local compiler error notes")
     println("- demo: show a recommended classroom demo flow")
     println("- llm-status: show LLM API configuration status")
@@ -60,12 +61,13 @@ main(): Int64 {
         println("2. target\\manual\\main.exe stats")
         println("3. target\\manual\\main.exe sources ArrayList")
         println("4. target\\manual\\main.exe ask match")
-        println("5. target\\manual\\main.exe practice ArrayList")
-        println("6. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("7. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("8. target\\manual\\main.exe ask Cangjie-my-note")
-        println("9. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("10. target\\manual\\main.exe categories")
+        println("5. target\\manual\\main.exe prompt match")
+        println("6. target\\manual\\main.exe practice ArrayList")
+        println("7. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("8. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("9. target\\manual\\main.exe ask Cangjie-my-note")
+        println("10. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("11. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -91,6 +93,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "sources" && args.size <= 2) {
         printUsageError("sources", "target\\manual\\main.exe sources <keyword>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "prompt" && args.size <= 2) {
+        printUsageError("prompt", "target\\manual\\main.exe prompt <question>")
         return 1
     }
 
@@ -171,6 +178,20 @@ main(): Int64 {
         println("Total matches: ${errorMatches}")
         let primarySource = findFirstKnowledgeSource(Path("knowledge_base/user_notes/errors"), keyword)
         printErrorReview(keyword, errorMatches, primarySource)
+    } else if (args.size > 2 && args[1] == "prompt") {
+        let query = args[2]
+        println("Question: ${query}")
+        println("Search query: ${query}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFiles("official", officialPath, query)
+        let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        var primarySource = findFirstKnowledgeSource(officialPath, query)
+        if (primarySource.isEmpty()) {
+            primarySource = findFirstKnowledgeSource(userNotesPath, query)
+        }
+        printPromptPreview(query, totalMatches, primarySource)
     } else if (args.size > 2 && args[1] == "ask") {
         let query = args[2]
         println("Question: ${query}")
@@ -215,6 +236,7 @@ main(): Int64 {
         println("Tip: use practice <topic> to generate a practice task.")
         println("Tip: use stats to show local knowledge base statistics.")
         println("Tip: use sources <keyword> to list matched source files only.")
+        println("Tip: use prompt <question> to preview a source-backed LLM prompt.")
         println("Tip: use review-error <keyword> to review compiler error notes.")
         println("Tip: use demo to show a recommended classroom demo flow.")
         println("Tip: use llm-status to check LLM API configuration.")

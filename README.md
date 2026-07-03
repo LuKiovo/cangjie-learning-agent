@@ -16,6 +16,7 @@
 - 报错复盘：`review-error <keyword>` 检索常见报错笔记并给出排错建议。
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
+- LLM Prompt 预览：`prompt <question>` 基于本地来源生成未来 API 调用前的约束提示词。
 
 ## 知识库结构
 
@@ -110,6 +111,12 @@ target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 target\manual\main.exe llm-status
 ```
 
+预览带来源约束的 LLM Prompt：
+
+```powershell
+target\manual\main.exe prompt match
+```
+
 ## 课堂演示
 
 完整演示脚本见 [docs/demo.md](docs/demo.md)。推荐顺序为：
@@ -118,6 +125,7 @@ target\manual\main.exe llm-status
 - `stats`
 - `sources ArrayList`
 - `ask match`
+- `prompt match`
 - `practice ArrayList`
 - `review-error Cangjie-error-note`
 - `add-note my_note Cangjie-my-note`
@@ -139,7 +147,7 @@ target\manual\main.exe llm-status
 ## 当前限制
 
 - 目前是 CLI 原型，还没有桌面 GUI 或网页界面。
-- 目前已实现 LLM 配置检查，但尚未真实调用大模型 API。
+- 目前已实现 LLM 配置检查和 Prompt 预览，但尚未真实调用大模型 API。
 - 当前检索是简单关键词检索，尚未实现向量检索。
 - PDF 课件不直接作为检索输入，需要先整理为 `.md` 或 `.txt`。
 

@@ -37,7 +37,15 @@ target\manual\main.exe ask match
 
 Expected result: matched sources and an answer section with `Primary source`.
 
-5. Generate a source-backed practice task:
+5. Preview a source-backed LLM prompt:
+
+```powershell
+target\manual\main.exe prompt match
+```
+
+Expected result: matched sources, source count, primary source, and prompt answer rules.
+
+6. Generate a source-backed practice task:
 
 ```powershell
 target\manual\main.exe practice ArrayList
@@ -45,7 +53,7 @@ target\manual\main.exe practice ArrayList
 
 Expected result: matched sources, `Primary source`, and a checklist.
 
-6. Review a compiler error note:
+7. Review a compiler error note:
 
 ```powershell
 target\manual\main.exe review-error Cangjie-error-note
@@ -53,25 +61,25 @@ target\manual\main.exe review-error Cangjie-error-note
 
 Expected result: matched error sources, `Primary source`, and a debugging checklist.
 
-7. Add a personal syntax note:
+8. Add a personal syntax note:
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
 ```
 
-8. Search the added note:
+9. Search the added note:
 
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
 
-9. Add a course-summary knowledge item:
+10. Add a course-summary knowledge item:
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-10. Show knowledge categories:
+11. Show knowledge categories:
 
 ```powershell
 target\manual\main.exe categories

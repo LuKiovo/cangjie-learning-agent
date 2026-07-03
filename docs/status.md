@@ -11,6 +11,7 @@
 - Knowledge base statistics and category inspection.
 - Local-only teacher slide policy.
 - LLM environment configuration status check.
+- Source-backed LLM prompt preview.
 - Classroom demo script.
 
 ## Not Completed Yet
