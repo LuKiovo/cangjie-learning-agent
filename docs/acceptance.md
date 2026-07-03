@@ -649,3 +649,43 @@ Checks:
 - The Cangjie CLI supports `export-final-check <name>`.
 - The command writes a Markdown final readiness report under `docs/`.
 - The exported report summarizes scope, acceptance coverage, knowledge stats, and remaining manual items.
+
+## 66. Agent Operation Trace
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `trace <topic>`.
+- The command searches local knowledge, reports match count and scores, and explains the source-backed operation flow.
+- The trace includes the primary source and source context when available.
+
+## 67. Markdown Trace Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-trace <name> <topic>`.
+- The command writes a Markdown trace report under `docs/`.
+- The exported trace documents retrieval, scoring, primary source selection, and source-backed output preparation.
+
+## 68. Engineering Roadmap
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `roadmap`.
+- The command lists completed core capabilities and remaining engineering work.
+- The roadmap does not claim direct HTTP transport is complete.
+
+## 69. Markdown Roadmap Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-roadmap <name>`.
+- The command writes a Markdown roadmap under `docs/`.
+- The exported roadmap includes completed core items, remaining work, and recommended demo order.
