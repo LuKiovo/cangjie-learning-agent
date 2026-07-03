@@ -233,6 +233,11 @@ func isSafeKnowledgeName(name: String): Bool {
     return !name.isEmpty() && !name.contains("/") && !name.contains("\\") && !name.contains("..")
 }
 
+func canImportKnowledgeFile(sourcePath: String): Bool {
+    let path = Path(sourcePath)
+    return exists(path) && isKnowledgeFile(sourcePath)
+}
+
 func addUserKnowledge(category: String, name: String, content: String): Path {
     let path = Path("knowledge_base/user_notes").join(category).join(name + ".md")
     File.writeTo(path, content.toArray())
@@ -243,4 +248,14 @@ func addOfficialKnowledge(name: String, content: String): Path {
     let path = Path("knowledge_base/official").join(name + ".md")
     File.writeTo(path, content.toArray())
     return path
+}
+
+func importUserKnowledge(category: String, name: String, sourcePath: String): Path {
+    let content = readKnowledgeText(Path(sourcePath))
+    return addUserKnowledge(category, name, content)
+}
+
+func importOfficialKnowledge(name: String, sourcePath: String): Path {
+    let content = readKnowledgeText(Path(sourcePath))
+    return addOfficialKnowledge(name, content)
 }

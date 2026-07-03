@@ -18,6 +18,7 @@
 - 报错复盘：`review-error <keyword>` 检索常见报错笔记并给出排错建议。
 - 报错修复：`fix-error <keyword>` 基于本地报错笔记生成修复建议和代码草稿。
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
+- 知识导入：支持把已有 `.md/.txt` 文件导入语法笔记、示例、报错或官方/课程资料。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
 - LLM Prompt 预览：`prompt <question>` 基于本地来源和主来源上下文生成未来 API 调用前的约束提示词。
 - 项目摘要：`summary` 汇总已实现能力、知识库统计和当前限制。
@@ -145,6 +146,13 @@ target\manual\main.exe add-example hello_example Cangjie-hello-example
 
 ```powershell
 target\manual\main.exe add-error semicolon_error Cangjie-error-note
+```
+
+导入已有 `.md/.txt` 文件：
+
+```powershell
+target\manual\main.exe import-note imported_note docs\knowledge_base.md
+target\manual\main.exe import-official imported_course docs\knowledge_base.md
 ```
 
 新增官方/课程整理内容：

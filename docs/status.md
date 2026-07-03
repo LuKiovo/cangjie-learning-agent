@@ -21,6 +21,7 @@
 - Scored primary source selection.
 - First matched source content display.
 - Safe knowledge file name validation.
+- Knowledge file import commands for `.md` and `.txt`.
 - Project summary command for classroom acceptance.
 - Classroom demo script.
 

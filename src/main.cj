@@ -23,6 +23,10 @@ func printHelp(): Unit {
     println("- add-example <name> <content>: add example code notes")
     println("- add-error <name> <content>: add compiler error notes")
     println("- add-official <name> <content>: add official or course-summary knowledge")
+    println("- import-note <name> <file-path>: import a .md or .txt syntax note")
+    println("- import-example <name> <file-path>: import a .md or .txt example note")
+    println("- import-error <name> <file-path>: import a .md or .txt error note")
+    println("- import-official <name> <file-path>: import a .md or .txt official/course file")
     println("- categories: show local knowledge categories")
     println("- help: show command help")
 }
@@ -46,6 +50,11 @@ func printNameError(name: String): Unit {
     println("Use a simple file name without path separators or '..'.")
 }
 
+func printImportFileError(sourcePath: String): Unit {
+    println("Invalid import file: ${sourcePath}")
+    println("Use an existing .md or .txt file.")
+}
+
 func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Unit {
     println("Knowledge files:")
     println("- official: ${officialCount}")
@@ -66,6 +75,7 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- source-backed prompt preview for future LLM API calls")
     println("- examples, quizzes, practice tasks, error review, and error fix suggestions")
     println("- personalized notes, examples, error notes, and official/course summaries")
+    println("- .md and .txt import for personalized and official/course knowledge")
     println("- matched source listing, source content inspection, and scored primary source selection")
     println("Current limits:")
     println("- no real LLM API request yet")
@@ -205,6 +215,26 @@ main(): Int64 {
         return 1
     }
 
+    if (args.size > 1 && args[1] == "import-note" && args.size <= 3) {
+        printUsageError("import-note", "target\\manual\\main.exe import-note <name> <file-path>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "import-example" && args.size <= 3) {
+        printUsageError("import-example", "target\\manual\\main.exe import-example <name> <file-path>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "import-error" && args.size <= 3) {
+        printUsageError("import-error", "target\\manual\\main.exe import-error <name> <file-path>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "import-official" && args.size <= 3) {
+        printUsageError("import-official", "target\\manual\\main.exe import-official <name> <file-path>")
+        return 1
+    }
+
     if (args.size > 3 && args[1] == "add-note") {
         if (!isSafeKnowledgeName(args[2])) {
             printNameError(args[2])
@@ -242,6 +272,66 @@ main(): Int64 {
         }
         let notePath = addUserKnowledge("errors", args[2], joinArgs(args, 3))
         println("Added error note: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "import-note") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let sourcePath = joinArgs(args, 3)
+        if (!canImportKnowledgeFile(sourcePath)) {
+            printImportFileError(sourcePath)
+            return 1
+        }
+        let notePath = importUserKnowledge("syntax_notes", args[2], sourcePath)
+        println("Imported syntax note: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "import-example") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let sourcePath = joinArgs(args, 3)
+        if (!canImportKnowledgeFile(sourcePath)) {
+            printImportFileError(sourcePath)
+            return 1
+        }
+        let notePath = importUserKnowledge("examples", args[2], sourcePath)
+        println("Imported example: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "import-error") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let sourcePath = joinArgs(args, 3)
+        if (!canImportKnowledgeFile(sourcePath)) {
+            printImportFileError(sourcePath)
+            return 1
+        }
+        let notePath = importUserKnowledge("errors", args[2], sourcePath)
+        println("Imported error note: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "import-official") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let sourcePath = joinArgs(args, 3)
+        if (!canImportKnowledgeFile(sourcePath)) {
+            printImportFileError(sourcePath)
+            return 1
+        }
+        let notePath = importOfficialKnowledge(args[2], sourcePath)
+        println("Imported official knowledge: ${notePath.toString()}")
         return 0
     }
 
@@ -383,6 +473,10 @@ main(): Int64 {
         println("Tip: use add-example <name> <content> to add example code notes.")
         println("Tip: use add-error <name> <content> to add compiler error notes.")
         println("Tip: use add-official <name> <content> to add official or course-summary knowledge.")
+        println("Tip: use import-note <name> <file-path> to import a .md or .txt syntax note.")
+        println("Tip: use import-example <name> <file-path> to import a .md or .txt example note.")
+        println("Tip: use import-error <name> <file-path> to import a .md or .txt error note.")
+        println("Tip: use import-official <name> <file-path> to import a .md or .txt official/course file.")
         println("Tip: use categories to show local knowledge categories.")
         println("Tip: use help to show all commands.")
     }

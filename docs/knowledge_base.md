@@ -12,6 +12,17 @@ Only `.md` and `.txt` files are in scope for the first version.
 
 Knowledge names used by add commands must be simple file names. Names containing `/`, `\`, or `..` are rejected so user notes stay inside the local knowledge base directories.
 
+Existing `.md` or `.txt` files can be imported with:
+
+```powershell
+target\manual\main.exe import-note imported_note docs\knowledge_base.md
+target\manual\main.exe import-example imported_example docs\knowledge_base.md
+target\manual\main.exe import-error imported_error docs\knowledge_base.md
+target\manual\main.exe import-official imported_course docs\knowledge_base.md
+```
+
+Import commands copy the source text into the selected knowledge category. Other file types are rejected.
+
 ## Course Slides
 
 The local course slide folder is ignored by Git:

@@ -400,3 +400,13 @@ Checks:
 - The Cangjie CLI supports `summary`.
 - The command reports implemented capabilities and current project limits.
 - The command includes current knowledge base statistics for classroom acceptance.
+
+## 41. Knowledge File Import Commands
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports importing `.md` and `.txt` files into syntax notes, examples, error notes, and official/course knowledge.
+- Import commands reject unsafe target names and non-`.md`/`.txt` source files.
+- Imported files are saved under the intended local knowledge base category and can be searched.
