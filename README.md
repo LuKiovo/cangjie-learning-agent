@@ -13,6 +13,7 @@
 - 关键词检索：按关键词列出匹配来源，并用匹配分数选择主来源。
 - 语法问答：`ask <question>` 检索本地资料并输出带来源和主来源上下文的回答。
 - 练习生成：`practice <topic>` 基于来源生成练习任务。
+- 示例生成：`example <topic>` 基于来源生成仓颉示例草稿。
 - 报错复盘：`review-error <keyword>` 检索常见报错笔记并给出排错建议。
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
@@ -87,6 +88,12 @@ target\manual\main.exe ask ArrayList match expression
 target\manual\main.exe practice ArrayList
 ```
 
+生成示例代码草稿：
+
+```powershell
+target\manual\main.exe example ArrayList
+```
+
 复盘常见报错：
 
 ```powershell
@@ -147,6 +154,7 @@ target\manual\main.exe prompt match
 - `show-source ArrayList`
 - `ask match`
 - `prompt match`
+- `example ArrayList`
 - `practice ArrayList`
 - `review-error Cangjie-error-note`
 - `add-note my_note Cangjie-my-note`

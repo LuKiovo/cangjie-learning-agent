@@ -7,6 +7,7 @@
 - Official/course knowledge, syntax notes, examples, and compiler error notes.
 - Keyword search with matched source listing.
 - Source-backed `ask`, `practice`, and `review-error` commands.
+- Source-backed Cangjie example draft command.
 - Primary source display in agent outputs.
 - Primary source context display in `ask` and `prompt`.
 - Knowledge base statistics and category inspection.

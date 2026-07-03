@@ -39,6 +39,23 @@ func printPractice(topic: String, totalMatches: Int64, primarySource: String): U
     }
 }
 
+func printExample(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
+    println("Example draft:")
+    if (totalMatches > 0) {
+        printPrimarySource(primarySource)
+        printSourceContext(sourceText)
+        println("Cangjie example:")
+        println("main(): Int64 {")
+        println("    println(\"Cangjie topic: ${topic}\")")
+        println("    return 0")
+        println("}")
+        println("Next step: run add-example <name> <content> to save your improved version into the local knowledge base.")
+    } else {
+        println("No local source matched '${topic}'.")
+        println("Add a source first, then generate the example again so the draft can cite local knowledge.")
+    }
+}
+
 func printErrorReview(keyword: String, totalMatches: Int64, primarySource: String): Unit {
     println("Error review:")
     if (totalMatches > 0) {

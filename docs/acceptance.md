@@ -360,3 +360,13 @@ Checks:
 - Local retrieval assigns a higher score to complete-query matches.
 - Local retrieval adds score for each matched query word.
 - Commands that need a primary source use the highest-scoring local source instead of the first matching file.
+
+## 37. Source-backed Example Draft
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `example <topic>`.
+- The command searches local knowledge before generating the example draft.
+- The output includes matched sources, primary source context, and a Cangjie code draft.
