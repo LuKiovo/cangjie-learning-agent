@@ -24,6 +24,7 @@
 - 项目摘要：`summary` 汇总已实现能力、知识库统计和当前限制。
 - 工程标识：`version` 展示版本、仓库名、实现语言和知识库格式。
 - 自检命令：`self-check` 输出本地验收检查结果。
+- 报告导出：`export-report <name>` 在 `docs/` 下生成 Markdown 验收报告。
 
 ## 知识库结构
 
@@ -75,6 +76,12 @@ target\manual\main.exe version
 
 ```powershell
 target\manual\main.exe self-check
+```
+
+导出验收报告：
+
+```powershell
+target\manual\main.exe export-report acceptance_report
 ```
 
 查看知识库统计：

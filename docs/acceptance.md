@@ -440,3 +440,13 @@ Checks:
 - The Cangjie CLI supports `self-check`.
 - The command reports pass/fail style checks for official and user knowledge files.
 - The command lists completed command groups and clearly marks GUI and real LLM API calls as manual/not completed checks.
+
+## 45. Markdown Acceptance Report Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-report <name>`.
+- The command writes a Markdown report under `docs/`.
+- The report includes project identity, knowledge base statistics, implemented capabilities, and current limits.

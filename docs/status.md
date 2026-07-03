@@ -26,6 +26,7 @@
 - Project summary command for classroom acceptance.
 - Version command for project identity.
 - Local self-check command for classroom acceptance.
+- Markdown acceptance report export command.
 - Classroom demo script.
 
 ## Not Completed Yet

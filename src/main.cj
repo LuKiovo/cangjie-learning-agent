@@ -19,6 +19,7 @@ func printHelp(): Unit {
     println("- summary: show implemented capabilities and current limits")
     println("- version: show project version and engineering identity")
     println("- self-check: run a local acceptance self-check")
+    println("- export-report <name>: export a Markdown acceptance report under docs")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
@@ -112,6 +113,39 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
     println("Manual check still needed: real LLM API call and GUI are not completed in this CLI milestone.")
+}
+
+func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): String {
+    var text = "# Cangjie Learning Agent Acceptance Report\n\n"
+    text += "## Project Identity\n\n"
+    text += "- Target user: Cangjie beginners\n"
+    text += "- Implementation language: Cangjie\n"
+    text += "- Repository: cangjie-learning-agent\n"
+    text += "- Knowledge format: local .md and .txt files\n\n"
+    text += "## Knowledge Base\n\n"
+    text += "- Official files: ${officialCount}\n"
+    text += "- User note files: ${userNotesCount}\n"
+    text += "- Official characters: ${officialCharacters}\n"
+    text += "- User note characters: ${userNotesCharacters}\n\n"
+    text += "## Implemented Capabilities\n\n"
+    text += "- Source-backed syntax question answering\n"
+    text += "- Source-backed prompt preview for future LLM API calls\n"
+    text += "- Example draft, mini quiz, practice task, error review, and error fix suggestion\n"
+    text += "- Personalized knowledge add/import commands\n"
+    text += "- Matched source listing, source content inspection, and scored primary source selection\n"
+    text += "- Local summary, version, and self-check commands\n\n"
+    text += "## Current Limits\n\n"
+    text += "- Real LLM API request is not completed yet\n"
+    text += "- Desktop GUI or web UI is not completed yet\n"
+    text += "- PDF-to-text import inside the Cangjie app is not completed yet\n"
+    text += "- Vector search is not completed yet\n"
+    return text
+}
+
+func exportReport(name: String, officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildReportText(officialCount, userNotesCount, officialCharacters, userNotesCharacters).toArray())
+    return path
 }
 
 func joinArgs(args: Array<String>, startIndex: Int64): String {
@@ -252,6 +286,11 @@ main(): Int64 {
         return 1
     }
 
+    if (args.size > 1 && args[1] == "export-report" && args.size <= 2) {
+        printUsageError("export-report", "target\\manual\\main.exe export-report <name>")
+        return 1
+    }
+
     if (args.size > 1 && args[1] == "import-note" && args.size <= 3) {
         printUsageError("import-note", "target\\manual\\main.exe import-note <name> <file-path>")
         return 1
@@ -376,6 +415,16 @@ main(): Int64 {
     let userNotesCount = countKnowledgeFiles(userNotesPath)
     let officialCharacters = countKnowledgeCharacters(officialPath)
     let userNotesCharacters = countKnowledgeCharacters(userNotesPath)
+
+    if (args.size > 2 && args[1] == "export-report") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let reportPath = exportReport(args[2], officialCount, userNotesCount, officialCharacters, userNotesCharacters)
+        println("Exported report: ${reportPath.toString()}")
+        return 0
+    }
 
     println("Cangjie Learning Agent")
     println("Status: project skeleton is ready.")
@@ -508,6 +557,7 @@ main(): Int64 {
         println("Tip: use summary to show implemented capabilities and current limits.")
         println("Tip: use version to show project version and engineering identity.")
         println("Tip: use self-check to run a local acceptance self-check.")
+        println("Tip: use export-report <name> to export a Markdown acceptance report under docs.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
