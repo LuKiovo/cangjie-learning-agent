@@ -489,3 +489,13 @@ Checks:
 
 - `self-check` mentions `study-plan` in the source-backed command group.
 - `self-check` mentions `why-source` as the source explanation command.
+
+## 50. Markdown Knowledge Index Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-index <name>`.
+- The command writes a Markdown knowledge source index under `docs/`.
+- The exported index lists official/course knowledge, syntax notes, examples, and error notes.

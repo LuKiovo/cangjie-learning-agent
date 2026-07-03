@@ -30,6 +30,7 @@
 - Version command for project identity.
 - Local self-check command for classroom acceptance.
 - Markdown acceptance report export command.
+- Markdown knowledge source index export command.
 - Classroom demo script.
 
 ## Not Completed Yet

@@ -23,6 +23,7 @@ func printHelp(): Unit {
     println("- version: show project version and engineering identity")
     println("- self-check: run a local acceptance self-check")
     println("- export-report <name>: export a Markdown acceptance report under docs")
+    println("- export-index <name>: export a Markdown knowledge source index under docs")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
@@ -161,6 +162,25 @@ func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharac
 func exportReport(name: String, officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Path {
     let path = Path("docs").join(name + ".md")
     File.writeTo(path, buildReportText(officialCount, userNotesCount, officialCharacters, userNotesCharacters).toArray())
+    return path
+}
+
+func buildKnowledgeIndexReport(): String {
+    var text = "# Cangjie Learning Agent Knowledge Index\n\n"
+    text += "## Official And Course Knowledge\n\n"
+    text += buildKnowledgeIndex("official", Path("knowledge_base/official"))
+    text += "\n## User Syntax Notes\n\n"
+    text += buildKnowledgeIndex("syntax notes", Path("knowledge_base/user_notes/syntax_notes"))
+    text += "\n## User Examples\n\n"
+    text += buildKnowledgeIndex("examples", Path("knowledge_base/user_notes/examples"))
+    text += "\n## User Error Notes\n\n"
+    text += buildKnowledgeIndex("errors", Path("knowledge_base/user_notes/errors"))
+    return text
+}
+
+func exportKnowledgeIndex(name: String): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildKnowledgeIndexReport().toArray())
     return path
 }
 
@@ -326,6 +346,11 @@ main(): Int64 {
         return 1
     }
 
+    if (args.size > 1 && args[1] == "export-index" && args.size <= 2) {
+        printUsageError("export-index", "target\\manual\\main.exe export-index <name>")
+        return 1
+    }
+
     if (args.size > 1 && args[1] == "import-note" && args.size <= 3) {
         printUsageError("import-note", "target\\manual\\main.exe import-note <name> <file-path>")
         return 1
@@ -458,6 +483,16 @@ main(): Int64 {
         }
         let reportPath = exportReport(args[2], officialCount, userNotesCount, officialCharacters, userNotesCharacters)
         println("Exported report: ${reportPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 2 && args[1] == "export-index") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let indexPath = exportKnowledgeIndex(args[2])
+        println("Exported knowledge index: ${indexPath.toString()}")
         return 0
     }
 
@@ -624,6 +659,7 @@ main(): Int64 {
         println("Tip: use version to show project version and engineering identity.")
         println("Tip: use self-check to run a local acceptance self-check.")
         println("Tip: use export-report <name> to export a Markdown acceptance report under docs.")
+        println("Tip: use export-index <name> to export a Markdown knowledge source index under docs.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")

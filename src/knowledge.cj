@@ -61,6 +61,23 @@ func printKnowledgeFiles(label: String, path: Path): Unit {
     }
 }
 
+func buildKnowledgeIndex(label: String, path: Path): String {
+    if (!exists(path)) {
+        return ""
+    }
+
+    var text = ""
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            text += buildKnowledgeIndex(label, item.path)
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            text += "- ${label}: ${item.path.toString()}\n"
+        }
+    }
+    return text
+}
+
 func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
     if (!exists(path)) {
         return 0
