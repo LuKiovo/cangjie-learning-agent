@@ -6,6 +6,7 @@ import std.fs.*
 func printHelp(): Unit {
     println("Cangjie Learning Agent commands:")
     println("- ask <question>: ask a Cangjie syntax question")
+    println("- practice <topic>: generate a source-backed practice task")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
     println("- add-example <name> <content>: add example code notes")
@@ -67,6 +68,16 @@ main(): Int64 {
         let totalMatches = officialMatches + userNotesMatches
         println("Total matches: ${totalMatches}")
         printAgentAnswer(totalMatches)
+    } else if (args.size > 2 && args[1] == "practice") {
+        let topic = args[2]
+        println("Practice topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFiles("official", officialPath, topic)
+        let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, topic)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        printPractice(topic, totalMatches)
     } else if (args.size > 1) {
         let query = args[1]
         println("Search query: ${query}")
@@ -80,6 +91,7 @@ main(): Int64 {
         printKnowledgeFiles("user notes", userNotesPath)
         println("Search query: none")
         println("Tip: use ask <question> to ask a Cangjie syntax question.")
+        println("Tip: use practice <topic> to generate a practice task.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")

@@ -10,3 +10,15 @@ func printAgentAnswer(totalMatches: Int64): Unit {
         println("Learning suggestion: add a note with add-note, add-example, or add-error after checking official Cangjie documents.")
     }
 }
+
+func printPractice(topic: String, totalMatches: Int64): Unit {
+    println("Practice:")
+    if (totalMatches > 0) {
+        println("Task: write a small Cangjie example about '${topic}', then save it with add-example.")
+        println("Checklist: include one syntax point, one println output, and one short note explaining the result.")
+        println("Reference: use the matched sources above before writing your answer.")
+    } else {
+        println("Task: no local source matched '${topic}'. Add a syntax note first, then generate this practice again.")
+        println("Checklist: add a source with add-note, search it, then write a small example with add-example.")
+    }
+}

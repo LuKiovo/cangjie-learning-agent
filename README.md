@@ -39,6 +39,12 @@ Ask a Cangjie syntax question:
 target\manual\main.exe ask Cangjie
 ```
 
+Generate a practice task:
+
+```powershell
+target\manual\main.exe practice ArrayList
+```
+
 Show CLI help:
 
 ```powershell

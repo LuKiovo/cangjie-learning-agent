@@ -180,3 +180,13 @@ Checks:
 - The Cangjie CLI supports `help`.
 - The help output lists query and knowledge-add commands.
 - The default no-query output points users to `help`.
+
+## 19. Practice Task Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `practice <topic>`.
+- The command searches local knowledge files for matched sources.
+- The command prints a practice task and checklist based on match status.
