@@ -8,6 +8,7 @@
 - Keyword search with matched source listing.
 - Source-backed `ask`, `practice`, and `review-error` commands.
 - Source-backed Cangjie example draft command.
+- Source-backed error fix suggestion command.
 - Primary source display in agent outputs.
 - Primary source context display in `ask` and `prompt`.
 - Knowledge base statistics and category inspection.

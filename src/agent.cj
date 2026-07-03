@@ -67,3 +67,23 @@ func printErrorReview(keyword: String, totalMatches: Int64, primarySource: Strin
         println("Debug checklist: copy the compiler message into add-error after you solve it, so the knowledge base improves next time.")
     }
 }
+
+func printErrorFix(keyword: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
+    println("Error fix suggestion:")
+    if (totalMatches > 0) {
+        printPrimarySource(primarySource)
+        printSourceContext(sourceText)
+        println("Likely fix path:")
+        println("1. Read the compiler message and find the exact syntax token mentioned there.")
+        println("2. Compare the line with the primary source context above.")
+        println("3. Apply the smallest syntax change, then save the solved case with add-error.")
+        println("Cangjie fix draft:")
+        println("main(): Int64 {")
+        println("    println(\"Fixed topic: ${keyword}\")")
+        println("    return 0")
+        println("}")
+    } else {
+        println("No local error note matched '${keyword}'.")
+        println("Add the compiler message with add-error after checking the official Cangjie documents.")
+    }
+}

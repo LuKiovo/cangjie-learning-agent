@@ -370,3 +370,13 @@ Checks:
 - The Cangjie CLI supports `example <topic>`.
 - The command searches local knowledge before generating the example draft.
 - The output includes matched sources, primary source context, and a Cangjie code draft.
+
+## 38. Source-backed Error Fix Suggestion
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `fix-error <keyword>`.
+- The command searches local error notes before generating the fix suggestion.
+- The output includes matched error sources, primary source context, fix steps, and a Cangjie fix draft.

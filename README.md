@@ -15,6 +15,7 @@
 - 练习生成：`practice <topic>` 基于来源生成练习任务。
 - 示例生成：`example <topic>` 基于来源生成仓颉示例草稿。
 - 报错复盘：`review-error <keyword>` 检索常见报错笔记并给出排错建议。
+- 报错修复：`fix-error <keyword>` 基于本地报错笔记生成修复建议和代码草稿。
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
 - LLM Prompt 预览：`prompt <question>` 基于本地来源和主来源上下文生成未来 API 调用前的约束提示词。
@@ -100,6 +101,12 @@ target\manual\main.exe example ArrayList
 target\manual\main.exe review-error Cangjie-error-note
 ```
 
+生成报错修复建议：
+
+```powershell
+target\manual\main.exe fix-error Cangjie-error-note
+```
+
 新增个人语法笔记：
 
 ```powershell
@@ -157,6 +164,7 @@ target\manual\main.exe prompt match
 - `example ArrayList`
 - `practice ArrayList`
 - `review-error Cangjie-error-note`
+- `fix-error Cangjie-error-note`
 - `add-note my_note Cangjie-my-note`
 - `ask Cangjie-my-note`
 

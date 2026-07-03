@@ -13,6 +13,7 @@ func printHelp(): Unit {
     println("- show-source <keyword>: print the first matched source content")
     println("- prompt <question>: preview a source-backed LLM prompt")
     println("- review-error <keyword>: review local compiler error notes")
+    println("- fix-error <keyword>: generate a source-backed error fix suggestion")
     println("- demo: show a recommended classroom demo flow")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
@@ -98,10 +99,11 @@ main(): Int64 {
         println("7. target\\manual\\main.exe example ArrayList")
         println("8. target\\manual\\main.exe practice ArrayList")
         println("9. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("10. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("11. target\\manual\\main.exe ask Cangjie-my-note")
-        println("12. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("13. target\\manual\\main.exe categories")
+        println("10. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("11. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("12. target\\manual\\main.exe ask Cangjie-my-note")
+        println("13. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("14. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -147,6 +149,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "review-error" && args.size <= 2) {
         printUsageError("review-error", "target\\manual\\main.exe review-error <keyword>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "fix-error" && args.size <= 2) {
+        printUsageError("fix-error", "target\\manual\\main.exe fix-error <keyword>")
         return 1
     }
 
@@ -246,6 +253,17 @@ main(): Int64 {
         let errorScore = findBestKnowledgeScore(errorPath, keyword, args, 2)
         let primarySource = findKnowledgeSourceByScore(errorPath, keyword, args, 2, errorScore)
         printErrorReview(keyword, errorMatches, primarySource)
+    } else if (args.size > 2 && args[1] == "fix-error") {
+        let keyword = joinArgs(args, 2)
+        println("Error keyword: ${keyword}")
+        println("Matched error sources:")
+        let errorPath = Path("knowledge_base/user_notes/errors")
+        let errorMatches = searchKnowledgeFilesByTerms("error notes", errorPath, keyword, args, 2)
+        println("Total matches: ${errorMatches}")
+        let errorScore = findBestKnowledgeScore(errorPath, keyword, args, 2)
+        let primarySource = findKnowledgeSourceByScore(errorPath, keyword, args, 2, errorScore)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printErrorFix(keyword, errorMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "prompt") {
         let query = joinArgs(args, 2)
         println("Question: ${query}")
@@ -313,6 +331,7 @@ main(): Int64 {
         println("Tip: use show-source <keyword> to print the first matched source content.")
         println("Tip: use prompt <question> to preview a source-backed LLM prompt.")
         println("Tip: use review-error <keyword> to review compiler error notes.")
+        println("Tip: use fix-error <keyword> to generate a source-backed error fix suggestion.")
         println("Tip: use demo to show a recommended classroom demo flow.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
