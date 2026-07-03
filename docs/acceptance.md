@@ -460,3 +460,13 @@ Checks:
 - The Cangjie CLI supports `category-stats`.
 - The command reports file counts for official knowledge, syntax notes, examples, and error notes.
 - The command exits successfully without requiring a search keyword.
+
+## 47. Primary Source Score Explanation
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `why-source <keyword>`.
+- The command reports best official and user note scores.
+- The command prints the selected primary source and a short reason for the choice.

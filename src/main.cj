@@ -12,6 +12,7 @@ func printHelp(): Unit {
     println("- stats: show local knowledge base statistics")
     println("- category-stats: show knowledge file counts by category")
     println("- sources <keyword>: list matched source files only")
+    println("- why-source <keyword>: explain primary source score selection")
     println("- show-source <keyword>: print the first matched source content")
     println("- prompt <question>: preview a source-backed LLM prompt")
     println("- review-error <keyword>: review local compiler error notes")
@@ -264,6 +265,11 @@ main(): Int64 {
         return 1
     }
 
+    if (args.size > 1 && args[1] == "why-source" && args.size <= 2) {
+        printUsageError("why-source", "target\\manual\\main.exe why-source <keyword>")
+        return 1
+    }
+
     if (args.size > 1 && args[1] == "show-source" && args.size <= 2) {
         printUsageError("show-source", "target\\manual\\main.exe show-source <keyword>")
         return 1
@@ -463,6 +469,22 @@ main(): Int64 {
         let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, query, args, 2)
         let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, query, args, 2)
         println("Total matches: ${officialMatches + userNotesMatches}")
+    } else if (args.size > 2 && args[1] == "why-source") {
+        let query = joinArgs(args, 2)
+        println("Source query: ${query}")
+        let officialScore = findBestKnowledgeScore(officialPath, query, args, 2)
+        let userNotesScore = findBestKnowledgeScore(userNotesPath, query, args, 2)
+        println("Best official score: ${officialScore}")
+        println("Best user notes score: ${userNotesScore}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
+        printPrimarySource(primarySource)
+        if (primarySource.isEmpty()) {
+            println("Reason: no local source matched the query.")
+        } else if (officialScore >= userNotesScore) {
+            println("Reason: official/course knowledge had the highest score or tied with user notes.")
+        } else {
+            println("Reason: user notes had the highest score.")
+        }
     } else if (args.size > 2 && args[1] == "show-source") {
         let query = joinArgs(args, 2)
         println("Source query: ${query}")
@@ -568,6 +590,7 @@ main(): Int64 {
         println("Tip: use stats to show local knowledge base statistics.")
         println("Tip: use category-stats to show knowledge file counts by category.")
         println("Tip: use sources <keyword> to list matched source files only.")
+        println("Tip: use why-source <keyword> to explain primary source score selection.")
         println("Tip: use show-source <keyword> to print the first matched source content.")
         println("Tip: use prompt <question> to preview a source-backed LLM prompt.")
         println("Tip: use review-error <keyword> to review compiler error notes.")

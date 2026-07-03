@@ -20,6 +20,7 @@
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
 - 知识导入：支持把已有 `.md/.txt` 文件导入语法笔记、示例、报错或官方/课程资料。
 - 分类统计：`category-stats` 分别统计官方资料、语法笔记、示例、报错文件数。
+- 来源解释：`why-source <keyword>` 展示主来源选择分数和原因。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
 - LLM Prompt 预览：`prompt <question>` 基于本地来源和主来源上下文生成未来 API 调用前的约束提示词。
 - 项目摘要：`summary` 汇总已实现能力、知识库统计和当前限制。
@@ -101,6 +102,12 @@ target\manual\main.exe category-stats
 
 ```powershell
 target\manual\main.exe sources ArrayList
+```
+
+解释主来源选择：
+
+```powershell
+target\manual\main.exe why-source ArrayList
 ```
 
 查看第一条匹配来源内容：

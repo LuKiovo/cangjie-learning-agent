@@ -21,6 +21,7 @@
 - Multi-word command input for questions and knowledge content.
 - Multi-word keyword fallback retrieval.
 - Scored primary source selection.
+- Primary source score explanation command.
 - First matched source content display.
 - Safe knowledge file name validation.
 - Knowledge file import commands for `.md` and `.txt`.
