@@ -12,6 +12,7 @@
 - Local-only teacher slide policy.
 - LLM environment configuration status check.
 - Source-backed LLM prompt preview.
+- Multi-word command input for questions and knowledge content.
 - Classroom demo script.
 
 ## Not Completed Yet

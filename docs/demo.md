@@ -37,6 +37,12 @@ target\manual\main.exe ask match
 
 Expected result: matched sources and an answer section with `Primary source`.
 
+Multi-word questions are also supported:
+
+```powershell
+target\manual\main.exe ask ArrayList match expression
+```
+
 5. Preview a source-backed LLM prompt:
 
 ```powershell
@@ -65,6 +71,12 @@ Expected result: matched error sources, `Primary source`, and a debugging checkl
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
+```
+
+Multi-word note content is supported:
+
+```powershell
+target\manual\main.exe add-note my_note Cangjie personal syntax note
 ```
 
 9. Search the added note:

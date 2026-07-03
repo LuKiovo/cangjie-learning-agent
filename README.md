@@ -69,6 +69,12 @@ target\manual\main.exe sources ArrayList
 target\manual\main.exe ask Cangjie
 ```
 
+也可以直接输入多词问题：
+
+```powershell
+target\manual\main.exe ask ArrayList match expression
+```
+
 生成练习任务：
 
 ```powershell
@@ -85,6 +91,12 @@ target\manual\main.exe review-error Cangjie-error-note
 
 ```powershell
 target\manual\main.exe add-note syntax_note Cangjie-syntax-note
+```
+
+新增内容支持多词文本：
+
+```powershell
+target\manual\main.exe add-note syntax_note Cangjie syntax note content
 ```
 
 新增示例代码笔记：

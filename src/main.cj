@@ -45,6 +45,19 @@ func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- user notes: ${userNotesCharacters}")
 }
 
+func joinArgs(args: Array<String>, startIndex: Int64): String {
+    var text = ""
+    var index = startIndex
+    while (index < args.size) {
+        if (!text.isEmpty()) {
+            text += " "
+        }
+        text += args[index]
+        index += 1
+    }
+    return text
+}
+
 main(): Int64 {
     let args = getCommandLine()
     let officialPath = Path("knowledge_base/official")
@@ -127,25 +140,25 @@ main(): Int64 {
     }
 
     if (args.size > 3 && args[1] == "add-note") {
-        let notePath = addUserKnowledge("syntax_notes", args[2], args[3])
+        let notePath = addUserKnowledge("syntax_notes", args[2], joinArgs(args, 3))
         println("Added syntax note: ${notePath.toString()}")
         return 0
     }
 
     if (args.size > 3 && args[1] == "add-official") {
-        let notePath = addOfficialKnowledge(args[2], args[3])
+        let notePath = addOfficialKnowledge(args[2], joinArgs(args, 3))
         println("Added official knowledge: ${notePath.toString()}")
         return 0
     }
 
     if (args.size > 3 && args[1] == "add-example") {
-        let notePath = addUserKnowledge("examples", args[2], args[3])
+        let notePath = addUserKnowledge("examples", args[2], joinArgs(args, 3))
         println("Added example: ${notePath.toString()}")
         return 0
     }
 
     if (args.size > 3 && args[1] == "add-error") {
-        let notePath = addUserKnowledge("errors", args[2], args[3])
+        let notePath = addUserKnowledge("errors", args[2], joinArgs(args, 3))
         println("Added error note: ${notePath.toString()}")
         return 0
     }
@@ -164,14 +177,14 @@ main(): Int64 {
     if (args.size > 1 && args[1] == "stats") {
         return 0
     } else if (args.size > 2 && args[1] == "sources") {
-        let query = args[2]
+        let query = joinArgs(args, 2)
         println("Source query: ${query}")
         println("Matched sources:")
         let officialMatches = searchKnowledgeFiles("official", officialPath, query)
         let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
         println("Total matches: ${officialMatches + userNotesMatches}")
     } else if (args.size > 2 && args[1] == "review-error") {
-        let keyword = args[2]
+        let keyword = joinArgs(args, 2)
         println("Error keyword: ${keyword}")
         println("Matched error sources:")
         let errorMatches = searchKnowledgeFiles("error notes", Path("knowledge_base/user_notes/errors"), keyword)
@@ -179,7 +192,7 @@ main(): Int64 {
         let primarySource = findFirstKnowledgeSource(Path("knowledge_base/user_notes/errors"), keyword)
         printErrorReview(keyword, errorMatches, primarySource)
     } else if (args.size > 2 && args[1] == "prompt") {
-        let query = args[2]
+        let query = joinArgs(args, 2)
         println("Question: ${query}")
         println("Search query: ${query}")
         println("Matched sources:")
@@ -193,7 +206,7 @@ main(): Int64 {
         }
         printPromptPreview(query, totalMatches, primarySource)
     } else if (args.size > 2 && args[1] == "ask") {
-        let query = args[2]
+        let query = joinArgs(args, 2)
         println("Question: ${query}")
         println("Search query: ${query}")
         println("Matched sources:")
@@ -207,7 +220,7 @@ main(): Int64 {
         }
         printAgentAnswer(totalMatches, primarySource)
     } else if (args.size > 2 && args[1] == "practice") {
-        let topic = args[2]
+        let topic = joinArgs(args, 2)
         println("Practice topic: ${topic}")
         println("Search query: ${topic}")
         println("Matched sources:")

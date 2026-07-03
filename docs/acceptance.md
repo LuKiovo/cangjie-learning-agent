@@ -300,3 +300,13 @@ Checks:
 - The Cangjie CLI supports `prompt <question>`.
 - The command searches local knowledge files before building the prompt preview.
 - The prompt preview includes match count, primary source, and answer rules for future LLM API integration.
+
+## 31. Multi-word CLI Input
+
+Status: initialized.
+
+Checks:
+
+- Question commands join all words after the command into one query.
+- Knowledge-add commands join all words after the name into one content string.
+- Existing single-word command behavior remains valid.
