@@ -20,6 +20,7 @@
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
 - LLM Prompt 预览：`prompt <question>` 基于本地来源和主来源上下文生成未来 API 调用前的约束提示词。
+- 项目摘要：`summary` 汇总已实现能力、知识库统计和当前限制。
 
 ## 知识库结构
 
@@ -52,6 +53,12 @@ target\manual\main.exe help
 
 ```powershell
 target\manual\main.exe demo
+```
+
+查看项目摘要：
+
+```powershell
+target\manual\main.exe summary
 ```
 
 查看知识库统计：
@@ -163,6 +170,7 @@ target\manual\main.exe prompt match
 完整演示脚本见 [docs/demo.md](docs/demo.md)。推荐顺序为：
 
 - `help`
+- `summary`
 - `stats`
 - `sources ArrayList`
 - `show-source ArrayList`

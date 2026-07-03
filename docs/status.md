@@ -21,6 +21,7 @@
 - Scored primary source selection.
 - First matched source content display.
 - Safe knowledge file name validation.
+- Project summary command for classroom acceptance.
 - Classroom demo script.
 
 ## Not Completed Yet

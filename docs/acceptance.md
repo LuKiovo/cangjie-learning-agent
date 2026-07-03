@@ -390,3 +390,13 @@ Checks:
 - The Cangjie CLI supports `quiz <topic>`.
 - The command searches local knowledge before generating the quiz.
 - The output includes matched sources, primary source context, quiz questions, and suggested answers.
+
+## 40. Project Summary Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `summary`.
+- The command reports implemented capabilities and current project limits.
+- The command includes current knowledge base statistics for classroom acceptance.

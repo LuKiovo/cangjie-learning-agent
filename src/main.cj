@@ -16,6 +16,7 @@ func printHelp(): Unit {
     println("- review-error <keyword>: review local compiler error notes")
     println("- fix-error <keyword>: generate a source-backed error fix suggestion")
     println("- demo: show a recommended classroom demo flow")
+    println("- summary: show implemented capabilities and current limits")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
@@ -52,6 +53,25 @@ func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCh
     println("Knowledge characters:")
     println("- official: ${officialCharacters}")
     println("- user notes: ${userNotesCharacters}")
+}
+
+func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Unit {
+    println("Project summary:")
+    println("Target user: Cangjie beginners")
+    println("Implementation language: Cangjie")
+    println("Knowledge base: local .md and .txt files")
+    printKnowledgeStats(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
+    println("Implemented capabilities:")
+    println("- source-backed syntax question answering")
+    println("- source-backed prompt preview for future LLM API calls")
+    println("- examples, quizzes, practice tasks, error review, and error fix suggestions")
+    println("- personalized notes, examples, error notes, and official/course summaries")
+    println("- matched source listing, source content inspection, and scored primary source selection")
+    println("Current limits:")
+    println("- no real LLM API request yet")
+    println("- no desktop GUI or web UI yet")
+    println("- no PDF-to-text import inside the Cangjie app yet")
+    println("- no vector search yet")
 }
 
 func joinArgs(args: Array<String>, startIndex: Int64): String {
@@ -92,20 +112,21 @@ main(): Int64 {
     if (args.size > 1 && args[1] == "demo") {
         println("Recommended demo flow:")
         println("1. target\\manual\\main.exe help")
-        println("2. target\\manual\\main.exe stats")
-        println("3. target\\manual\\main.exe sources ArrayList")
-        println("4. target\\manual\\main.exe show-source ArrayList")
-        println("5. target\\manual\\main.exe ask match")
-        println("6. target\\manual\\main.exe prompt match")
-        println("7. target\\manual\\main.exe example ArrayList")
-        println("8. target\\manual\\main.exe practice ArrayList")
-        println("9. target\\manual\\main.exe quiz ArrayList")
-        println("10. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("11. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("12. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("13. target\\manual\\main.exe ask Cangjie-my-note")
-        println("14. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("15. target\\manual\\main.exe categories")
+        println("2. target\\manual\\main.exe summary")
+        println("3. target\\manual\\main.exe stats")
+        println("4. target\\manual\\main.exe sources ArrayList")
+        println("5. target\\manual\\main.exe show-source ArrayList")
+        println("6. target\\manual\\main.exe ask match")
+        println("7. target\\manual\\main.exe prompt match")
+        println("8. target\\manual\\main.exe example ArrayList")
+        println("9. target\\manual\\main.exe practice ArrayList")
+        println("10. target\\manual\\main.exe quiz ArrayList")
+        println("11. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("12. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("13. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("14. target\\manual\\main.exe ask Cangjie-my-note")
+        println("15. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("16. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -237,6 +258,8 @@ main(): Int64 {
     printKnowledgeStats(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
     if (args.size > 1 && args[1] == "stats") {
         return 0
+    } else if (args.size > 1 && args[1] == "summary") {
+        printProjectSummary(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
     } else if (args.size > 2 && args[1] == "sources") {
         let query = joinArgs(args, 2)
         println("Source query: ${query}")
@@ -353,6 +376,7 @@ main(): Int64 {
         println("Tip: use review-error <keyword> to review compiler error notes.")
         println("Tip: use fix-error <keyword> to generate a source-backed error fix suggestion.")
         println("Tip: use demo to show a recommended classroom demo flow.")
+        println("Tip: use summary to show implemented capabilities and current limits.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
