@@ -5,6 +5,7 @@
 - Cangjie executable project structure.
 - Local `.md` and `.txt` knowledge base layout.
 - Official/course knowledge, syntax notes, examples, and compiler error notes.
+- Course-aligned official notes for variables, collections, and match/control flow.
 - Keyword search with matched source listing.
 - Source-backed `ask`, `practice`, and `review-error` commands.
 - Source-backed mini quiz command.

@@ -33,6 +33,7 @@
 第一版只处理 `.md` 和 `.txt` 文件。老师课件可放在本地 `HCCDA-Cangjie 仓颉编程语言入门级开发者认证-授课-PDF/`，该目录被 Git 忽略；需要检索的课件内容应整理成 `.md` 或 `.txt` 放入知识库。
 
 仓库内置 `knowledge_base/official/hccda_beginner_index.md`，作为与 HCCDA 仓颉入门课件对齐的可检索课程索引。
+同时内置变量/表达式、Collection、match/控制流三个课程整理条目，便于演示更具体的语法检索和来源上下文。
 
 ## 构建运行
 

@@ -410,3 +410,13 @@ Checks:
 - The Cangjie CLI supports importing `.md` and `.txt` files into syntax notes, examples, error notes, and official/course knowledge.
 - Import commands reject unsafe target names and non-`.md`/`.txt` source files.
 - Imported files are saved under the intended local knowledge base category and can be searched.
+
+## 42. Course-aligned Official Knowledge Notes
+
+Status: initialized.
+
+Checks:
+
+- The official knowledge base includes concrete course notes for variables, collections, and match/control flow.
+- The notes contain searchable topic keywords and beginner-oriented explanations.
+- Existing `ask`, `sources`, and `show-source` commands can retrieve the added notes.
