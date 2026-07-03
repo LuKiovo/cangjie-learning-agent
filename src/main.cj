@@ -29,6 +29,12 @@ func printKnowledgeCategories(): Unit {
     println("- errors: knowledge_base/user_notes/errors")
 }
 
+func printUsageError(command: String, usage: String): Unit {
+    println("Invalid command usage: ${command}")
+    println("Usage: ${usage}")
+    println("Tip: use help to show all commands.")
+}
+
 func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Unit {
     println("Knowledge files:")
     println("- official: ${officialCount}")
@@ -71,6 +77,46 @@ main(): Int64 {
     if (args.size > 1 && args[1] == "categories") {
         printKnowledgeCategories()
         return 0
+    }
+
+    if (args.size > 1 && args[1] == "ask" && args.size <= 2) {
+        printUsageError("ask", "target\\manual\\main.exe ask <question>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "practice" && args.size <= 2) {
+        printUsageError("practice", "target\\manual\\main.exe practice <topic>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "sources" && args.size <= 2) {
+        printUsageError("sources", "target\\manual\\main.exe sources <keyword>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "review-error" && args.size <= 2) {
+        printUsageError("review-error", "target\\manual\\main.exe review-error <keyword>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "add-note" && args.size <= 3) {
+        printUsageError("add-note", "target\\manual\\main.exe add-note <name> <content>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "add-example" && args.size <= 3) {
+        printUsageError("add-example", "target\\manual\\main.exe add-example <name> <content>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "add-error" && args.size <= 3) {
+        printUsageError("add-error", "target\\manual\\main.exe add-error <name> <content>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "add-official" && args.size <= 3) {
+        printUsageError("add-official", "target\\manual\\main.exe add-official <name> <content>")
+        return 1
     }
 
     if (args.size > 3 && args[1] == "add-note") {

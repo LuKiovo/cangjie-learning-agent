@@ -270,3 +270,13 @@ Checks:
 - The Cangjie CLI supports `add-official <name> <content>`.
 - The Cangjie CLI supports `categories`.
 - Official/course-summary knowledge can be added, searched, and reported in statistics.
+
+## 28. Command Usage Validation
+
+Status: initialized.
+
+Checks:
+
+- Commands with missing required arguments print a usage error.
+- Invalid command usage returns a non-zero exit code.
+- Valid command behavior remains unchanged.
