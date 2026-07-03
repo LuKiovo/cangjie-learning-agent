@@ -29,7 +29,15 @@ target\manual\main.exe stats
 target\manual\main.exe sources ArrayList
 ```
 
-4. Ask a Cangjie syntax question:
+4. Show the first matched source content:
+
+```powershell
+target\manual\main.exe show-source ArrayList
+```
+
+Expected result: primary source path and source text.
+
+5. Ask a Cangjie syntax question:
 
 ```powershell
 target\manual\main.exe ask match
@@ -45,7 +53,7 @@ target\manual\main.exe ask ArrayList match expression
 
 Expected result: if the full question does not match directly, the CLI falls back to matching individual words and still lists useful local sources.
 
-5. Preview a source-backed LLM prompt:
+6. Preview a source-backed LLM prompt:
 
 ```powershell
 target\manual\main.exe prompt match
@@ -53,7 +61,7 @@ target\manual\main.exe prompt match
 
 Expected result: matched sources, source count, primary source, and prompt answer rules.
 
-6. Generate a source-backed practice task:
+7. Generate a source-backed practice task:
 
 ```powershell
 target\manual\main.exe practice ArrayList
@@ -61,7 +69,7 @@ target\manual\main.exe practice ArrayList
 
 Expected result: matched sources, `Primary source`, and a checklist.
 
-7. Review a compiler error note:
+8. Review a compiler error note:
 
 ```powershell
 target\manual\main.exe review-error Cangjie-error-note
@@ -69,7 +77,7 @@ target\manual\main.exe review-error Cangjie-error-note
 
 Expected result: matched error sources, `Primary source`, and a debugging checklist.
 
-8. Add a personal syntax note:
+9. Add a personal syntax note:
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
@@ -81,19 +89,19 @@ Multi-word note content is supported:
 target\manual\main.exe add-note my_note Cangjie personal syntax note
 ```
 
-9. Search the added note:
+10. Search the added note:
 
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
 
-10. Add a course-summary knowledge item:
+11. Add a course-summary knowledge item:
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-11. Show knowledge categories:
+12. Show knowledge categories:
 
 ```powershell
 target\manual\main.exe categories

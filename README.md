@@ -63,6 +63,12 @@ target\manual\main.exe stats
 target\manual\main.exe sources ArrayList
 ```
 
+查看第一条匹配来源内容：
+
+```powershell
+target\manual\main.exe show-source ArrayList
+```
+
 询问仓颉语法问题：
 
 ```powershell
@@ -136,6 +142,7 @@ target\manual\main.exe prompt match
 - `help`
 - `stats`
 - `sources ArrayList`
+- `show-source ArrayList`
 - `ask match`
 - `prompt match`
 - `practice ArrayList`

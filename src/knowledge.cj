@@ -162,6 +162,16 @@ func findFirstKnowledgeSourceByTerms(path: Path, query: String, terms: Array<Str
     return ""
 }
 
+func printFirstKnowledgeSourceText(source: String): Unit {
+    if (source.isEmpty()) {
+        println("Source content: none")
+        return
+    }
+
+    println("Source content:")
+    println(readKnowledgeText(Path(source)))
+}
+
 func addUserKnowledge(category: String, name: String, content: String): Path {
     let path = Path("knowledge_base/user_notes").join(category).join(name + ".md")
     File.writeTo(path, content.toArray())

@@ -14,6 +14,7 @@
 - Source-backed LLM prompt preview.
 - Multi-word command input for questions and knowledge content.
 - Multi-word keyword fallback retrieval.
+- First matched source content display.
 - Classroom demo script.
 
 ## Not Completed Yet

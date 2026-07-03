@@ -320,3 +320,13 @@ Checks:
 - Search first keeps the full multi-word query visible to the user.
 - If a full query is not contained in a file, each query word can still match local knowledge.
 - `ask`, `prompt`, `practice`, `sources`, and `review-error` share the fallback retrieval behavior.
+
+## 33. Source Content Inspection
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `show-source <keyword>`.
+- The command finds the first local source using the same retrieval fallback as question commands.
+- The command prints the primary source path and source text for inspection.
