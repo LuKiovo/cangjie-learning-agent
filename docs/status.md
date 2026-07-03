@@ -12,6 +12,10 @@
 - Source-backed beginner study plan command.
 - Source-backed study card command.
 - Markdown study card export command.
+- Markdown answer report export command.
+- Markdown learning session export command.
+- Knowledge source map command.
+- Markdown source map export command.
 - Source-backed mini quiz command.
 - Source-backed Cangjie example draft command.
 - Source-backed error fix suggestion command.

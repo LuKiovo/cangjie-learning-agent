@@ -529,3 +529,43 @@ Checks:
 - The Cangjie CLI supports `export-card <name> <topic>`.
 - The command writes a Markdown study card under `docs/`.
 - The exported card includes source-backed context and beginner review tasks.
+
+## 54. Markdown Answer Report Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-answer <name> <question>`.
+- The command searches local knowledge before writing the report.
+- The exported report includes the question, match count, primary source, answer draft, and source context.
+
+## 55. Markdown Learning Session Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-session <name> <topic>`.
+- The command searches local knowledge before writing the session.
+- The exported session includes topic, source, session flow, mini task, review question, and source context.
+
+## 56. Knowledge Source Map
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `source-map`.
+- The command reports file and character counts by knowledge category.
+- The command exits successfully without requiring a search keyword.
+
+## 57. Markdown Source Map Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-source-map <name>`.
+- The command writes a Markdown source map under `docs/`.
+- The exported report includes category distribution and source lists.

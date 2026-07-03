@@ -15,6 +15,8 @@ func printHelp(): Unit {
     println("- example <topic>: generate a source-backed Cangjie example draft")
     println("- stats: show local knowledge base statistics")
     println("- category-stats: show knowledge file counts by category")
+    println("- source-map: show local knowledge source distribution")
+    println("- export-source-map <name>: export a Markdown source distribution report under docs")
     println("- sources <keyword>: list matched source files only")
     println("- why-source <keyword>: explain primary source score selection")
     println("- show-source <keyword>: print the first matched source content")
@@ -27,6 +29,8 @@ func printHelp(): Unit {
     println("- self-check: run a local acceptance self-check")
     println("- export-report <name>: export a Markdown acceptance report under docs")
     println("- export-index <name>: export a Markdown knowledge source index under docs")
+    println("- export-answer <name> <question>: export a Markdown answer report under docs")
+    println("- export-session <name> <topic>: export a Markdown learning session under docs")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
@@ -59,6 +63,18 @@ func printCategoryStats(): Unit {
     println("- syntax notes: ${syntaxCount}")
     println("- examples: ${examplesCount}")
     println("- errors: ${errorsCount}")
+}
+
+func printSourceMap(): Unit {
+    let officialPath = Path("knowledge_base/official")
+    let syntaxPath = Path("knowledge_base/user_notes/syntax_notes")
+    let examplesPath = Path("knowledge_base/user_notes/examples")
+    let errorsPath = Path("knowledge_base/user_notes/errors")
+    println("Knowledge source map:")
+    println("- official/course: files=${countKnowledgeFiles(officialPath)}, characters=${countKnowledgeCharacters(officialPath)}")
+    println("- syntax notes: files=${countKnowledgeFiles(syntaxPath)}, characters=${countKnowledgeCharacters(syntaxPath)}")
+    println("- examples: files=${countKnowledgeFiles(examplesPath)}, characters=${countKnowledgeCharacters(examplesPath)}")
+    println("- error notes: files=${countKnowledgeFiles(errorsPath)}, characters=${countKnowledgeCharacters(errorsPath)}")
 }
 
 func printUsageError(command: String, usage: String): Unit {
@@ -97,6 +113,7 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- source-backed prompt preview for future LLM API calls")
     println("- examples, quizzes, practice tasks, error review, and error fix suggestions")
     println("- source-backed study cards and Markdown study card export")
+    println("- answer/session/source-map Markdown exports for classroom review")
     println("- personalized notes, examples, error notes, and official/course summaries")
     println("- .md and .txt import for personalized and official/course knowledge")
     println("- matched source listing, source content inspection, and scored primary source selection")
@@ -130,6 +147,7 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     println("PASS implementation language: Cangjie")
     println("PASS supported knowledge formats: .md and .txt")
     println("PASS source-backed commands: ask, prompt, study-plan, card, example, practice, quiz, review-error, fix-error")
+    println("PASS source-backed exports: export-answer, export-session, export-card, export-source-map")
     println("PASS source explanation command: why-source")
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
@@ -153,6 +171,7 @@ func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharac
     text += "- Source-backed prompt preview for future LLM API calls\n"
     text += "- Example draft, mini quiz, practice task, error review, and error fix suggestion\n"
     text += "- Source-backed study card generation and Markdown export\n"
+    text += "- Source-backed answer, session, and source-map Markdown exports\n"
     text += "- Personalized knowledge add/import commands\n"
     text += "- Matched source listing, source content inspection, and scored primary source selection\n"
     text += "- Local summary, version, and self-check commands\n\n"
@@ -192,6 +211,47 @@ func exportKnowledgeIndex(name: String): Path {
 func exportStudyCard(name: String, topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Path {
     let path = Path("docs").join(name + ".md")
     File.writeTo(path, buildStudyCardText(topic, totalMatches, primarySource, sourceText).toArray())
+    return path
+}
+
+func exportAnswerReport(name: String, question: String, totalMatches: Int64, primarySource: String, sourceText: String): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildAnswerReportText(question, totalMatches, primarySource, sourceText).toArray())
+    return path
+}
+
+func exportLearningSession(name: String, topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildLearningSessionText(topic, totalMatches, primarySource, sourceText).toArray())
+    return path
+}
+
+func buildSourceMapReport(): String {
+    let officialPath = Path("knowledge_base/official")
+    let syntaxPath = Path("knowledge_base/user_notes/syntax_notes")
+    let examplesPath = Path("knowledge_base/user_notes/examples")
+    let errorsPath = Path("knowledge_base/user_notes/errors")
+    var text = "# Cangjie Learning Agent Source Map\n\n"
+    text += "## Distribution\n\n"
+    text += "- Official/course: files=${countKnowledgeFiles(officialPath)}, characters=${countKnowledgeCharacters(officialPath)}\n"
+    text += "- Syntax notes: files=${countKnowledgeFiles(syntaxPath)}, characters=${countKnowledgeCharacters(syntaxPath)}\n"
+    text += "- Examples: files=${countKnowledgeFiles(examplesPath)}, characters=${countKnowledgeCharacters(examplesPath)}\n"
+    text += "- Error notes: files=${countKnowledgeFiles(errorsPath)}, characters=${countKnowledgeCharacters(errorsPath)}\n\n"
+    text += "## Source Lists\n\n"
+    text += "### Official/course\n\n"
+    text += buildKnowledgeIndex("official", officialPath)
+    text += "\n### Syntax notes\n\n"
+    text += buildKnowledgeIndex("syntax notes", syntaxPath)
+    text += "\n### Examples\n\n"
+    text += buildKnowledgeIndex("examples", examplesPath)
+    text += "\n### Error notes\n\n"
+    text += buildKnowledgeIndex("error notes", errorsPath)
+    return text
+}
+
+func exportSourceMap(name: String): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildSourceMapReport().toArray())
     return path
 }
 
@@ -247,16 +307,20 @@ main(): Int64 {
         println("13. target\\manual\\main.exe study-plan ArrayList")
         println("14. target\\manual\\main.exe card ArrayList")
         println("15. target\\manual\\main.exe export-card arraylist_card ArrayList")
-        println("16. target\\manual\\main.exe example ArrayList")
-        println("17. target\\manual\\main.exe practice ArrayList")
-        println("18. target\\manual\\main.exe quiz ArrayList")
-        println("19. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("20. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("21. target\\manual\\main.exe export-report acceptance_report")
-        println("22. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("23. target\\manual\\main.exe ask Cangjie-my-note")
-        println("24. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("25. target\\manual\\main.exe categories")
+        println("16. target\\manual\\main.exe export-answer match_answer match")
+        println("17. target\\manual\\main.exe export-session arraylist_session ArrayList")
+        println("18. target\\manual\\main.exe source-map")
+        println("19. target\\manual\\main.exe export-source-map source_map")
+        println("20. target\\manual\\main.exe example ArrayList")
+        println("21. target\\manual\\main.exe practice ArrayList")
+        println("22. target\\manual\\main.exe quiz ArrayList")
+        println("23. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("24. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("25. target\\manual\\main.exe export-report acceptance_report")
+        println("26. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("27. target\\manual\\main.exe ask Cangjie-my-note")
+        println("28. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("29. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -272,6 +336,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "category-stats") {
         printCategoryStats()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "source-map") {
+        printSourceMap()
         return 0
     }
 
@@ -377,6 +446,21 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "export-index" && args.size <= 2) {
         printUsageError("export-index", "target\\manual\\main.exe export-index <name>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-answer" && args.size <= 3) {
+        printUsageError("export-answer", "target\\manual\\main.exe export-answer <name> <question>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-session" && args.size <= 3) {
+        printUsageError("export-session", "target\\manual\\main.exe export-session <name> <topic>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-source-map" && args.size <= 2) {
+        printUsageError("export-source-map", "target\\manual\\main.exe export-source-map <name>")
         return 1
     }
 
@@ -542,6 +626,56 @@ main(): Int64 {
         let sourceText = readSourceTextOrEmpty(primarySource)
         let cardPath = exportStudyCard(args[2], topic, totalMatches, primarySource, sourceText)
         println("Exported study card: ${cardPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "export-answer") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let question = joinArgs(args, 3)
+        println("Question: ${question}")
+        println("Search query: ${question}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, question, args, 3)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, question, args, 3)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, question, args, 3)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        let answerPath = exportAnswerReport(args[2], question, totalMatches, primarySource, sourceText)
+        println("Exported answer report: ${answerPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "export-session") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let topic = joinArgs(args, 3)
+        println("Session topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, topic, args, 3)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 3)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 3)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        let sessionPath = exportLearningSession(args[2], topic, totalMatches, primarySource, sourceText)
+        println("Exported learning session: ${sessionPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 2 && args[1] == "export-source-map") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let sourceMapPath = exportSourceMap(args[2])
+        println("Exported source map: ${sourceMapPath.toString()}")
         return 0
     }
 
@@ -736,6 +870,10 @@ main(): Int64 {
         println("Tip: use self-check to run a local acceptance self-check.")
         println("Tip: use export-report <name> to export a Markdown acceptance report under docs.")
         println("Tip: use export-index <name> to export a Markdown knowledge source index under docs.")
+        println("Tip: use export-answer <name> <question> to export a Markdown answer report.")
+        println("Tip: use export-session <name> <topic> to export a Markdown learning session.")
+        println("Tip: use source-map to show local knowledge source distribution.")
+        println("Tip: use export-source-map <name> to export a Markdown source map.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")

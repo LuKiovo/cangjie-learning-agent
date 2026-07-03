@@ -26,6 +26,39 @@ func printAgentAnswer(totalMatches: Int64, primarySource: String, sourceText: St
     }
 }
 
+func buildAnswerReportText(question: String, totalMatches: Int64, primarySource: String, sourceText: String): String {
+    var text = "# Cangjie Answer Report: ${question}\n\n"
+    text += "## Question\n\n"
+    text += "${question}\n\n"
+    text += "## Local Source Result\n\n"
+    text += "- Match count: ${totalMatches}\n"
+    if (!primarySource.isEmpty()) {
+        text += "- Primary source: ${primarySource}\n\n"
+    } else {
+        text += "- Primary source: none\n\n"
+    }
+    text += "## Answer Draft\n\n"
+    if (totalMatches > 0) {
+        text += "The local knowledge base has related Cangjie material. Read the primary source, identify the syntax rule, and answer with the cited source path.\n\n"
+        text += "Suggested answer structure:\n\n"
+        text += "1. State the syntax point in beginner-friendly words.\n"
+        text += "2. Give one tiny Cangjie example when useful.\n"
+        text += "3. Mention the primary source path as evidence.\n"
+        text += "4. Save any personal understanding with `add-note` or `add-example`.\n\n"
+    } else {
+        text += "No matching local source was found. Add or import official/course knowledge before giving a confident answer.\n\n"
+    }
+    text += "## Source Context\n\n"
+    if (!sourceText.isEmpty()) {
+        text += "````text\n"
+        text += sourceText
+        text += "\n````\n\n"
+    } else {
+        text += "No local source context is available.\n\n"
+    }
+    return text
+}
+
 func printPractice(topic: String, totalMatches: Int64, primarySource: String): Unit {
     println("Practice:")
     if (totalMatches > 0) {
@@ -91,6 +124,40 @@ func printLearningSession(topic: String, totalMatches: Int64, primarySource: Str
         println("No local source matched '${topic}'.")
         println("Session flow: import or add a local source, run sources ${topic}, then start the session again.")
     }
+}
+
+func buildLearningSessionText(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): String {
+    var text = "# Cangjie Learning Session: ${topic}\n\n"
+    text += "## Topic\n\n"
+    text += "${topic}\n\n"
+    text += "## Source\n\n"
+    text += "- Match count: ${totalMatches}\n"
+    if (!primarySource.isEmpty()) {
+        text += "- Primary source: ${primarySource}\n\n"
+    } else {
+        text += "- Primary source: none\n\n"
+    }
+    text += "## Session Flow\n\n"
+    if (totalMatches > 0) {
+        text += "1. Read the primary source context.\n"
+        text += "2. Explain `${topic}` in one beginner-friendly sentence.\n"
+        text += "3. Draft one small Cangjie example.\n"
+        text += "4. Run `quiz ${topic}` to check understanding.\n"
+        text += "5. Save a personal summary with `add-note`.\n\n"
+        text += "Mini task: create one tiny Cangjie program that demonstrates `${topic}`.\n\n"
+        text += "Review question: which source line or section supports your explanation?\n\n"
+    } else {
+        text += "No local source matched `${topic}`. Import a `.md` or `.txt` note first, then regenerate this session.\n\n"
+    }
+    text += "## Source Context\n\n"
+    if (!sourceText.isEmpty()) {
+        text += "````text\n"
+        text += sourceText
+        text += "\n````\n\n"
+    } else {
+        text += "No local source context is available.\n\n"
+    }
+    return text
 }
 
 func buildStudyCardText(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): String {
