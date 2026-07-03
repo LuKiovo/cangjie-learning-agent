@@ -13,6 +13,7 @@
 - 关键词检索：按关键词列出匹配来源，并用匹配分数选择主来源。
 - 语法问答：`ask <question>` 检索本地资料并输出带来源和主来源上下文的回答。
 - 练习生成：`practice <topic>` 基于来源生成练习任务。
+- 小测生成：`quiz <topic>` 基于来源生成课堂小测。
 - 示例生成：`example <topic>` 基于来源生成仓颉示例草稿。
 - 报错复盘：`review-error <keyword>` 检索常见报错笔记并给出排错建议。
 - 报错修复：`fix-error <keyword>` 基于本地报错笔记生成修复建议和代码草稿。
@@ -89,6 +90,12 @@ target\manual\main.exe ask ArrayList match expression
 target\manual\main.exe practice ArrayList
 ```
 
+生成课堂小测：
+
+```powershell
+target\manual\main.exe quiz ArrayList
+```
+
 生成示例代码草稿：
 
 ```powershell
@@ -163,6 +170,7 @@ target\manual\main.exe prompt match
 - `prompt match`
 - `example ArrayList`
 - `practice ArrayList`
+- `quiz ArrayList`
 - `review-error Cangjie-error-note`
 - `fix-error Cangjie-error-note`
 - `add-note my_note Cangjie-my-note`

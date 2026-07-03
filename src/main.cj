@@ -7,6 +7,7 @@ func printHelp(): Unit {
     println("Cangjie Learning Agent commands:")
     println("- ask <question>: ask a Cangjie syntax question")
     println("- practice <topic>: generate a source-backed practice task")
+    println("- quiz <topic>: generate a source-backed mini quiz")
     println("- example <topic>: generate a source-backed Cangjie example draft")
     println("- stats: show local knowledge base statistics")
     println("- sources <keyword>: list matched source files only")
@@ -98,12 +99,13 @@ main(): Int64 {
         println("6. target\\manual\\main.exe prompt match")
         println("7. target\\manual\\main.exe example ArrayList")
         println("8. target\\manual\\main.exe practice ArrayList")
-        println("9. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("10. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("11. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("12. target\\manual\\main.exe ask Cangjie-my-note")
-        println("13. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("14. target\\manual\\main.exe categories")
+        println("9. target\\manual\\main.exe quiz ArrayList")
+        println("10. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("11. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("12. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("13. target\\manual\\main.exe ask Cangjie-my-note")
+        println("14. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("15. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -124,6 +126,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "practice" && args.size <= 2) {
         printUsageError("practice", "target\\manual\\main.exe practice <topic>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "quiz" && args.size <= 2) {
+        printUsageError("quiz", "target\\manual\\main.exe quiz <topic>")
         return 1
     }
 
@@ -299,6 +306,18 @@ main(): Int64 {
         println("Total matches: ${totalMatches}")
         let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
         printPractice(topic, totalMatches, primarySource)
+    } else if (args.size > 2 && args[1] == "quiz") {
+        let topic = joinArgs(args, 2)
+        println("Quiz topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, topic, args, 2)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 2)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printQuiz(topic, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "example") {
         let topic = joinArgs(args, 2)
         println("Example topic: ${topic}")
@@ -325,6 +344,7 @@ main(): Int64 {
         println("Search query: none")
         println("Tip: use ask <question> to ask a Cangjie syntax question.")
         println("Tip: use practice <topic> to generate a practice task.")
+        println("Tip: use quiz <topic> to generate a source-backed mini quiz.")
         println("Tip: use example <topic> to generate a source-backed Cangjie example draft.")
         println("Tip: use stats to show local knowledge base statistics.")
         println("Tip: use sources <keyword> to list matched source files only.")

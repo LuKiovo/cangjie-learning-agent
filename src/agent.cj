@@ -39,6 +39,23 @@ func printPractice(topic: String, totalMatches: Int64, primarySource: String): U
     }
 }
 
+func printQuiz(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
+    println("Quiz:")
+    if (totalMatches > 0) {
+        printPrimarySource(primarySource)
+        printSourceContext(sourceText)
+        println("Question 1: Which local source should you read first for '${topic}'?")
+        println("A. The primary source shown above")
+        println("B. An unrelated note")
+        println("Answer: A")
+        println("Question 2: Write one sentence explaining how '${topic}' appears in the source context.")
+        println("Suggested answer: Use the primary source context above, then add your own summary as a note.")
+    } else {
+        println("No local source matched '${topic}'.")
+        println("Quiz suggestion: add a note or official summary first, then generate this quiz again.")
+    }
+}
+
 func printExample(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
     println("Example draft:")
     if (totalMatches > 0) {

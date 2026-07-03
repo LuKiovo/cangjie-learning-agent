@@ -77,7 +77,15 @@ target\manual\main.exe practice ArrayList
 
 Expected result: matched sources, `Primary source`, and a checklist.
 
-9. Review a compiler error note:
+9. Generate a source-backed mini quiz:
+
+```powershell
+target\manual\main.exe quiz ArrayList
+```
+
+Expected result: matched sources, primary source context, quiz questions, and suggested answers.
+
+10. Review a compiler error note:
 
 ```powershell
 target\manual\main.exe review-error Cangjie-error-note
@@ -85,7 +93,7 @@ target\manual\main.exe review-error Cangjie-error-note
 
 Expected result: matched error sources, `Primary source`, and a debugging checklist.
 
-10. Generate a source-backed error fix suggestion:
+11. Generate a source-backed error fix suggestion:
 
 ```powershell
 target\manual\main.exe fix-error Cangjie-error-note
@@ -93,7 +101,7 @@ target\manual\main.exe fix-error Cangjie-error-note
 
 Expected result: matched error sources, primary source context, fix steps, and a Cangjie fix draft.
 
-11. Add a personal syntax note:
+12. Add a personal syntax note:
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
@@ -105,19 +113,19 @@ Multi-word note content is supported:
 target\manual\main.exe add-note my_note Cangjie personal syntax note
 ```
 
-12. Search the added note:
+13. Search the added note:
 
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
 
-13. Add a course-summary knowledge item:
+14. Add a course-summary knowledge item:
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-14. Show knowledge categories:
+15. Show knowledge categories:
 
 ```powershell
 target\manual\main.exe categories
