@@ -43,7 +43,7 @@ Expected result: primary source path and source text.
 target\manual\main.exe ask match
 ```
 
-Expected result: matched sources and an answer section with `Primary source`.
+Expected result: matched sources and an answer section with `Primary source` and `Primary source context`.
 
 Multi-word questions are also supported:
 
@@ -59,7 +59,7 @@ Expected result: if the full question does not match directly, the CLI falls bac
 target\manual\main.exe prompt match
 ```
 
-Expected result: matched sources, source count, primary source, and prompt answer rules.
+Expected result: matched sources, source count, primary source, local source context, and prompt answer rules.
 
 7. Generate a source-backed practice task:
 

@@ -241,7 +241,8 @@ main(): Int64 {
         if (primarySource.isEmpty()) {
             primarySource = findFirstKnowledgeSourceByTerms(userNotesPath, query, args, 2)
         }
-        printPromptPreview(query, totalMatches, primarySource)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printPromptPreview(query, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "ask") {
         let query = joinArgs(args, 2)
         println("Question: ${query}")
@@ -255,7 +256,8 @@ main(): Int64 {
         if (primarySource.isEmpty()) {
             primarySource = findFirstKnowledgeSourceByTerms(userNotesPath, query, args, 2)
         }
-        printAgentAnswer(totalMatches, primarySource)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printAgentAnswer(totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "practice") {
         let topic = joinArgs(args, 2)
         println("Practice topic: ${topic}")

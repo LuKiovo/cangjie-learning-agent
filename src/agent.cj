@@ -6,10 +6,18 @@ func printPrimarySource(source: String): Unit {
     }
 }
 
-func printAgentAnswer(totalMatches: Int64, primarySource: String): Unit {
+func printSourceContext(sourceText: String): Unit {
+    if (!sourceText.isEmpty()) {
+        println("Primary source context:")
+        println(sourceText)
+    }
+}
+
+func printAgentAnswer(totalMatches: Int64, primarySource: String, sourceText: String): Unit {
     println("Agent answer:")
     if (totalMatches > 0) {
         printPrimarySource(primarySource)
+        printSourceContext(sourceText)
         println("I found local knowledge sources related to your Cangjie syntax question. Please review the matched sources above.")
         println("Learning suggestion: open the matched source, read the related syntax note, then add your own example with add-example.")
     } else {

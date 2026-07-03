@@ -340,3 +340,13 @@ Checks:
 - Knowledge-add commands reject names containing `/`, `\`, or `..`.
 - Invalid knowledge names return a non-zero exit code.
 - Valid knowledge names still save content under the intended knowledge base category.
+
+## 35. Primary Source Context In Agent Output
+
+Status: initialized.
+
+Checks:
+
+- `ask <question>` prints the primary source text when local sources match.
+- `prompt <question>` prints local source context when a primary source is available.
+- Commands without local matches still clearly report missing source context.

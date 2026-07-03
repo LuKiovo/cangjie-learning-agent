@@ -30,6 +30,7 @@ The preview includes:
 - user question
 - local match count
 - primary local source path when available
+- primary local source text when available
 - answer rules that require source marking and clear assumptions
 
 This keeps the future API integration tied to the local knowledge base instead of sending an unconstrained question.

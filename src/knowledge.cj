@@ -172,6 +172,13 @@ func printFirstKnowledgeSourceText(source: String): Unit {
     println(readKnowledgeText(Path(source)))
 }
 
+func readSourceTextOrEmpty(source: String): String {
+    if (source.isEmpty()) {
+        return ""
+    }
+    return readKnowledgeText(Path(source))
+}
+
 func isSafeKnowledgeName(name: String): Bool {
     return !name.isEmpty() && !name.contains("/") && !name.contains("\\") && !name.contains("..")
 }

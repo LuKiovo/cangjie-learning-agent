@@ -1,6 +1,6 @@
 package cangjie_learning_agent
 
-func printPromptPreview(question: String, totalMatches: Int64, primarySource: String): Unit {
+func printPromptPreview(question: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
     println("LLM prompt preview:")
     println("System:")
     println("You are a Cangjie language learning assistant for beginners.")
@@ -12,6 +12,12 @@ func printPromptPreview(question: String, totalMatches: Int64, primarySource: St
         println("Primary source: ${primarySource}")
     } else {
         println("Primary source: none")
+    }
+    if (!sourceText.isEmpty()) {
+        println("Local source context:")
+        println(sourceText)
+    } else {
+        println("Local source context: none")
     }
     println("Answer rules:")
     println("- Explain the syntax point in beginner-friendly language.")
