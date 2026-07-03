@@ -45,6 +45,12 @@ Generate a practice task:
 target\manual\main.exe practice ArrayList
 ```
 
+Show knowledge base statistics:
+
+```powershell
+target\manual\main.exe stats
+```
+
 Show CLI help:
 
 ```powershell

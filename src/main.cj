@@ -7,11 +7,21 @@ func printHelp(): Unit {
     println("Cangjie Learning Agent commands:")
     println("- ask <question>: ask a Cangjie syntax question")
     println("- practice <topic>: generate a source-backed practice task")
+    println("- stats: show local knowledge base statistics")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
     println("- add-example <name> <content>: add example code notes")
     println("- add-error <name> <content>: add compiler error notes")
     println("- help: show command help")
+}
+
+func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Unit {
+    println("Knowledge files:")
+    println("- official: ${officialCount}")
+    println("- user notes: ${userNotesCount}")
+    println("Knowledge characters:")
+    println("- official: ${officialCharacters}")
+    println("- user notes: ${userNotesCharacters}")
 }
 
 main(): Int64 {
@@ -52,13 +62,10 @@ main(): Int64 {
     println("Knowledge base:")
     println("- official: knowledge_base/official")
     println("- user notes: knowledge_base/user_notes")
-    println("Knowledge files:")
-    println("- official: ${officialCount}")
-    println("- user notes: ${userNotesCount}")
-    println("Knowledge characters:")
-    println("- official: ${officialCharacters}")
-    println("- user notes: ${userNotesCharacters}")
-    if (args.size > 2 && args[1] == "ask") {
+    printKnowledgeStats(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
+    if (args.size > 1 && args[1] == "stats") {
+        return 0
+    } else if (args.size > 2 && args[1] == "ask") {
         let query = args[2]
         println("Question: ${query}")
         println("Search query: ${query}")
@@ -92,6 +99,7 @@ main(): Int64 {
         println("Search query: none")
         println("Tip: use ask <question> to ask a Cangjie syntax question.")
         println("Tip: use practice <topic> to generate a practice task.")
+        println("Tip: use stats to show local knowledge base statistics.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")

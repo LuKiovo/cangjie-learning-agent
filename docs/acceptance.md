@@ -190,3 +190,13 @@ Checks:
 - The Cangjie CLI supports `practice <topic>`.
 - The command searches local knowledge files for matched sources.
 - The command prints a practice task and checklist based on match status.
+
+## 20. Knowledge Stats Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `stats`.
+- The command prints official and user note file counts.
+- The command prints official and user note character counts.
