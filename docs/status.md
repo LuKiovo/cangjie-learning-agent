@@ -8,6 +8,7 @@
 - Course-aligned official notes for variables, collections, and match/control flow.
 - Keyword search with matched source listing.
 - Source-backed `ask`, `practice`, and `review-error` commands.
+- Source-backed learning session command.
 - Source-backed beginner study plan command.
 - Source-backed mini quiz command.
 - Source-backed Cangjie example draft command.

@@ -74,6 +74,25 @@ func printStudyPlan(topic: String, totalMatches: Int64, primarySource: String, s
     }
 }
 
+func printLearningSession(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
+    println("Learning session:")
+    if (totalMatches > 0) {
+        printPrimarySource(primarySource)
+        printSourceContext(sourceText)
+        println("Session flow:")
+        println("1. Read the primary source context.")
+        println("2. Explain '${topic}' in one sentence.")
+        println("3. Run example ${topic} and adapt the draft.")
+        println("4. Run quiz ${topic} and check your answer.")
+        println("5. Save your personal summary with add-note.")
+        println("Mini task: create one tiny Cangjie program that prints a message about '${topic}'.")
+        println("Review question: which source line or section helped you most?")
+    } else {
+        println("No local source matched '${topic}'.")
+        println("Session flow: import or add a local source, run sources ${topic}, then start the session again.")
+    }
+}
+
 func printExample(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
     println("Example draft:")
     if (totalMatches > 0) {

@@ -12,6 +12,7 @@
 - 知识库统计：查看官方资料和用户笔记的文件数量、文本字符数。
 - 关键词检索：按关键词列出匹配来源，并用匹配分数选择主来源。
 - 语法问答：`ask <question>` 检索本地资料并输出带来源和主来源上下文的回答。
+- 学习会话：`session <topic>` 串起来源、上下文、任务和复盘问题。
 - 学习路径：`study-plan <topic>` 基于来源生成初学者学习步骤。
 - 练习生成：`practice <topic>` 基于来源生成练习任务。
 - 小测生成：`quiz <topic>` 基于来源生成课堂小测。
@@ -128,6 +129,12 @@ target\manual\main.exe show-source ArrayList
 
 ```powershell
 target\manual\main.exe ask Cangjie
+```
+
+运行学习会话：
+
+```powershell
+target\manual\main.exe session ArrayList
 ```
 
 也可以直接输入多词问题：

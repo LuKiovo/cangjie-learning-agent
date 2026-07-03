@@ -6,6 +6,7 @@ import std.fs.*
 func printHelp(): Unit {
     println("Cangjie Learning Agent commands:")
     println("- ask <question>: ask a Cangjie syntax question")
+    println("- session <topic>: run a source-backed learning session")
     println("- practice <topic>: generate a source-backed practice task")
     println("- study-plan <topic>: generate a source-backed beginner study plan")
     println("- quiz <topic>: generate a source-backed mini quiz")
@@ -231,18 +232,19 @@ main(): Int64 {
         println("8. target\\manual\\main.exe why-source ArrayList")
         println("9. target\\manual\\main.exe show-source ArrayList")
         println("10. target\\manual\\main.exe ask match")
-        println("11. target\\manual\\main.exe prompt match")
-        println("12. target\\manual\\main.exe study-plan ArrayList")
-        println("13. target\\manual\\main.exe example ArrayList")
-        println("14. target\\manual\\main.exe practice ArrayList")
-        println("15. target\\manual\\main.exe quiz ArrayList")
-        println("16. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("17. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("18. target\\manual\\main.exe export-report acceptance_report")
-        println("19. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("20. target\\manual\\main.exe ask Cangjie-my-note")
-        println("21. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("22. target\\manual\\main.exe categories")
+        println("11. target\\manual\\main.exe session ArrayList")
+        println("12. target\\manual\\main.exe prompt match")
+        println("13. target\\manual\\main.exe study-plan ArrayList")
+        println("14. target\\manual\\main.exe example ArrayList")
+        println("15. target\\manual\\main.exe practice ArrayList")
+        println("16. target\\manual\\main.exe quiz ArrayList")
+        println("17. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("18. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("19. target\\manual\\main.exe export-report acceptance_report")
+        println("20. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("21. target\\manual\\main.exe ask Cangjie-my-note")
+        println("22. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("23. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -268,6 +270,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "ask" && args.size <= 2) {
         printUsageError("ask", "target\\manual\\main.exe ask <question>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "session" && args.size <= 2) {
+        printUsageError("session", "target\\manual\\main.exe session <topic>")
         return 1
     }
 
@@ -582,6 +589,18 @@ main(): Int64 {
         let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
         let sourceText = readSourceTextOrEmpty(primarySource)
         printAgentAnswer(totalMatches, primarySource, sourceText)
+    } else if (args.size > 2 && args[1] == "session") {
+        let topic = joinArgs(args, 2)
+        println("Session topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, topic, args, 2)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 2)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printLearningSession(topic, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "practice") {
         let topic = joinArgs(args, 2)
         println("Practice topic: ${topic}")
@@ -642,6 +661,7 @@ main(): Int64 {
         printKnowledgeFiles("user notes", userNotesPath)
         println("Search query: none")
         println("Tip: use ask <question> to ask a Cangjie syntax question.")
+        println("Tip: use session <topic> to run a source-backed learning session.")
         println("Tip: use practice <topic> to generate a practice task.")
         println("Tip: use study-plan <topic> to generate a source-backed beginner study plan.")
         println("Tip: use quiz <topic> to generate a source-backed mini quiz.")

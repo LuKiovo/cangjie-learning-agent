@@ -499,3 +499,13 @@ Checks:
 - The Cangjie CLI supports `export-index <name>`.
 - The command writes a Markdown knowledge source index under `docs/`.
 - The exported index lists official/course knowledge, syntax notes, examples, and error notes.
+
+## 51. Source-backed Learning Session
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `session <topic>`.
+- The command searches local knowledge before starting the session.
+- The output includes matched sources, primary source context, session flow, a mini task, and a review question.
