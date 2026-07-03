@@ -330,3 +330,13 @@ Checks:
 - The Cangjie CLI supports `show-source <keyword>`.
 - The command finds the first local source using the same retrieval fallback as question commands.
 - The command prints the primary source path and source text for inspection.
+
+## 34. Safe Knowledge Name Validation
+
+Status: initialized.
+
+Checks:
+
+- Knowledge-add commands reject names containing `/`, `\`, or `..`.
+- Invalid knowledge names return a non-zero exit code.
+- Valid knowledge names still save content under the intended knowledge base category.

@@ -105,6 +105,8 @@ target\manual\main.exe add-note syntax_note Cangjie-syntax-note
 target\manual\main.exe add-note syntax_note Cangjie syntax note content
 ```
 
+知识名称必须是简单文件名，不能包含路径分隔符或 `..`。
+
 新增示例代码笔记：
 
 ```powershell

@@ -10,6 +10,8 @@ The project keeps local knowledge files under `knowledge_base/`.
 
 Only `.md` and `.txt` files are in scope for the first version.
 
+Knowledge names used by add commands must be simple file names. Names containing `/`, `\`, or `..` are rejected so user notes stay inside the local knowledge base directories.
+
 ## Course Slides
 
 The local course slide folder is ignored by Git:

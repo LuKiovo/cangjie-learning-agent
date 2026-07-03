@@ -37,6 +37,11 @@ func printUsageError(command: String, usage: String): Unit {
     println("Tip: use help to show all commands.")
 }
 
+func printNameError(name: String): Unit {
+    println("Invalid knowledge name: ${name}")
+    println("Use a simple file name without path separators or '..'.")
+}
+
 func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Unit {
     println("Knowledge files:")
     println("- official: ${officialCount}")
@@ -147,24 +152,40 @@ main(): Int64 {
     }
 
     if (args.size > 3 && args[1] == "add-note") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
         let notePath = addUserKnowledge("syntax_notes", args[2], joinArgs(args, 3))
         println("Added syntax note: ${notePath.toString()}")
         return 0
     }
 
     if (args.size > 3 && args[1] == "add-official") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
         let notePath = addOfficialKnowledge(args[2], joinArgs(args, 3))
         println("Added official knowledge: ${notePath.toString()}")
         return 0
     }
 
     if (args.size > 3 && args[1] == "add-example") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
         let notePath = addUserKnowledge("examples", args[2], joinArgs(args, 3))
         println("Added example: ${notePath.toString()}")
         return 0
     }
 
     if (args.size > 3 && args[1] == "add-error") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
         let notePath = addUserKnowledge("errors", args[2], joinArgs(args, 3))
         println("Added error note: ${notePath.toString()}")
         return 0
