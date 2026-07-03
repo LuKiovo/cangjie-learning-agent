@@ -83,18 +83,22 @@ func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
 }
 
 func textMatchesQuery(text: String, query: String, terms: Array<String>, startIndex: Int64): Bool {
-    if (text.contains(query)) {
-        return true
-    }
+    return queryMatchScore(text, query, terms, startIndex) > 0
+}
 
+func queryMatchScore(text: String, query: String, terms: Array<String>, startIndex: Int64): Int64 {
+    var score: Int64 = 0
+    if (text.contains(query)) {
+        score += 10
+    }
     var index = startIndex
     while (index < terms.size) {
         if (text.contains(terms[index])) {
-            return true
+            score += 1
         }
         index += 1
     }
-    return false
+    return score
 }
 
 func searchKnowledgeFilesByTerms(label: String, path: Path, query: String, terms: Array<String>, startIndex: Int64): Int64 {
@@ -155,6 +159,52 @@ func findFirstKnowledgeSourceByTerms(path: Path, query: String, terms: Array<Str
         } else if (item.isRegular() && isKnowledgeFile(item.name)) {
             let text = readKnowledgeText(item.path)
             if (textMatchesQuery(text, query, terms, startIndex)) {
+                return item.path.toString()
+            }
+        }
+    }
+    return ""
+}
+
+func findBestKnowledgeScore(path: Path, query: String, terms: Array<String>, startIndex: Int64): Int64 {
+    if (!exists(path)) {
+        return 0
+    }
+
+    var bestScore: Int64 = 0
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            let childScore = findBestKnowledgeScore(item.path, query, terms, startIndex)
+            if (childScore > bestScore) {
+                bestScore = childScore
+            }
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            let score = queryMatchScore(text, query, terms, startIndex)
+            if (score > bestScore) {
+                bestScore = score
+            }
+        }
+    }
+    return bestScore
+}
+
+func findKnowledgeSourceByScore(path: Path, query: String, terms: Array<String>, startIndex: Int64, targetScore: Int64): String {
+    if (!exists(path) || targetScore <= 0) {
+        return ""
+    }
+
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            let source = findKnowledgeSourceByScore(item.path, query, terms, startIndex, targetScore)
+            if (!source.isEmpty()) {
+                return source
+            }
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            if (queryMatchScore(text, query, terms, startIndex) == targetScore) {
                 return item.path.toString()
             }
         }

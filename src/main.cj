@@ -64,6 +64,18 @@ func joinArgs(args: Array<String>, startIndex: Int64): String {
     return text
 }
 
+func findBestLocalSource(officialPath: Path, userNotesPath: Path, query: String, terms: Array<String>, startIndex: Int64): String {
+    let officialScore = findBestKnowledgeScore(officialPath, query, terms, startIndex)
+    let userNotesScore = findBestKnowledgeScore(userNotesPath, query, terms, startIndex)
+    if (officialScore >= userNotesScore && officialScore > 0) {
+        return findKnowledgeSourceByScore(officialPath, query, terms, startIndex, officialScore)
+    }
+    if (userNotesScore > 0) {
+        return findKnowledgeSourceByScore(userNotesPath, query, terms, startIndex, userNotesScore)
+    }
+    return ""
+}
+
 main(): Int64 {
     let args = getCommandLine()
     let officialPath = Path("knowledge_base/official")
@@ -214,10 +226,7 @@ main(): Int64 {
     } else if (args.size > 2 && args[1] == "show-source") {
         let query = joinArgs(args, 2)
         println("Source query: ${query}")
-        var primarySource = findFirstKnowledgeSourceByTerms(officialPath, query, args, 2)
-        if (primarySource.isEmpty()) {
-            primarySource = findFirstKnowledgeSourceByTerms(userNotesPath, query, args, 2)
-        }
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
         printPrimarySource(primarySource)
         printFirstKnowledgeSourceText(primarySource)
     } else if (args.size > 2 && args[1] == "review-error") {
@@ -226,7 +235,9 @@ main(): Int64 {
         println("Matched error sources:")
         let errorMatches = searchKnowledgeFilesByTerms("error notes", Path("knowledge_base/user_notes/errors"), keyword, args, 2)
         println("Total matches: ${errorMatches}")
-        let primarySource = findFirstKnowledgeSourceByTerms(Path("knowledge_base/user_notes/errors"), keyword, args, 2)
+        let errorPath = Path("knowledge_base/user_notes/errors")
+        let errorScore = findBestKnowledgeScore(errorPath, keyword, args, 2)
+        let primarySource = findKnowledgeSourceByScore(errorPath, keyword, args, 2, errorScore)
         printErrorReview(keyword, errorMatches, primarySource)
     } else if (args.size > 2 && args[1] == "prompt") {
         let query = joinArgs(args, 2)
@@ -237,10 +248,7 @@ main(): Int64 {
         let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, query, args, 2)
         let totalMatches = officialMatches + userNotesMatches
         println("Total matches: ${totalMatches}")
-        var primarySource = findFirstKnowledgeSourceByTerms(officialPath, query, args, 2)
-        if (primarySource.isEmpty()) {
-            primarySource = findFirstKnowledgeSourceByTerms(userNotesPath, query, args, 2)
-        }
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
         let sourceText = readSourceTextOrEmpty(primarySource)
         printPromptPreview(query, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "ask") {
@@ -252,10 +260,7 @@ main(): Int64 {
         let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, query, args, 2)
         let totalMatches = officialMatches + userNotesMatches
         println("Total matches: ${totalMatches}")
-        var primarySource = findFirstKnowledgeSourceByTerms(officialPath, query, args, 2)
-        if (primarySource.isEmpty()) {
-            primarySource = findFirstKnowledgeSourceByTerms(userNotesPath, query, args, 2)
-        }
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
         let sourceText = readSourceTextOrEmpty(primarySource)
         printAgentAnswer(totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "practice") {
@@ -267,10 +272,7 @@ main(): Int64 {
         let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 2)
         let totalMatches = officialMatches + userNotesMatches
         println("Total matches: ${totalMatches}")
-        var primarySource = findFirstKnowledgeSourceByTerms(officialPath, topic, args, 2)
-        if (primarySource.isEmpty()) {
-            primarySource = findFirstKnowledgeSourceByTerms(userNotesPath, topic, args, 2)
-        }
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
         printPractice(topic, totalMatches, primarySource)
     } else if (args.size > 1) {
         let query = args[1]

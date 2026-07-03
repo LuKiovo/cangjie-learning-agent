@@ -350,3 +350,13 @@ Checks:
 - `ask <question>` prints the primary source text when local sources match.
 - `prompt <question>` prints local source context when a primary source is available.
 - Commands without local matches still clearly report missing source context.
+
+## 36. Scored Primary Source Selection
+
+Status: initialized.
+
+Checks:
+
+- Local retrieval assigns a higher score to complete-query matches.
+- Local retrieval adds score for each matched query word.
+- Commands that need a primary source use the highest-scoring local source instead of the first matching file.
