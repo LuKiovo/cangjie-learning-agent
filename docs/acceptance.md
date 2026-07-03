@@ -200,3 +200,13 @@ Checks:
 - The Cangjie CLI supports `stats`.
 - The command prints official and user note file counts.
 - The command prints official and user note character counts.
+
+## 21. Source Listing Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `sources <keyword>`.
+- The command lists matched source files only.
+- The command prints total match count without generating an answer.

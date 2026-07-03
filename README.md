@@ -51,6 +51,12 @@ Show knowledge base statistics:
 target\manual\main.exe stats
 ```
 
+List matched source files:
+
+```powershell
+target\manual\main.exe sources ArrayList
+```
+
 Show CLI help:
 
 ```powershell
