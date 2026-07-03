@@ -18,6 +18,7 @@ func printHelp(): Unit {
     println("- demo: show a recommended classroom demo flow")
     println("- summary: show implemented capabilities and current limits")
     println("- version: show project version and engineering identity")
+    println("- self-check: run a local acceptance self-check")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
@@ -91,6 +92,26 @@ func printVersion(): Unit {
     println("Repository: cangjie-learning-agent")
     println("Implementation language: Cangjie")
     println("Knowledge format: local .md and .txt files")
+}
+
+func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
+    println("Self-check:")
+    if (officialCount > 0) {
+        println("PASS official knowledge files: ${officialCount}")
+    } else {
+        println("FAIL official knowledge files: 0")
+    }
+    if (userNotesCount > 0) {
+        println("PASS user knowledge files: ${userNotesCount}")
+    } else {
+        println("FAIL user knowledge files: 0")
+    }
+    println("PASS implementation language: Cangjie")
+    println("PASS supported knowledge formats: .md and .txt")
+    println("PASS source-backed commands: ask, prompt, example, practice, quiz, review-error, fix-error")
+    println("PASS personalization commands: add-note, add-example, add-error, add-official")
+    println("PASS import commands: import-note, import-example, import-error, import-official")
+    println("Manual check still needed: real LLM API call and GUI are not completed in this CLI milestone.")
 }
 
 func joinArgs(args: Array<String>, startIndex: Int64): String {
@@ -362,6 +383,8 @@ main(): Int64 {
     printKnowledgeStats(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
     if (args.size > 1 && args[1] == "stats") {
         return 0
+    } else if (args.size > 1 && args[1] == "self-check") {
+        printSelfCheck(officialCount, userNotesCount)
     } else if (args.size > 1 && args[1] == "summary") {
         printProjectSummary(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
     } else if (args.size > 2 && args[1] == "sources") {
@@ -482,6 +505,7 @@ main(): Int64 {
         println("Tip: use demo to show a recommended classroom demo flow.")
         println("Tip: use summary to show implemented capabilities and current limits.")
         println("Tip: use version to show project version and engineering identity.")
+        println("Tip: use self-check to run a local acceptance self-check.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")

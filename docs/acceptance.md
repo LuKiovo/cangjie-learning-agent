@@ -430,3 +430,13 @@ Checks:
 - The Cangjie CLI supports `version`.
 - The command reports the project version, repository name, implementation language, and knowledge format.
 - The command exits successfully without requiring knowledge base search.
+
+## 44. Local Acceptance Self-check
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `self-check`.
+- The command reports pass/fail style checks for official and user knowledge files.
+- The command lists completed command groups and clearly marks GUI and real LLM API calls as manual/not completed checks.
