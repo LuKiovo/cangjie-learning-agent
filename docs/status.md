@@ -24,6 +24,7 @@
 - Safe knowledge file name validation.
 - Knowledge file import commands for `.md` and `.txt`.
 - Project summary command for classroom acceptance.
+- Version command for project identity.
 - Classroom demo script.
 
 ## Not Completed Yet

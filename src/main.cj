@@ -17,6 +17,7 @@ func printHelp(): Unit {
     println("- fix-error <keyword>: generate a source-backed error fix suggestion")
     println("- demo: show a recommended classroom demo flow")
     println("- summary: show implemented capabilities and current limits")
+    println("- version: show project version and engineering identity")
     println("- llm-status: show LLM API configuration status")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
@@ -84,6 +85,14 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- no vector search yet")
 }
 
+func printVersion(): Unit {
+    println("Cangjie Learning Agent")
+    println("Version: 0.1.0")
+    println("Repository: cangjie-learning-agent")
+    println("Implementation language: Cangjie")
+    println("Knowledge format: local .md and .txt files")
+}
+
 func joinArgs(args: Array<String>, startIndex: Int64): String {
     var text = ""
     var index = startIndex
@@ -147,6 +156,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "categories") {
         printKnowledgeCategories()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "version") {
+        printVersion()
         return 0
     }
 
@@ -467,6 +481,7 @@ main(): Int64 {
         println("Tip: use fix-error <keyword> to generate a source-backed error fix suggestion.")
         println("Tip: use demo to show a recommended classroom demo flow.")
         println("Tip: use summary to show implemented capabilities and current limits.")
+        println("Tip: use version to show project version and engineering identity.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")

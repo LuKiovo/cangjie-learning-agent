@@ -420,3 +420,13 @@ Checks:
 - The official knowledge base includes concrete course notes for variables, collections, and match/control flow.
 - The notes contain searchable topic keywords and beginner-oriented explanations.
 - Existing `ask`, `sources`, and `show-source` commands can retrieve the added notes.
+
+## 43. Project Version Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `version`.
+- The command reports the project version, repository name, implementation language, and knowledge format.
+- The command exits successfully without requiring knowledge base search.
