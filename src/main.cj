@@ -10,6 +10,7 @@ func printHelp(): Unit {
     println("- stats: show local knowledge base statistics")
     println("- sources <keyword>: list matched source files only")
     println("- review-error <keyword>: review local compiler error notes")
+    println("- demo: show a recommended classroom demo flow")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
     println("- add-example <name> <content>: add example code notes")
@@ -33,6 +34,19 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "help") {
         printHelp()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "demo") {
+        println("Recommended demo flow:")
+        println("1. target\\manual\\main.exe help")
+        println("2. target\\manual\\main.exe stats")
+        println("3. target\\manual\\main.exe sources ArrayList")
+        println("4. target\\manual\\main.exe ask match")
+        println("5. target\\manual\\main.exe practice ArrayList")
+        println("6. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("7. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("8. target\\manual\\main.exe ask Cangjie-my-note")
         return 0
     }
 
@@ -118,6 +132,7 @@ main(): Int64 {
         println("Tip: use stats to show local knowledge base statistics.")
         println("Tip: use sources <keyword> to list matched source files only.")
         println("Tip: use review-error <keyword> to review compiler error notes.")
+        println("Tip: use demo to show a recommended classroom demo flow.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")

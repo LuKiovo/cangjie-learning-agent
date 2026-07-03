@@ -63,6 +63,14 @@ Review compiler error notes:
 target\manual\main.exe review-error Cangjie-error-note
 ```
 
+Show a classroom demo flow:
+
+```powershell
+target\manual\main.exe demo
+```
+
+See [docs/demo.md](docs/demo.md) for the full classroom demo script.
+
 Show CLI help:
 
 ```powershell

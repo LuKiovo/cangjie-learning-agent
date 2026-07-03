@@ -220,3 +220,23 @@ Checks:
 - The Cangjie CLI supports `review-error <keyword>`.
 - The command searches local compiler error notes.
 - The command prints a debugging checklist based on match status.
+
+## 23. Classroom Demo Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `demo`.
+- The command prints a recommended classroom demonstration flow.
+- The flow covers stats, sources, ask, practice, error review, and adding a note.
+
+## 24. Classroom Demo Script
+
+Status: initialized.
+
+Checks:
+
+- The repository contains a classroom demo script.
+- The script covers build, help, stats, sources, ask, practice, error review, add-note, and follow-up search.
+- The CLI `demo` command and the document use the same demonstration flow.
