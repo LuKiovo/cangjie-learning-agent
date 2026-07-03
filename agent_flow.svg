@@ -1,0 +1,56 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='920' viewBox='0 0 1400 920'>
+<defs>
+<linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='#f6f8fb'/><stop offset='100%' stop-color='#eef7f2'/></linearGradient>
+<marker id='arrowHead' markerWidth='12' markerHeight='12' refX='10' refY='6' orient='auto'><path d='M 0 0 L 12 6 L 0 12 z' fill='#25636f'/></marker>
+<style>
+text{font-family:Segoe UI,Arial,sans-serif}.headline{font-size:34px;font-weight:800;fill:#17323a}.subtitle{font-size:17px;fill:#51666d}.title{font-size:20px;font-weight:800;fill:#17323a}.body{font-size:15px;fill:#385158}.label{font-size:14px;font-weight:700;fill:#25636f}.arrow{fill:none;stroke:#25636f;stroke-width:3;marker-end:url(#arrowHead)}.lane{fill:#ffffff;stroke:#d7e2e5;stroke-width:1.5}.tag{font-size:13px;font-weight:700;fill:#fff}
+</style>
+</defs>
+<rect width='1400' height='920' fill='url(#bg)'/>
+<text x='70' y='72' class='headline'>Cangjie Learning Agent Flow</text>
+<text x='70' y='106' class='subtitle'>Local .md/.txt knowledge base + source-backed retrieval + Cangjie engineering implementation</text>
+<rect x='70' y='135' width='1260' height='650' rx='28' class='lane'/>
+<rect x='92' y='156' width='190' height='30' rx='15' fill='#25636f'/><text x='115' y='177' class='tag'>Runtime Pipeline</text>
+<rect x='110' y='235' width='230' height='105' rx='14' fill='#e8f1ff' stroke='#5e86c7' stroke-width='2'/>
+<text x='132' y='269' class='title'>1. User Question</text>
+<text x='132' y='299' class='body'>syntax / code / error / quiz</text>
+<rect x='420' y='235' width='250' height='105' rx='14' fill='#fff3df' stroke='#d89a36' stroke-width='2'/>
+<text x='442' y='269' class='title'>2. Command Router</text>
+<text x='442' y='299' class='body'>ask / session / prompt / fix</text>
+<rect x='760' y='185' width='250' height='105' rx='14' fill='#ebf8ef' stroke='#4e9b67' stroke-width='2'/>
+<text x='782' y='219' class='title'>3. Local Knowledge</text>
+<text x='782' y='249' class='body'>official docs + personal notes</text>
+<rect x='760' y='335' width='250' height='105' rx='14' fill='#f5edff' stroke='#8b67c7' stroke-width='2'/>
+<text x='782' y='369' class='title'>4. Retrieval Score</text>
+<text x='782' y='399' class='body'>full query + keyword fallback</text>
+<rect x='1090' y='235' width='220' height='105' rx='14' fill='#e9fbfb' stroke='#3e9da0' stroke-width='2'/>
+<text x='1112' y='269' class='title'>5. Primary Source</text>
+<text x='1112' y='299' class='body'>path + context shown</text>
+<rect x='420' y='520' width='250' height='105' rx='14' fill='#edf4ff' stroke='#4f78bd' stroke-width='2'/>
+<text x='442' y='554' class='title'>6. Prompt Preview</text>
+<text x='442' y='584' class='body'>grounded LLM-ready input</text>
+<rect x='760' y='520' width='250' height='105' rx='14' fill='#fff0f0' stroke='#c76666' stroke-width='2'/>
+<text x='782' y='554' class='title'>7. Agent Output</text>
+<text x='782' y='584' class='body'>answer / plan / example / quiz</text>
+<rect x='1090' y='520' width='220' height='105' rx='14' fill='#f1f7e7' stroke='#7da144' stroke-width='2'/>
+<text x='1112' y='554' class='title'>8. Personalization</text>
+<text x='1112' y='584' class='body'>add/import notes and errors</text>
+<path d='M 340 288 C 388 288, 372 288, 420 288' class='arrow'/>
+<text x='346' y='278' class='label'>route</text>
+<path d='M 670 288 C 718 288, 712 238, 760 238' class='arrow'/>
+<text x='681' y='253' class='label'>read</text>
+<path d='M 885 290 C 933 290, 837 335, 885 335' class='arrow'/>
+<text x='851' y='302' class='label'>scan</text>
+<path d='M 1010 388 C 1058 388, 1042 288, 1090 288' class='arrow'/>
+<text x='1016' y='328' class='label'>select</text>
+<path d='M 1200 340 C 1248 340, 497 520, 545 520' class='arrow'/>
+<text x='838' y='420' class='label'>source</text>
+<path d='M 670 572 C 718 572, 712 572, 760 572' class='arrow'/>
+<text x='681' y='562' class='label'>compose</text>
+<path d='M 1010 572 C 1058 572, 1042 572, 1090 572' class='arrow'/>
+<text x='1016' y='562' class='label'>save</text>
+<path d='M 1200 520 C 1248 520, 1152 358, 1200 358' class='arrow'/>
+<text x='1166' y='429' class='label'>improve KB</text>
+<rect x='110' y='820' width='1180' height='48' rx='16' fill='#17323a'/>
+<text x='138' y='850' fill='#ffffff' font-size='17' font-weight='700'>Key idea: every answer is traceable to local sources, and every new note makes the next retrieval more personal.</text>
+</svg>
