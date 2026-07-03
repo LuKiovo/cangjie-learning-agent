@@ -310,3 +310,13 @@ Checks:
 - Question commands join all words after the command into one query.
 - Knowledge-add commands join all words after the name into one content string.
 - Existing single-word command behavior remains valid.
+
+## 32. Multi-word Retrieval Fallback
+
+Status: initialized.
+
+Checks:
+
+- Search first keeps the full multi-word query visible to the user.
+- If a full query is not contained in a file, each query word can still match local knowledge.
+- `ask`, `prompt`, `practice`, `sources`, and `review-error` share the fallback retrieval behavior.

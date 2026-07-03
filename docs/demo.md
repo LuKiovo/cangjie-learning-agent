@@ -43,6 +43,8 @@ Multi-word questions are also supported:
 target\manual\main.exe ask ArrayList match expression
 ```
 
+Expected result: if the full question does not match directly, the CLI falls back to matching individual words and still lists useful local sources.
+
 5. Preview a source-backed LLM prompt:
 
 ```powershell

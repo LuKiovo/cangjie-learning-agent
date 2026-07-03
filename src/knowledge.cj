@@ -82,6 +82,42 @@ func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
     return matches
 }
 
+func textMatchesQuery(text: String, query: String, terms: Array<String>, startIndex: Int64): Bool {
+    if (text.contains(query)) {
+        return true
+    }
+
+    var index = startIndex
+    while (index < terms.size) {
+        if (text.contains(terms[index])) {
+            return true
+        }
+        index += 1
+    }
+    return false
+}
+
+func searchKnowledgeFilesByTerms(label: String, path: Path, query: String, terms: Array<String>, startIndex: Int64): Int64 {
+    if (!exists(path)) {
+        return 0
+    }
+
+    var matches: Int64 = 0
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            matches += searchKnowledgeFilesByTerms(label, item.path, query, terms, startIndex)
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            if (textMatchesQuery(text, query, terms, startIndex)) {
+                println("- ${label}: ${item.path.toString()}")
+                matches += 1
+            }
+        }
+    }
+    return matches
+}
+
 func findFirstKnowledgeSource(path: Path, query: String): String {
     if (!exists(path)) {
         return ""
@@ -97,6 +133,28 @@ func findFirstKnowledgeSource(path: Path, query: String): String {
         } else if (item.isRegular() && isKnowledgeFile(item.name)) {
             let text = readKnowledgeText(item.path)
             if (text.contains(query)) {
+                return item.path.toString()
+            }
+        }
+    }
+    return ""
+}
+
+func findFirstKnowledgeSourceByTerms(path: Path, query: String, terms: Array<String>, startIndex: Int64): String {
+    if (!exists(path)) {
+        return ""
+    }
+
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            let source = findFirstKnowledgeSourceByTerms(item.path, query, terms, startIndex)
+            if (!source.isEmpty()) {
+                return source
+            }
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            if (textMatchesQuery(text, query, terms, startIndex)) {
                 return item.path.toString()
             }
         }
