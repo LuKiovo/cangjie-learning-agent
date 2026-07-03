@@ -480,3 +480,12 @@ Checks:
 - The Cangjie CLI supports `study-plan <topic>`.
 - The command searches local knowledge before generating the study plan.
 - The output includes a primary source context and ordered beginner learning steps when sources match.
+
+## 49. Updated Self-check Coverage
+
+Status: initialized.
+
+Checks:
+
+- `self-check` mentions `study-plan` in the source-backed command group.
+- `self-check` mentions `why-source` as the source explanation command.

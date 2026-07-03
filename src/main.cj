@@ -124,7 +124,8 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     }
     println("PASS implementation language: Cangjie")
     println("PASS supported knowledge formats: .md and .txt")
-    println("PASS source-backed commands: ask, prompt, example, practice, quiz, review-error, fix-error")
+    println("PASS source-backed commands: ask, prompt, study-plan, example, practice, quiz, review-error, fix-error")
+    println("PASS source explanation command: why-source")
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
     println("Manual check still needed: real LLM API call and GUI are not completed in this CLI milestone.")
