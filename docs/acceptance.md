@@ -569,3 +569,43 @@ Checks:
 - The Cangjie CLI supports `export-source-map <name>`.
 - The command writes a Markdown source map under `docs/`.
 - The exported report includes category distribution and source lists.
+
+## 58. Source-backed LLM Request Draft
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `llm-request <question>`.
+- The command searches local knowledge before building the request draft.
+- The draft includes configuration names, prompt payload, local match count, primary source, and future HTTP mapping notes.
+
+## 59. Markdown LLM Request Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-llm-request <name> <question>`.
+- The command writes a Markdown LLM request draft under `docs/`.
+- The exported request keeps API key handling outside source files.
+
+## 60. Local LLM Response Import
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `import-llm-response <name> <file-path>`.
+- The command accepts only `.md` or `.txt` source files.
+- The imported response is saved under `llm_responses/`.
+
+## 61. Saved LLM Response Display
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `show-llm-response <name>`.
+- The command prints the saved response path and content.
+- Missing responses return a non-zero exit code.

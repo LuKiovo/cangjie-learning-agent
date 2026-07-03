@@ -109,7 +109,39 @@ target\manual\main.exe prompt match
 
 Expected result: matched sources, source count, primary source, local source context, and prompt answer rules.
 
-13. Generate a source-backed beginner study plan:
+13. Build a source-backed LLM request draft:
+
+```powershell
+target\manual\main.exe llm-request match
+```
+
+Expected result: request draft with configuration names, prompt payload, local match count, primary source, and future HTTP mapping notes.
+
+14. Export a Markdown LLM request draft:
+
+```powershell
+target\manual\main.exe export-llm-request match_llm_request match
+```
+
+Expected result: `docs/match_llm_request.md` is created without storing any API key.
+
+15. Import a local LLM response artifact:
+
+```powershell
+target\manual\main.exe import-llm-response sample_response docs\match_answer.md
+```
+
+Expected result: `llm_responses/sample_response.md` is created from an existing `.md` or `.txt` file.
+
+16. Show a saved LLM response artifact:
+
+```powershell
+target\manual\main.exe show-llm-response sample_response
+```
+
+Expected result: the saved response path and content are printed.
+
+17. Generate a source-backed beginner study plan:
 
 ```powershell
 target\manual\main.exe study-plan ArrayList
@@ -117,7 +149,7 @@ target\manual\main.exe study-plan ArrayList
 
 Expected result: matched sources, primary source context, and ordered beginner learning steps.
 
-14. Generate a source-backed study card:
+18. Generate a source-backed study card:
 
 ```powershell
 target\manual\main.exe card ArrayList
@@ -125,7 +157,7 @@ target\manual\main.exe card ArrayList
 
 Expected result: matched sources, primary source, source context, memory points, and practice guidance.
 
-15. Export a source-backed Markdown study card:
+19. Export a source-backed Markdown study card:
 
 ```powershell
 target\manual\main.exe export-card arraylist_card ArrayList
@@ -133,7 +165,7 @@ target\manual\main.exe export-card arraylist_card ArrayList
 
 Expected result: `docs/arraylist_card.md` is created with source-backed context and beginner review tasks.
 
-16. Export a source-backed answer report:
+20. Export a source-backed answer report:
 
 ```powershell
 target\manual\main.exe export-answer match_answer match
@@ -141,7 +173,7 @@ target\manual\main.exe export-answer match_answer match
 
 Expected result: `docs/match_answer.md` is created with question, match count, primary source, answer draft, and source context.
 
-17. Export a source-backed learning session:
+21. Export a source-backed learning session:
 
 ```powershell
 target\manual\main.exe export-session arraylist_session ArrayList
@@ -149,7 +181,7 @@ target\manual\main.exe export-session arraylist_session ArrayList
 
 Expected result: `docs/arraylist_session.md` is created with source, session flow, mini task, review question, and source context.
 
-18. Show local knowledge source distribution:
+22. Show local knowledge source distribution:
 
 ```powershell
 target\manual\main.exe source-map
@@ -157,7 +189,7 @@ target\manual\main.exe source-map
 
 Expected result: source categories are shown with file counts and character counts.
 
-19. Export a Markdown source map:
+23. Export a Markdown source map:
 
 ```powershell
 target\manual\main.exe export-source-map source_map
@@ -165,7 +197,7 @@ target\manual\main.exe export-source-map source_map
 
 Expected result: `docs/source_map.md` is created with category distribution and source lists.
 
-20. Generate a source-backed Cangjie example draft:
+24. Generate a source-backed Cangjie example draft:
 
 ```powershell
 target\manual\main.exe example ArrayList
@@ -173,7 +205,7 @@ target\manual\main.exe example ArrayList
 
 Expected result: matched sources, `Primary source`, source context, and a Cangjie code draft.
 
-21. Generate a source-backed practice task:
+25. Generate a source-backed practice task:
 
 ```powershell
 target\manual\main.exe practice ArrayList
@@ -181,7 +213,7 @@ target\manual\main.exe practice ArrayList
 
 Expected result: matched sources, `Primary source`, and a checklist.
 
-22. Generate a source-backed mini quiz:
+26. Generate a source-backed mini quiz:
 
 ```powershell
 target\manual\main.exe quiz ArrayList
@@ -189,7 +221,7 @@ target\manual\main.exe quiz ArrayList
 
 Expected result: matched sources, primary source context, quiz questions, and suggested answers.
 
-23. Review a compiler error note:
+27. Review a compiler error note:
 
 ```powershell
 target\manual\main.exe review-error Cangjie-error-note
@@ -197,7 +229,7 @@ target\manual\main.exe review-error Cangjie-error-note
 
 Expected result: matched error sources, `Primary source`, and a debugging checklist.
 
-24. Generate a source-backed error fix suggestion:
+28. Generate a source-backed error fix suggestion:
 
 ```powershell
 target\manual\main.exe fix-error Cangjie-error-note
@@ -205,7 +237,7 @@ target\manual\main.exe fix-error Cangjie-error-note
 
 Expected result: matched error sources, primary source context, fix steps, and a Cangjie fix draft.
 
-25. Export a Markdown acceptance report:
+29. Export a Markdown acceptance report:
 
 ```powershell
 target\manual\main.exe export-report acceptance_report
@@ -213,7 +245,7 @@ target\manual\main.exe export-report acceptance_report
 
 Expected result: `docs/acceptance_report.md` is created with project identity, knowledge statistics, capabilities, and limits.
 
-26. Add a personal syntax note:
+30. Add a personal syntax note:
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
@@ -225,19 +257,19 @@ Multi-word note content is supported:
 target\manual\main.exe add-note my_note Cangjie personal syntax note
 ```
 
-27. Search the added note:
+31. Search the added note:
 
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
 
-28. Add a course-summary knowledge item:
+32. Add a course-summary knowledge item:
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-29. Show knowledge categories:
+33. Show knowledge categories:
 
 ```powershell
 target\manual\main.exe categories

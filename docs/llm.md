@@ -34,3 +34,30 @@ The preview includes:
 - answer rules that require source marking and clear assumptions
 
 This keeps the future API integration tied to the local knowledge base instead of sending an unconstrained question.
+
+## LLM request draft
+
+The CLI can also build a source-backed request draft that is ready to connect to a future Cangjie HTTP client:
+
+```powershell
+target\manual\main.exe llm-request match
+target\manual\main.exe export-llm-request match_llm_request match
+```
+
+The draft includes:
+
+- environment variable names for endpoint, model, and API key
+- the source-backed prompt payload
+- local match count and primary source
+- a note explaining how the payload maps to a future HTTP request
+
+## Local LLM response archive
+
+When a response is obtained externally or after a future HTTP client is connected, save it locally:
+
+```powershell
+target\manual\main.exe import-llm-response sample_response docs\match_answer.md
+target\manual\main.exe show-llm-response sample_response
+```
+
+Only `.md` and `.txt` response files are accepted. This keeps response artifacts inspectable and aligned with the local knowledge-base workflow.

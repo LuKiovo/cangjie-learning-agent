@@ -16,6 +16,9 @@
 - Markdown learning session export command.
 - Knowledge source map command.
 - Markdown source map export command.
+- Source-backed LLM request draft command.
+- Markdown LLM request export command.
+- Local LLM response import and display commands.
 - Source-backed mini quiz command.
 - Source-backed Cangjie example draft command.
 - Source-backed error fix suggestion command.
@@ -43,6 +46,7 @@
 ## Not Completed Yet
 
 - Real LLM API request and response parsing.
+- Direct HTTP transport for LLM calls.
 - Desktop GUI or web UI.
 - PDF-to-text import inside the Cangjie app.
 - Vector search or embedding-based retrieval.

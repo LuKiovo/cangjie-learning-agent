@@ -21,6 +21,10 @@ func printHelp(): Unit {
     println("- why-source <keyword>: explain primary source score selection")
     println("- show-source <keyword>: print the first matched source content")
     println("- prompt <question>: preview a source-backed LLM prompt")
+    println("- llm-request <question>: build a source-backed LLM request draft")
+    println("- export-llm-request <name> <question>: export a Markdown LLM request draft under docs")
+    println("- import-llm-response <name> <file-path>: save a .md or .txt LLM response locally")
+    println("- show-llm-response <name>: print a saved LLM response")
     println("- review-error <keyword>: review local compiler error notes")
     println("- fix-error <keyword>: generate a source-backed error fix suggestion")
     println("- demo: show a recommended classroom demo flow")
@@ -111,6 +115,7 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("Implemented capabilities:")
     println("- source-backed syntax question answering")
     println("- source-backed prompt preview for future LLM API calls")
+    println("- source-backed LLM request drafts and local LLM response archive")
     println("- examples, quizzes, practice tasks, error review, and error fix suggestions")
     println("- source-backed study cards and Markdown study card export")
     println("- answer/session/source-map Markdown exports for classroom review")
@@ -147,7 +152,8 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     println("PASS implementation language: Cangjie")
     println("PASS supported knowledge formats: .md and .txt")
     println("PASS source-backed commands: ask, prompt, study-plan, card, example, practice, quiz, review-error, fix-error")
-    println("PASS source-backed exports: export-answer, export-session, export-card, export-source-map")
+    println("PASS source-backed exports: export-answer, export-session, export-card, export-source-map, export-llm-request")
+    println("PASS LLM archive commands: import-llm-response, show-llm-response")
     println("PASS source explanation command: why-source")
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
@@ -169,6 +175,7 @@ func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharac
     text += "## Implemented Capabilities\n\n"
     text += "- Source-backed syntax question answering\n"
     text += "- Source-backed prompt preview for future LLM API calls\n"
+    text += "- Source-backed LLM request draft export and local response archive\n"
     text += "- Example draft, mini quiz, practice task, error review, and error fix suggestion\n"
     text += "- Source-backed study card generation and Markdown export\n"
     text += "- Source-backed answer, session, and source-map Markdown exports\n"
@@ -255,6 +262,29 @@ func exportSourceMap(name: String): Path {
     return path
 }
 
+func exportLlmRequest(name: String, question: String, totalMatches: Int64, primarySource: String, sourceText: String): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildLlmRequestDraft(question, totalMatches, primarySource, sourceText).toArray())
+    return path
+}
+
+func saveLlmResponse(name: String, sourcePath: String): Path {
+    let path = Path("llm_responses").join(name + ".md")
+    File.writeTo(path, readKnowledgeText(Path(sourcePath)).toArray())
+    return path
+}
+
+func showSavedLlmResponse(name: String): Bool {
+    let path = Path("llm_responses").join(name + ".md")
+    if (!exists(path)) {
+        println("Saved LLM response not found: ${path.toString()}")
+        return false
+    }
+    println("Saved LLM response: ${path.toString()}")
+    println(readKnowledgeText(path))
+    return true
+}
+
 func joinArgs(args: Array<String>, startIndex: Int64): String {
     var text = ""
     var index = startIndex
@@ -304,23 +334,27 @@ main(): Int64 {
         println("10. target\\manual\\main.exe ask match")
         println("11. target\\manual\\main.exe session ArrayList")
         println("12. target\\manual\\main.exe prompt match")
-        println("13. target\\manual\\main.exe study-plan ArrayList")
-        println("14. target\\manual\\main.exe card ArrayList")
-        println("15. target\\manual\\main.exe export-card arraylist_card ArrayList")
-        println("16. target\\manual\\main.exe export-answer match_answer match")
-        println("17. target\\manual\\main.exe export-session arraylist_session ArrayList")
-        println("18. target\\manual\\main.exe source-map")
-        println("19. target\\manual\\main.exe export-source-map source_map")
-        println("20. target\\manual\\main.exe example ArrayList")
-        println("21. target\\manual\\main.exe practice ArrayList")
-        println("22. target\\manual\\main.exe quiz ArrayList")
-        println("23. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("24. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("25. target\\manual\\main.exe export-report acceptance_report")
-        println("26. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("27. target\\manual\\main.exe ask Cangjie-my-note")
-        println("28. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("29. target\\manual\\main.exe categories")
+        println("13. target\\manual\\main.exe llm-request match")
+        println("14. target\\manual\\main.exe export-llm-request match_llm_request match")
+        println("15. target\\manual\\main.exe import-llm-response sample_response docs\\match_answer.md")
+        println("16. target\\manual\\main.exe show-llm-response sample_response")
+        println("17. target\\manual\\main.exe study-plan ArrayList")
+        println("18. target\\manual\\main.exe card ArrayList")
+        println("19. target\\manual\\main.exe export-card arraylist_card ArrayList")
+        println("20. target\\manual\\main.exe export-answer match_answer match")
+        println("21. target\\manual\\main.exe export-session arraylist_session ArrayList")
+        println("22. target\\manual\\main.exe source-map")
+        println("23. target\\manual\\main.exe export-source-map source_map")
+        println("24. target\\manual\\main.exe example ArrayList")
+        println("25. target\\manual\\main.exe practice ArrayList")
+        println("26. target\\manual\\main.exe quiz ArrayList")
+        println("27. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("28. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("29. target\\manual\\main.exe export-report acceptance_report")
+        println("30. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("31. target\\manual\\main.exe ask Cangjie-my-note")
+        println("32. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("33. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -416,6 +450,26 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "fix-error" && args.size <= 2) {
         printUsageError("fix-error", "target\\manual\\main.exe fix-error <keyword>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "llm-request" && args.size <= 2) {
+        printUsageError("llm-request", "target\\manual\\main.exe llm-request <question>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-llm-request" && args.size <= 3) {
+        printUsageError("export-llm-request", "target\\manual\\main.exe export-llm-request <name> <question>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "import-llm-response" && args.size <= 3) {
+        printUsageError("import-llm-response", "target\\manual\\main.exe import-llm-response <name> <file-path>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "show-llm-response" && args.size <= 2) {
+        printUsageError("show-llm-response", "target\\manual\\main.exe show-llm-response <name>")
         return 1
     }
 
@@ -584,6 +638,32 @@ main(): Int64 {
         return 0
     }
 
+    if (args.size > 3 && args[1] == "import-llm-response") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let sourcePath = joinArgs(args, 3)
+        if (!canImportKnowledgeFile(sourcePath)) {
+            printImportFileError(sourcePath)
+            return 1
+        }
+        let responsePath = saveLlmResponse(args[2], sourcePath)
+        println("Imported LLM response: ${responsePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 2 && args[1] == "show-llm-response") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        if (showSavedLlmResponse(args[2])) {
+            return 0
+        }
+        return 1
+    }
+
     let officialCount = countKnowledgeFiles(officialPath)
     let userNotesCount = countKnowledgeFiles(userNotesPath)
     let officialCharacters = countKnowledgeCharacters(officialPath)
@@ -679,6 +759,26 @@ main(): Int64 {
         return 0
     }
 
+    if (args.size > 3 && args[1] == "export-llm-request") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let question = joinArgs(args, 3)
+        println("Question: ${question}")
+        println("Search query: ${question}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, question, args, 3)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, question, args, 3)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, question, args, 3)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        let requestPath = exportLlmRequest(args[2], question, totalMatches, primarySource, sourceText)
+        println("Exported LLM request draft: ${requestPath.toString()}")
+        return 0
+    }
+
     println("Cangjie Learning Agent")
     println("Status: project skeleton is ready.")
     println("Knowledge base:")
@@ -753,6 +853,18 @@ main(): Int64 {
         let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
         let sourceText = readSourceTextOrEmpty(primarySource)
         printPromptPreview(query, totalMatches, primarySource, sourceText)
+    } else if (args.size > 2 && args[1] == "llm-request") {
+        let query = joinArgs(args, 2)
+        println("Question: ${query}")
+        println("Search query: ${query}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, query, args, 2)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, query, args, 2)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, query, args, 2)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printLlmRequestDraft(query, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "ask") {
         let query = joinArgs(args, 2)
         println("Question: ${query}")
@@ -862,6 +974,10 @@ main(): Int64 {
         println("Tip: use why-source <keyword> to explain primary source score selection.")
         println("Tip: use show-source <keyword> to print the first matched source content.")
         println("Tip: use prompt <question> to preview a source-backed LLM prompt.")
+        println("Tip: use llm-request <question> to build a source-backed LLM request draft.")
+        println("Tip: use export-llm-request <name> <question> to export a Markdown LLM request draft.")
+        println("Tip: use import-llm-response <name> <file-path> to save a .md or .txt LLM response locally.")
+        println("Tip: use show-llm-response <name> to print a saved LLM response.")
         println("Tip: use review-error <keyword> to review compiler error notes.")
         println("Tip: use fix-error <keyword> to generate a source-backed error fix suggestion.")
         println("Tip: use demo to show a recommended classroom demo flow.")
