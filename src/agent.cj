@@ -93,6 +93,49 @@ func printLearningSession(topic: String, totalMatches: Int64, primarySource: Str
     }
 }
 
+func buildStudyCardText(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): String {
+    var text = "# Cangjie Study Card: ${topic}\n\n"
+    text += "## Source\n\n"
+    if (totalMatches > 0 && !primarySource.isEmpty()) {
+        text += "- Match count: ${totalMatches}\n"
+        text += "- Primary source: ${primarySource}\n\n"
+    } else {
+        text += "- Match count: 0\n"
+        text += "- Primary source: none\n\n"
+    }
+
+    text += "## Beginner Explanation\n\n"
+    if (totalMatches > 0) {
+        text += "Read the primary source first, then explain `${topic}` with one concrete Cangjie syntax rule.\n\n"
+    } else {
+        text += "No local source matched `${topic}`. Add or import a `.md` or `.txt` note before trusting this card.\n\n"
+    }
+
+    text += "## Source Context\n\n"
+    if (!sourceText.isEmpty()) {
+        text += "````text\n"
+        text += sourceText
+        text += "\n````\n\n"
+    } else {
+        text += "No local source context is available.\n\n"
+    }
+
+    text += "## Memory Points\n\n"
+    text += "1. Name the syntax point in one short sentence.\n"
+    text += "2. Write a tiny Cangjie example that uses `${topic}`.\n"
+    text += "3. Save your own note with `add-note` or `add-example` after practicing.\n\n"
+    text += "## Practice\n\n"
+    text += "- Task: write a minimal Cangjie program or expression about `${topic}`.\n"
+    text += "- Check: explain which line in the primary source supports your answer.\n"
+    text += "- Follow-up: run `quiz ${topic}` or `session ${topic}` for review.\n"
+    return text
+}
+
+func printStudyCard(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
+    println("Study card:")
+    println(buildStudyCardText(topic, totalMatches, primarySource, sourceText))
+}
+
 func printExample(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
     println("Example draft:")
     if (totalMatches > 0) {

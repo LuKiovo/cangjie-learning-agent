@@ -509,3 +509,23 @@ Checks:
 - The Cangjie CLI supports `session <topic>`.
 - The command searches local knowledge before starting the session.
 - The output includes matched sources, primary source context, session flow, a mini task, and a review question.
+
+## 52. Source-backed Study Card
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `card <topic>`.
+- The command searches local knowledge before building the card.
+- The card includes match count, primary source, source context, memory points, and practice guidance.
+
+## 53. Markdown Study Card Export
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `export-card <name> <topic>`.
+- The command writes a Markdown study card under `docs/`.
+- The exported card includes source-backed context and beginner review tasks.

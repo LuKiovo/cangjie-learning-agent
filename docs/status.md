@@ -10,6 +10,8 @@
 - Source-backed `ask`, `practice`, and `review-error` commands.
 - Source-backed learning session command.
 - Source-backed beginner study plan command.
+- Source-backed study card command.
+- Markdown study card export command.
 - Source-backed mini quiz command.
 - Source-backed Cangjie example draft command.
 - Source-backed error fix suggestion command.

@@ -117,7 +117,23 @@ target\manual\main.exe study-plan ArrayList
 
 Expected result: matched sources, primary source context, and ordered beginner learning steps.
 
-14. Generate a source-backed Cangjie example draft:
+14. Generate a source-backed study card:
+
+```powershell
+target\manual\main.exe card ArrayList
+```
+
+Expected result: matched sources, primary source, source context, memory points, and practice guidance.
+
+15. Export a source-backed Markdown study card:
+
+```powershell
+target\manual\main.exe export-card arraylist_card ArrayList
+```
+
+Expected result: `docs/arraylist_card.md` is created with source-backed context and beginner review tasks.
+
+16. Generate a source-backed Cangjie example draft:
 
 ```powershell
 target\manual\main.exe example ArrayList
@@ -125,7 +141,7 @@ target\manual\main.exe example ArrayList
 
 Expected result: matched sources, `Primary source`, source context, and a Cangjie code draft.
 
-15. Generate a source-backed practice task:
+17. Generate a source-backed practice task:
 
 ```powershell
 target\manual\main.exe practice ArrayList
@@ -133,7 +149,7 @@ target\manual\main.exe practice ArrayList
 
 Expected result: matched sources, `Primary source`, and a checklist.
 
-16. Generate a source-backed mini quiz:
+18. Generate a source-backed mini quiz:
 
 ```powershell
 target\manual\main.exe quiz ArrayList
@@ -141,7 +157,7 @@ target\manual\main.exe quiz ArrayList
 
 Expected result: matched sources, primary source context, quiz questions, and suggested answers.
 
-17. Review a compiler error note:
+19. Review a compiler error note:
 
 ```powershell
 target\manual\main.exe review-error Cangjie-error-note
@@ -149,7 +165,7 @@ target\manual\main.exe review-error Cangjie-error-note
 
 Expected result: matched error sources, `Primary source`, and a debugging checklist.
 
-18. Generate a source-backed error fix suggestion:
+20. Generate a source-backed error fix suggestion:
 
 ```powershell
 target\manual\main.exe fix-error Cangjie-error-note
@@ -157,7 +173,7 @@ target\manual\main.exe fix-error Cangjie-error-note
 
 Expected result: matched error sources, primary source context, fix steps, and a Cangjie fix draft.
 
-19. Export a Markdown acceptance report:
+21. Export a Markdown acceptance report:
 
 ```powershell
 target\manual\main.exe export-report acceptance_report
@@ -165,7 +181,7 @@ target\manual\main.exe export-report acceptance_report
 
 Expected result: `docs/acceptance_report.md` is created with project identity, knowledge statistics, capabilities, and limits.
 
-20. Add a personal syntax note:
+22. Add a personal syntax note:
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
@@ -177,19 +193,19 @@ Multi-word note content is supported:
 target\manual\main.exe add-note my_note Cangjie personal syntax note
 ```
 
-21. Search the added note:
+23. Search the added note:
 
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
 
-22. Add a course-summary knowledge item:
+24. Add a course-summary knowledge item:
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-23. Show knowledge categories:
+25. Show knowledge categories:
 
 ```powershell
 target\manual\main.exe categories

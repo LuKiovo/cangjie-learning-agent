@@ -9,6 +9,8 @@ func printHelp(): Unit {
     println("- session <topic>: run a source-backed learning session")
     println("- practice <topic>: generate a source-backed practice task")
     println("- study-plan <topic>: generate a source-backed beginner study plan")
+    println("- card <topic>: generate a source-backed study card")
+    println("- export-card <name> <topic>: export a Markdown study card under docs")
     println("- quiz <topic>: generate a source-backed mini quiz")
     println("- example <topic>: generate a source-backed Cangjie example draft")
     println("- stats: show local knowledge base statistics")
@@ -94,6 +96,7 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- source-backed syntax question answering")
     println("- source-backed prompt preview for future LLM API calls")
     println("- examples, quizzes, practice tasks, error review, and error fix suggestions")
+    println("- source-backed study cards and Markdown study card export")
     println("- personalized notes, examples, error notes, and official/course summaries")
     println("- .md and .txt import for personalized and official/course knowledge")
     println("- matched source listing, source content inspection, and scored primary source selection")
@@ -126,7 +129,7 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     }
     println("PASS implementation language: Cangjie")
     println("PASS supported knowledge formats: .md and .txt")
-    println("PASS source-backed commands: ask, prompt, study-plan, example, practice, quiz, review-error, fix-error")
+    println("PASS source-backed commands: ask, prompt, study-plan, card, example, practice, quiz, review-error, fix-error")
     println("PASS source explanation command: why-source")
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
@@ -149,6 +152,7 @@ func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharac
     text += "- Source-backed syntax question answering\n"
     text += "- Source-backed prompt preview for future LLM API calls\n"
     text += "- Example draft, mini quiz, practice task, error review, and error fix suggestion\n"
+    text += "- Source-backed study card generation and Markdown export\n"
     text += "- Personalized knowledge add/import commands\n"
     text += "- Matched source listing, source content inspection, and scored primary source selection\n"
     text += "- Local summary, version, and self-check commands\n\n"
@@ -182,6 +186,12 @@ func buildKnowledgeIndexReport(): String {
 func exportKnowledgeIndex(name: String): Path {
     let path = Path("docs").join(name + ".md")
     File.writeTo(path, buildKnowledgeIndexReport().toArray())
+    return path
+}
+
+func exportStudyCard(name: String, topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Path {
+    let path = Path("docs").join(name + ".md")
+    File.writeTo(path, buildStudyCardText(topic, totalMatches, primarySource, sourceText).toArray())
     return path
 }
 
@@ -235,16 +245,18 @@ main(): Int64 {
         println("11. target\\manual\\main.exe session ArrayList")
         println("12. target\\manual\\main.exe prompt match")
         println("13. target\\manual\\main.exe study-plan ArrayList")
-        println("14. target\\manual\\main.exe example ArrayList")
-        println("15. target\\manual\\main.exe practice ArrayList")
-        println("16. target\\manual\\main.exe quiz ArrayList")
-        println("17. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("18. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("19. target\\manual\\main.exe export-report acceptance_report")
-        println("20. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("21. target\\manual\\main.exe ask Cangjie-my-note")
-        println("22. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("23. target\\manual\\main.exe categories")
+        println("14. target\\manual\\main.exe card ArrayList")
+        println("15. target\\manual\\main.exe export-card arraylist_card ArrayList")
+        println("16. target\\manual\\main.exe example ArrayList")
+        println("17. target\\manual\\main.exe practice ArrayList")
+        println("18. target\\manual\\main.exe quiz ArrayList")
+        println("19. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("20. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("21. target\\manual\\main.exe export-report acceptance_report")
+        println("22. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("23. target\\manual\\main.exe ask Cangjie-my-note")
+        println("24. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("25. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -285,6 +297,16 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "study-plan" && args.size <= 2) {
         printUsageError("study-plan", "target\\manual\\main.exe study-plan <topic>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "card" && args.size <= 2) {
+        printUsageError("card", "target\\manual\\main.exe card <topic>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-card" && args.size <= 3) {
+        printUsageError("export-card", "target\\manual\\main.exe export-card <name> <topic>")
         return 1
     }
 
@@ -503,6 +525,26 @@ main(): Int64 {
         return 0
     }
 
+    if (args.size > 3 && args[1] == "export-card") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let topic = joinArgs(args, 3)
+        println("Study card topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, topic, args, 3)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 3)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 3)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        let cardPath = exportStudyCard(args[2], topic, totalMatches, primarySource, sourceText)
+        println("Exported study card: ${cardPath.toString()}")
+        return 0
+    }
+
     println("Cangjie Learning Agent")
     println("Status: project skeleton is ready.")
     println("Knowledge base:")
@@ -624,6 +666,18 @@ main(): Int64 {
         let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
         let sourceText = readSourceTextOrEmpty(primarySource)
         printStudyPlan(topic, totalMatches, primarySource, sourceText)
+    } else if (args.size > 2 && args[1] == "card") {
+        let topic = joinArgs(args, 2)
+        println("Study card topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, topic, args, 2)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 2)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printStudyCard(topic, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "quiz") {
         let topic = joinArgs(args, 2)
         println("Quiz topic: ${topic}")
@@ -664,6 +718,8 @@ main(): Int64 {
         println("Tip: use session <topic> to run a source-backed learning session.")
         println("Tip: use practice <topic> to generate a practice task.")
         println("Tip: use study-plan <topic> to generate a source-backed beginner study plan.")
+        println("Tip: use card <topic> to generate a source-backed study card.")
+        println("Tip: use export-card <name> <topic> to export a Markdown study card under docs.")
         println("Tip: use quiz <topic> to generate a source-backed mini quiz.")
         println("Tip: use example <topic> to generate a source-backed Cangjie example draft.")
         println("Tip: use stats to show local knowledge base statistics.")
