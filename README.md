@@ -12,6 +12,7 @@
 - 知识库统计：查看官方资料和用户笔记的文件数量、文本字符数。
 - 关键词检索：按关键词列出匹配来源，并用匹配分数选择主来源。
 - 语法问答：`ask <question>` 检索本地资料并输出带来源和主来源上下文的回答。
+- 学习路径：`study-plan <topic>` 基于来源生成初学者学习步骤。
 - 练习生成：`practice <topic>` 基于来源生成练习任务。
 - 小测生成：`quiz <topic>` 基于来源生成课堂小测。
 - 示例生成：`example <topic>` 基于来源生成仓颉示例草稿。
@@ -132,6 +133,12 @@ target\manual\main.exe ask ArrayList match expression
 
 ```powershell
 target\manual\main.exe practice ArrayList
+```
+
+生成学习路径：
+
+```powershell
+target\manual\main.exe study-plan ArrayList
 ```
 
 生成课堂小测：

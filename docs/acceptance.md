@@ -470,3 +470,13 @@ Checks:
 - The Cangjie CLI supports `why-source <keyword>`.
 - The command reports best official and user note scores.
 - The command prints the selected primary source and a short reason for the choice.
+
+## 48. Source-backed Beginner Study Plan
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `study-plan <topic>`.
+- The command searches local knowledge before generating the study plan.
+- The output includes a primary source context and ordered beginner learning steps when sources match.

@@ -7,6 +7,7 @@ func printHelp(): Unit {
     println("Cangjie Learning Agent commands:")
     println("- ask <question>: ask a Cangjie syntax question")
     println("- practice <topic>: generate a source-backed practice task")
+    println("- study-plan <topic>: generate a source-backed beginner study plan")
     println("- quiz <topic>: generate a source-backed mini quiz")
     println("- example <topic>: generate a source-backed Cangjie example draft")
     println("- stats: show local knowledge base statistics")
@@ -250,6 +251,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "practice" && args.size <= 2) {
         printUsageError("practice", "target\\manual\\main.exe practice <topic>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "study-plan" && args.size <= 2) {
+        printUsageError("study-plan", "target\\manual\\main.exe study-plan <topic>")
         return 1
     }
 
@@ -550,6 +556,18 @@ main(): Int64 {
         println("Total matches: ${totalMatches}")
         let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
         printPractice(topic, totalMatches, primarySource)
+    } else if (args.size > 2 && args[1] == "study-plan") {
+        let topic = joinArgs(args, 2)
+        println("Study topic: ${topic}")
+        println("Search query: ${topic}")
+        println("Matched sources:")
+        let officialMatches = searchKnowledgeFilesByTerms("official", officialPath, topic, args, 2)
+        let userNotesMatches = searchKnowledgeFilesByTerms("user notes", userNotesPath, topic, args, 2)
+        let totalMatches = officialMatches + userNotesMatches
+        println("Total matches: ${totalMatches}")
+        let primarySource = findBestLocalSource(officialPath, userNotesPath, topic, args, 2)
+        let sourceText = readSourceTextOrEmpty(primarySource)
+        printStudyPlan(topic, totalMatches, primarySource, sourceText)
     } else if (args.size > 2 && args[1] == "quiz") {
         let topic = joinArgs(args, 2)
         println("Quiz topic: ${topic}")
@@ -588,6 +606,7 @@ main(): Int64 {
         println("Search query: none")
         println("Tip: use ask <question> to ask a Cangjie syntax question.")
         println("Tip: use practice <topic> to generate a practice task.")
+        println("Tip: use study-plan <topic> to generate a source-backed beginner study plan.")
         println("Tip: use quiz <topic> to generate a source-backed mini quiz.")
         println("Tip: use example <topic> to generate a source-backed Cangjie example draft.")
         println("Tip: use stats to show local knowledge base statistics.")

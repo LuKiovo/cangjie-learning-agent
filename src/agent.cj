@@ -56,6 +56,24 @@ func printQuiz(topic: String, totalMatches: Int64, primarySource: String, source
     }
 }
 
+func printStudyPlan(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
+    println("Study plan:")
+    if (totalMatches > 0) {
+        printPrimarySource(primarySource)
+        printSourceContext(sourceText)
+        println("Step 1: Read the primary source context and identify the key syntax words for '${topic}'.")
+        println("Step 2: Run show-source ${topic} to inspect the local material again.")
+        println("Step 3: Run example ${topic} and rewrite the draft in your own style.")
+        println("Step 4: Run quiz ${topic} to check whether you can explain the source.")
+        println("Step 5: Save your own summary with add-note <name> <content>.")
+    } else {
+        println("No local source matched '${topic}'.")
+        println("Step 1: add or import an official/course note for this topic.")
+        println("Step 2: run sources ${topic} to confirm it can be retrieved.")
+        println("Step 3: ask again after the local knowledge base has a matching source.")
+    }
+}
+
 func printExample(topic: String, totalMatches: Int64, primarySource: String, sourceText: String): Unit {
     println("Example draft:")
     if (totalMatches > 0) {
