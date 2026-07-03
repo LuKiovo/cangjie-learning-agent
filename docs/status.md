@@ -14,6 +14,7 @@
 - Primary source display in agent outputs.
 - Primary source context display in `ask` and `prompt`.
 - Knowledge base statistics and category inspection.
+- Knowledge category statistics.
 - Local-only teacher slide policy.
 - LLM environment configuration status check.
 - Source-backed LLM prompt preview.

@@ -19,6 +19,7 @@
 - 报错修复：`fix-error <keyword>` 基于本地报错笔记生成修复建议和代码草稿。
 - 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
 - 知识导入：支持把已有 `.md/.txt` 文件导入语法笔记、示例、报错或官方/课程资料。
+- 分类统计：`category-stats` 分别统计官方资料、语法笔记、示例、报错文件数。
 - LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
 - LLM Prompt 预览：`prompt <question>` 基于本地来源和主来源上下文生成未来 API 调用前的约束提示词。
 - 项目摘要：`summary` 汇总已实现能力、知识库统计和当前限制。
@@ -88,6 +89,12 @@ target\manual\main.exe export-report acceptance_report
 
 ```powershell
 target\manual\main.exe stats
+```
+
+查看分类统计：
+
+```powershell
+target\manual\main.exe category-stats
 ```
 
 列出匹配来源：

@@ -450,3 +450,13 @@ Checks:
 - The Cangjie CLI supports `export-report <name>`.
 - The command writes a Markdown report under `docs/`.
 - The report includes project identity, knowledge base statistics, implemented capabilities, and current limits.
+
+## 46. Knowledge Category Statistics
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `category-stats`.
+- The command reports file counts for official knowledge, syntax notes, examples, and error notes.
+- The command exits successfully without requiring a search keyword.

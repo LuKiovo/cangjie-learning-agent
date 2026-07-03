@@ -10,6 +10,7 @@ func printHelp(): Unit {
     println("- quiz <topic>: generate a source-backed mini quiz")
     println("- example <topic>: generate a source-backed Cangjie example draft")
     println("- stats: show local knowledge base statistics")
+    println("- category-stats: show knowledge file counts by category")
     println("- sources <keyword>: list matched source files only")
     println("- show-source <keyword>: print the first matched source content")
     println("- prompt <question>: preview a source-backed LLM prompt")
@@ -40,6 +41,18 @@ func printKnowledgeCategories(): Unit {
     println("- syntax notes: knowledge_base/user_notes/syntax_notes")
     println("- examples: knowledge_base/user_notes/examples")
     println("- errors: knowledge_base/user_notes/errors")
+}
+
+func printCategoryStats(): Unit {
+    let officialCount = countKnowledgeFiles(Path("knowledge_base/official"))
+    let syntaxCount = countKnowledgeFiles(Path("knowledge_base/user_notes/syntax_notes"))
+    let examplesCount = countKnowledgeFiles(Path("knowledge_base/user_notes/examples"))
+    let errorsCount = countKnowledgeFiles(Path("knowledge_base/user_notes/errors"))
+    println("Knowledge category stats:")
+    println("- official: ${officialCount}")
+    println("- syntax notes: ${syntaxCount}")
+    println("- examples: ${examplesCount}")
+    println("- errors: ${errorsCount}")
 }
 
 func printUsageError(command: String, usage: String): Unit {
@@ -213,6 +226,11 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "categories") {
         printKnowledgeCategories()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "category-stats") {
+        printCategoryStats()
         return 0
     }
 
@@ -548,6 +566,7 @@ main(): Int64 {
         println("Tip: use quiz <topic> to generate a source-backed mini quiz.")
         println("Tip: use example <topic> to generate a source-backed Cangjie example draft.")
         println("Tip: use stats to show local knowledge base statistics.")
+        println("Tip: use category-stats to show knowledge file counts by category.")
         println("Tip: use sources <keyword> to list matched source files only.")
         println("Tip: use show-source <keyword> to print the first matched source content.")
         println("Tip: use prompt <question> to preview a source-backed LLM prompt.")
