@@ -27,6 +27,10 @@
 - Markdown trace report export.
 - Engineering roadmap command.
 - Markdown roadmap export.
+- Classroom command sheet command.
+- Markdown command sheet export.
+- Delivery artifact index command.
+- Markdown delivery index export.
 - Source-backed mini quiz command.
 - Source-backed Cangjie example draft command.
 - Source-backed error fix suggestion command.

@@ -25,6 +25,10 @@ func printHelp(): Unit {
     println("- export-trace <name> <topic>: export a Markdown agent trace under docs")
     println("- roadmap: show remaining engineering roadmap")
     println("- export-roadmap <name>: export a Markdown roadmap under docs")
+    println("- command-sheet: show classroom command sheet")
+    println("- export-command-sheet <name>: export a Markdown command sheet under docs")
+    println("- delivery-index: show project delivery artifact index")
+    println("- export-delivery-index <name>: export a Markdown delivery artifact index under docs")
     println("- sources <keyword>: list matched source files only")
     println("- why-source <keyword>: explain primary source score selection")
     println("- show-source <keyword>: print the first matched source content")
@@ -132,6 +136,7 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- .md and .txt import for personalized and official/course knowledge")
     println("- matched source listing, source content inspection, and scored primary source selection")
     println("- source-backed operation trace and engineering roadmap")
+    println("- classroom command sheet and delivery artifact index")
     println("Current limits:")
     println("- no real LLM API request yet")
     println("- no interactive desktop GUI yet")
@@ -168,6 +173,7 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     println("PASS final readiness commands: final-check, export-final-check")
     println("PASS engineering trace commands: trace, export-trace")
     println("PASS roadmap commands: roadmap, export-roadmap")
+    println("PASS delivery commands: command-sheet, export-command-sheet, delivery-index, export-delivery-index")
     println("PASS source explanation command: why-source")
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
@@ -197,6 +203,7 @@ func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharac
     text += "- Personalized knowledge add/import commands\n"
     text += "- Matched source listing, source content inspection, and scored primary source selection\n"
     text += "- Source-backed operation trace and engineering roadmap\n"
+    text += "- Classroom command sheet and delivery artifact index\n"
     text += "- Local summary, version, and self-check commands\n\n"
     text += "## Current Limits\n\n"
     text += "- Real LLM API request is not completed yet\n"
@@ -369,16 +376,20 @@ main(): Int64 {
         println("29. target\\manual\\main.exe export-trace match_trace match")
         println("30. target\\manual\\main.exe roadmap")
         println("31. target\\manual\\main.exe export-roadmap roadmap")
-        println("32. target\\manual\\main.exe example ArrayList")
-        println("33. target\\manual\\main.exe practice ArrayList")
-        println("34. target\\manual\\main.exe quiz ArrayList")
-        println("35. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("36. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("37. target\\manual\\main.exe export-report acceptance_report")
-        println("38. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("39. target\\manual\\main.exe ask Cangjie-my-note")
-        println("40. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("41. target\\manual\\main.exe categories")
+        println("32. target\\manual\\main.exe command-sheet")
+        println("33. target\\manual\\main.exe export-command-sheet command_sheet")
+        println("34. target\\manual\\main.exe delivery-index")
+        println("35. target\\manual\\main.exe export-delivery-index delivery_index")
+        println("36. target\\manual\\main.exe example ArrayList")
+        println("37. target\\manual\\main.exe practice ArrayList")
+        println("38. target\\manual\\main.exe quiz ArrayList")
+        println("39. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("40. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("41. target\\manual\\main.exe export-report acceptance_report")
+        println("42. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("43. target\\manual\\main.exe ask Cangjie-my-note")
+        println("44. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("45. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -422,6 +433,20 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "roadmap") {
         printRoadmap()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "command-sheet") {
+        printCommandSheet()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "delivery-index") {
+        let officialCount = countKnowledgeFiles(officialPath)
+        let userNotesCount = countKnowledgeFiles(userNotesPath)
+        let officialCharacters = countKnowledgeCharacters(officialPath)
+        let userNotesCharacters = countKnowledgeCharacters(userNotesPath)
+        printDeliveryIndex(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
         return 0
     }
 
@@ -587,6 +612,16 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "export-roadmap" && args.size <= 2) {
         printUsageError("export-roadmap", "target\\manual\\main.exe export-roadmap <name>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-command-sheet" && args.size <= 2) {
+        printUsageError("export-command-sheet", "target\\manual\\main.exe export-command-sheet <name>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-delivery-index" && args.size <= 2) {
+        printUsageError("export-delivery-index", "target\\manual\\main.exe export-delivery-index <name>")
         return 1
     }
 
@@ -883,6 +918,26 @@ main(): Int64 {
         return 0
     }
 
+    if (args.size > 2 && args[1] == "export-command-sheet") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let commandSheetPath = exportCommandSheet(args[2])
+        println("Exported command sheet: ${commandSheetPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 2 && args[1] == "export-delivery-index") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let deliveryIndexPath = exportDeliveryIndex(args[2], officialCount, userNotesCount, officialCharacters, userNotesCharacters)
+        println("Exported delivery index: ${deliveryIndexPath.toString()}")
+        return 0
+    }
+
     if (args.size > 3 && args[1] == "export-llm-request") {
         if (!isSafeKnowledgeName(args[2])) {
             printNameError(args[2])
@@ -1136,6 +1191,10 @@ main(): Int64 {
         println("Tip: use export-trace <name> <topic> to export a Markdown trace report.")
         println("Tip: use roadmap to show remaining engineering work.")
         println("Tip: use export-roadmap <name> to export a Markdown roadmap.")
+        println("Tip: use command-sheet to show classroom commands.")
+        println("Tip: use export-command-sheet <name> to export classroom commands.")
+        println("Tip: use delivery-index to show delivery artifacts.")
+        println("Tip: use export-delivery-index <name> to export delivery artifacts.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
