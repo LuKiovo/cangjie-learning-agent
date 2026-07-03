@@ -1,25 +1,34 @@
 # Cangjie Learning Agent
 
-面向仓颉初学者的本地知识库学习助手 Agent。
+面向仓颉初学者的本地知识库学习助手 Agent，使用仓颉语言实现。
 
-## Project Goal
+## 项目目标
 
-本项目计划使用仓颉语言实现一个学习助手，基于本地仓颉官方文档和用户自建 `.md/.txt` 知识库回答语法问题，并在回答中标注资料来源。
+本项目基于本地仓颉官方/课程资料与用户自建 `.md/.txt` 知识库，回答仓颉语法问题，并辅助生成练习、整理示例、记录常见报错。回答会显示匹配来源和主来源，突出本地知识库检索与仓颉工程实现。
 
-## Knowledge Base
+## 已实现功能
 
-Local knowledge files are stored in:
+- 本地知识库目录：官方/课程资料、语法笔记、示例代码、常见报错。
+- 知识库统计：查看官方资料和用户笔记的文件数量、文本字符数。
+- 关键词检索：按关键词列出匹配来源。
+- 语法问答：`ask <question>` 检索本地资料并输出带来源回答。
+- 练习生成：`practice <topic>` 基于来源生成练习任务。
+- 报错复盘：`review-error <keyword>` 检索常见报错笔记并给出排错建议。
+- 个性化新增：支持新增语法笔记、示例代码、报错说明和课程整理内容。
+- LLM 配置检查：读取环境变量状态，不在代码中保存或打印 API Key。
+
+## 知识库结构
 
 - `knowledge_base/official/`
-- `knowledge_base/user_notes/`
+- `knowledge_base/user_notes/syntax_notes/`
+- `knowledge_base/user_notes/examples/`
+- `knowledge_base/user_notes/errors/`
 
-The first version only targets `.md` and `.txt` files.
+第一版只处理 `.md` 和 `.txt` 文件。老师课件可放在本地 `HCCDA-Cangjie 仓颉编程语言入门级开发者认证-授课-PDF/`，该目录被 Git 忽略；需要检索的课件内容应整理成 `.md` 或 `.txt` 放入知识库。
 
-Teacher slides can be kept locally in `HCCDA-Cangjie 仓颉编程语言入门级开发者认证-授课-PDF/`. The PDF folder is ignored by Git; searchable content should be converted or summarized into `.md` or `.txt`.
+仓库内置 `knowledge_base/official/hccda_beginner_index.md`，作为与 HCCDA 仓颉入门课件对齐的可检索课程索引。
 
-The repository includes `knowledge_base/official/hccda_beginner_index.md` as a searchable course-topic index aligned with the teacher slides.
-
-## Run
+## 构建运行
 
 ```powershell
 New-Item -ItemType Directory -Force target\manual
@@ -27,102 +36,121 @@ cjc -p src --output-dir target\manual
 target\manual\main.exe
 ```
 
-Search local knowledge files:
+## 常用命令
 
-```powershell
-target\manual\main.exe Cangjie
-```
-
-Ask a Cangjie syntax question:
-
-```powershell
-target\manual\main.exe ask Cangjie
-```
-
-When local sources match, the answer prints a `Primary source` line.
-
-Generate a practice task:
-
-```powershell
-target\manual\main.exe practice ArrayList
-```
-
-Show knowledge base statistics:
-
-```powershell
-target\manual\main.exe stats
-```
-
-List matched source files:
-
-```powershell
-target\manual\main.exe sources ArrayList
-```
-
-Review compiler error notes:
-
-```powershell
-target\manual\main.exe review-error Cangjie-error-note
-```
-
-Show a classroom demo flow:
-
-```powershell
-target\manual\main.exe demo
-```
-
-See [docs/demo.md](docs/demo.md) for the full classroom demo script.
-
-Check LLM API configuration:
-
-```powershell
-target\manual\main.exe llm-status
-```
-
-See [docs/llm.md](docs/llm.md) for environment variable details.
-
-Show CLI help:
+查看帮助：
 
 ```powershell
 target\manual\main.exe help
 ```
 
-Add a user note:
+查看课堂演示流程：
+
+```powershell
+target\manual\main.exe demo
+```
+
+查看知识库统计：
+
+```powershell
+target\manual\main.exe stats
+```
+
+列出匹配来源：
+
+```powershell
+target\manual\main.exe sources ArrayList
+```
+
+询问仓颉语法问题：
+
+```powershell
+target\manual\main.exe ask Cangjie
+```
+
+生成练习任务：
+
+```powershell
+target\manual\main.exe practice ArrayList
+```
+
+复盘常见报错：
+
+```powershell
+target\manual\main.exe review-error Cangjie-error-note
+```
+
+新增个人语法笔记：
 
 ```powershell
 target\manual\main.exe add-note syntax_note Cangjie-syntax-note
 ```
 
-Add categorized personal knowledge:
+新增示例代码笔记：
 
 ```powershell
-target\manual\main.exe add-note var_note Cangjie-var-note
 target\manual\main.exe add-example hello_example Cangjie-hello-example
+```
+
+新增常见报错说明：
+
+```powershell
 target\manual\main.exe add-error semicolon_error Cangjie-error-note
 ```
 
-Add official or course-summary knowledge:
+新增官方/课程整理内容：
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-Show local knowledge categories:
+查看 LLM 配置状态：
 
 ```powershell
-target\manual\main.exe categories
+target\manual\main.exe llm-status
 ```
+
+## 课堂演示
+
+完整演示脚本见 [docs/demo.md](docs/demo.md)。推荐顺序为：
+
+- `help`
+- `stats`
+- `sources ArrayList`
+- `ask match`
+- `practice ArrayList`
+- `review-error Cangjie-error-note`
+- `add-note my_note Cangjie-my-note`
+- `ask Cangjie-my-note`
+
+## 课程资料对齐
+
+项目参考 HCCDA 仓颉入门课件主题：
+
+- 标识符、基础数据类型、控制台输入输出
+- 变量、基础表达式运算
+- 条件和循环表达式
+- Collection 类型
+- 函数与面向对象基础
+- 综合案例的分层结构思想
+
+同时参考 [aylqs2025/CangStream](https://github.com/aylqs2025/CangStream) 的纯仓颉 Agent 基础设施思路，尤其是后续 LLM API、JSON、HTTP、持久化方向。
+
+## 当前限制
+
+- 目前是 CLI 原型，还没有桌面 GUI 或网页界面。
+- 目前已实现 LLM 配置检查，但尚未真实调用大模型 API。
+- 当前检索是简单关键词检索，尚未实现向量检索。
+- PDF 课件不直接作为检索输入，需要先整理为 `.md` 或 `.txt`。
 
 ## IDE
 
 This project can be opened in CodeArts IDE for Cangjie from the repository root.
 
-## Planned Acceptance Items
+## 更多文档
 
-1. 项目骨架初始化
-2. 本地知识库导入
-3. 用户新增笔记、示例代码、常见报错说明
-4. 知识库检索
-5. 大模型 API 调用
-6. 回答来源标注
-7. 桌面 GUI 或网页界面
+- [docs/demo.md](docs/demo.md)
+- [docs/knowledge_base.md](docs/knowledge_base.md)
+- [docs/llm.md](docs/llm.md)
+- [docs/acceptance.md](docs/acceptance.md)
+- [docs/status.md](docs/status.md)

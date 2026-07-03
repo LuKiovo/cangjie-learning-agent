@@ -280,3 +280,13 @@ Checks:
 - Commands with missing required arguments print a usage error.
 - Invalid command usage returns a non-zero exit code.
 - Valid command behavior remains unchanged.
+
+## 29. Project Delivery Documentation
+
+Status: initialized.
+
+Checks:
+
+- README describes project goal, implemented features, run commands, demo flow, course alignment, and current limits.
+- Project status document separates completed and incomplete items.
+- Documentation does not claim real LLM API calls or GUI are complete.
