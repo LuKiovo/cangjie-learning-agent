@@ -16,7 +16,17 @@ func printHelp(): Unit {
     println("- add-note <name> <content>: add a syntax note")
     println("- add-example <name> <content>: add example code notes")
     println("- add-error <name> <content>: add compiler error notes")
+    println("- add-official <name> <content>: add official or course-summary knowledge")
+    println("- categories: show local knowledge categories")
     println("- help: show command help")
+}
+
+func printKnowledgeCategories(): Unit {
+    println("Knowledge categories:")
+    println("- official: knowledge_base/official")
+    println("- syntax notes: knowledge_base/user_notes/syntax_notes")
+    println("- examples: knowledge_base/user_notes/examples")
+    println("- errors: knowledge_base/user_notes/errors")
 }
 
 func printKnowledgeStats(officialCount: Int64, userNotesCount: Int64, officialCharacters: Int64, userNotesCharacters: Int64): Unit {
@@ -48,6 +58,8 @@ main(): Int64 {
         println("6. target\\manual\\main.exe review-error Cangjie-error-note")
         println("7. target\\manual\\main.exe add-note my_note Cangjie-my-note")
         println("8. target\\manual\\main.exe ask Cangjie-my-note")
+        println("9. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("10. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -56,9 +68,20 @@ main(): Int64 {
         return 0
     }
 
+    if (args.size > 1 && args[1] == "categories") {
+        printKnowledgeCategories()
+        return 0
+    }
+
     if (args.size > 3 && args[1] == "add-note") {
         let notePath = addUserKnowledge("syntax_notes", args[2], args[3])
         println("Added syntax note: ${notePath.toString()}")
+        return 0
+    }
+
+    if (args.size > 3 && args[1] == "add-official") {
+        let notePath = addOfficialKnowledge(args[2], args[3])
+        println("Added official knowledge: ${notePath.toString()}")
         return 0
     }
 
@@ -153,6 +176,8 @@ main(): Int64 {
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")
         println("Tip: use add-error <name> <content> to add compiler error notes.")
+        println("Tip: use add-official <name> <content> to add official or course-summary knowledge.")
+        println("Tip: use categories to show local knowledge categories.")
         println("Tip: use help to show all commands.")
     }
     return 0

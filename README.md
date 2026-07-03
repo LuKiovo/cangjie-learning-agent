@@ -101,6 +101,18 @@ target\manual\main.exe add-example hello_example Cangjie-hello-example
 target\manual\main.exe add-error semicolon_error Cangjie-error-note
 ```
 
+Add official or course-summary knowledge:
+
+```powershell
+target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
+```
+
+Show local knowledge categories:
+
+```powershell
+target\manual\main.exe categories
+```
+
 ## IDE
 
 This project can be opened in CodeArts IDE for Cangjie from the repository root.

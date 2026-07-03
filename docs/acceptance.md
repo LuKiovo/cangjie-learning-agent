@@ -260,3 +260,13 @@ Checks:
 - `ask <question>` prints a primary source when local sources match.
 - `practice <topic>` prints a primary source when local sources match.
 - `review-error <keyword>` prints a primary source when local error notes match.
+
+## 27. Knowledge Management Commands
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `add-official <name> <content>`.
+- The Cangjie CLI supports `categories`.
+- Official/course-summary knowledge can be added, searched, and reported in statistics.

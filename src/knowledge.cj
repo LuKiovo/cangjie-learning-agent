@@ -109,3 +109,9 @@ func addUserKnowledge(category: String, name: String, content: String): Path {
     File.writeTo(path, content.toArray())
     return path
 }
+
+func addOfficialKnowledge(name: String, content: String): Path {
+    let path = Path("knowledge_base/official").join(name + ".md")
+    File.writeTo(path, content.toArray())
+    return path
+}

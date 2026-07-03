@@ -64,3 +64,15 @@ target\manual\main.exe add-note my_note Cangjie-my-note
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
+
+9. Add a course-summary knowledge item:
+
+```powershell
+target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
+```
+
+10. Show knowledge categories:
+
+```powershell
+target\manual\main.exe categories
+```
