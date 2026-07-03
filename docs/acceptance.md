@@ -210,3 +210,13 @@ Checks:
 - The Cangjie CLI supports `sources <keyword>`.
 - The command lists matched source files only.
 - The command prints total match count without generating an answer.
+
+## 22. Error Review Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `review-error <keyword>`.
+- The command searches local compiler error notes.
+- The command prints a debugging checklist based on match status.

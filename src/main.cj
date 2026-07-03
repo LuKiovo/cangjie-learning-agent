@@ -9,6 +9,7 @@ func printHelp(): Unit {
     println("- practice <topic>: generate a source-backed practice task")
     println("- stats: show local knowledge base statistics")
     println("- sources <keyword>: list matched source files only")
+    println("- review-error <keyword>: review local compiler error notes")
     println("- <keyword>: search local knowledge files")
     println("- add-note <name> <content>: add a syntax note")
     println("- add-example <name> <content>: add example code notes")
@@ -73,6 +74,13 @@ main(): Int64 {
         let officialMatches = searchKnowledgeFiles("official", officialPath, query)
         let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
         println("Total matches: ${officialMatches + userNotesMatches}")
+    } else if (args.size > 2 && args[1] == "review-error") {
+        let keyword = args[2]
+        println("Error keyword: ${keyword}")
+        println("Matched error sources:")
+        let errorMatches = searchKnowledgeFiles("error notes", Path("knowledge_base/user_notes/errors"), keyword)
+        println("Total matches: ${errorMatches}")
+        printErrorReview(keyword, errorMatches)
     } else if (args.size > 2 && args[1] == "ask") {
         let query = args[2]
         println("Question: ${query}")
@@ -109,6 +117,7 @@ main(): Int64 {
         println("Tip: use practice <topic> to generate a practice task.")
         println("Tip: use stats to show local knowledge base statistics.")
         println("Tip: use sources <keyword> to list matched source files only.")
+        println("Tip: use review-error <keyword> to review compiler error notes.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
         println("Tip: use add-example <name> <content> to add example code notes.")

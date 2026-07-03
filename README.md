@@ -57,6 +57,12 @@ List matched source files:
 target\manual\main.exe sources ArrayList
 ```
 
+Review compiler error notes:
+
+```powershell
+target\manual\main.exe review-error Cangjie-error-note
+```
+
 Show CLI help:
 
 ```powershell

@@ -22,3 +22,14 @@ func printPractice(topic: String, totalMatches: Int64): Unit {
         println("Checklist: add a source with add-note, search it, then write a small example with add-example.")
     }
 }
+
+func printErrorReview(keyword: String, totalMatches: Int64): Unit {
+    println("Error review:")
+    if (totalMatches > 0) {
+        println("I found local error-related sources for '${keyword}'.")
+        println("Debug checklist: read the matched source, identify the compiler message, compare it with your code, then save the fix with add-error.")
+    } else {
+        println("No local error note matched '${keyword}'.")
+        println("Debug checklist: copy the compiler message into add-error after you solve it, so the knowledge base improves next time.")
+    }
+}
