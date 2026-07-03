@@ -82,6 +82,28 @@ func searchKnowledgeFiles(label: String, path: Path, query: String): Int64 {
     return matches
 }
 
+func findFirstKnowledgeSource(path: Path, query: String): String {
+    if (!exists(path)) {
+        return ""
+    }
+
+    let items = Directory.readFrom(path)
+    for (item in items) {
+        if (item.isDirectory()) {
+            let source = findFirstKnowledgeSource(item.path, query)
+            if (!source.isEmpty()) {
+                return source
+            }
+        } else if (item.isRegular() && isKnowledgeFile(item.name)) {
+            let text = readKnowledgeText(item.path)
+            if (text.contains(query)) {
+                return item.path.toString()
+            }
+        }
+    }
+    return ""
+}
+
 func addUserKnowledge(category: String, name: String, content: String): Path {
     let path = Path("knowledge_base/user_notes").join(category).join(name + ".md")
     File.writeTo(path, content.toArray())

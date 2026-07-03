@@ -39,6 +39,8 @@ Ask a Cangjie syntax question:
 target\manual\main.exe ask Cangjie
 ```
 
+When local sources match, the answer prints a `Primary source` line.
+
 Generate a practice task:
 
 ```powershell

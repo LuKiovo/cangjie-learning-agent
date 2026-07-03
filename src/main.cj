@@ -100,7 +100,8 @@ main(): Int64 {
         println("Matched error sources:")
         let errorMatches = searchKnowledgeFiles("error notes", Path("knowledge_base/user_notes/errors"), keyword)
         println("Total matches: ${errorMatches}")
-        printErrorReview(keyword, errorMatches)
+        let primarySource = findFirstKnowledgeSource(Path("knowledge_base/user_notes/errors"), keyword)
+        printErrorReview(keyword, errorMatches, primarySource)
     } else if (args.size > 2 && args[1] == "ask") {
         let query = args[2]
         println("Question: ${query}")
@@ -110,7 +111,11 @@ main(): Int64 {
         let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, query)
         let totalMatches = officialMatches + userNotesMatches
         println("Total matches: ${totalMatches}")
-        printAgentAnswer(totalMatches)
+        var primarySource = findFirstKnowledgeSource(officialPath, query)
+        if (primarySource.isEmpty()) {
+            primarySource = findFirstKnowledgeSource(userNotesPath, query)
+        }
+        printAgentAnswer(totalMatches, primarySource)
     } else if (args.size > 2 && args[1] == "practice") {
         let topic = args[2]
         println("Practice topic: ${topic}")
@@ -120,7 +125,11 @@ main(): Int64 {
         let userNotesMatches = searchKnowledgeFiles("user notes", userNotesPath, topic)
         let totalMatches = officialMatches + userNotesMatches
         println("Total matches: ${totalMatches}")
-        printPractice(topic, totalMatches)
+        var primarySource = findFirstKnowledgeSource(officialPath, topic)
+        if (primarySource.isEmpty()) {
+            primarySource = findFirstKnowledgeSource(userNotesPath, topic)
+        }
+        printPractice(topic, totalMatches, primarySource)
     } else if (args.size > 1) {
         let query = args[1]
         println("Search query: ${query}")

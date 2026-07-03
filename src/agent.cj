@@ -1,8 +1,15 @@
 package cangjie_learning_agent
 
-func printAgentAnswer(totalMatches: Int64): Unit {
+func printPrimarySource(source: String): Unit {
+    if (!source.isEmpty()) {
+        println("Primary source: ${source}")
+    }
+}
+
+func printAgentAnswer(totalMatches: Int64, primarySource: String): Unit {
     println("Agent answer:")
     if (totalMatches > 0) {
+        printPrimarySource(primarySource)
         println("I found local knowledge sources related to your Cangjie syntax question. Please review the matched sources above.")
         println("Learning suggestion: open the matched source, read the related syntax note, then add your own example with add-example.")
     } else {
@@ -11,9 +18,10 @@ func printAgentAnswer(totalMatches: Int64): Unit {
     }
 }
 
-func printPractice(topic: String, totalMatches: Int64): Unit {
+func printPractice(topic: String, totalMatches: Int64, primarySource: String): Unit {
     println("Practice:")
     if (totalMatches > 0) {
+        printPrimarySource(primarySource)
         println("Task: write a small Cangjie example about '${topic}', then save it with add-example.")
         println("Checklist: include one syntax point, one println output, and one short note explaining the result.")
         println("Reference: use the matched sources above before writing your answer.")
@@ -23,9 +31,10 @@ func printPractice(topic: String, totalMatches: Int64): Unit {
     }
 }
 
-func printErrorReview(keyword: String, totalMatches: Int64): Unit {
+func printErrorReview(keyword: String, totalMatches: Int64, primarySource: String): Unit {
     println("Error review:")
     if (totalMatches > 0) {
+        printPrimarySource(primarySource)
         println("I found local error-related sources for '${keyword}'.")
         println("Debug checklist: read the matched source, identify the compiler message, compare it with your code, then save the fix with add-error.")
     } else {

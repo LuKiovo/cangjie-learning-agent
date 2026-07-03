@@ -250,3 +250,13 @@ Checks:
 - The Cangjie CLI supports `llm-status`.
 - LLM endpoint, model, and API key are read from environment variables.
 - The command reports only whether the API key is configured and never prints the key value.
+
+## 26. Primary Source In Answers
+
+Status: initialized.
+
+Checks:
+
+- `ask <question>` prints a primary source when local sources match.
+- `practice <topic>` prints a primary source when local sources match.
+- `review-error <keyword>` prints a primary source when local error notes match.
