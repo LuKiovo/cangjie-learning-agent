@@ -293,7 +293,55 @@ target\manual\main.exe export-delivery-index delivery_index
 
 Expected result: `docs/delivery_index.md` is created for reviewers.
 
-36. Generate a source-backed Cangjie example draft:
+36. Show grading rubric alignment:
+
+```powershell
+target\manual\main.exe rubric
+```
+
+Expected result: grading dimensions, evidence, and status are printed.
+
+37. Export grading rubric alignment:
+
+```powershell
+target\manual\main.exe export-rubric rubric
+```
+
+Expected result: `docs/rubric.md` is created for review.
+
+38. Show teacher-facing summary:
+
+```powershell
+target\manual\main.exe teacher-summary
+```
+
+Expected result: concise project summary and suggested review commands are printed.
+
+39. Export teacher-facing summary:
+
+```powershell
+target\manual\main.exe export-teacher-summary teacher_summary
+```
+
+Expected result: `docs/teacher_summary.md` is created.
+
+40. Show classroom rehearsal checklist:
+
+```powershell
+target\manual\main.exe rehearsal
+```
+
+Expected result: before-class checks, live demo steps, and backup plan are printed.
+
+41. Export classroom rehearsal checklist:
+
+```powershell
+target\manual\main.exe export-rehearsal rehearsal
+```
+
+Expected result: `docs/rehearsal.md` is created.
+
+42. Generate a source-backed Cangjie example draft:
 
 ```powershell
 target\manual\main.exe example ArrayList
@@ -301,7 +349,7 @@ target\manual\main.exe example ArrayList
 
 Expected result: matched sources, `Primary source`, source context, and a Cangjie code draft.
 
-37. Generate a source-backed practice task:
+43. Generate a source-backed practice task:
 
 ```powershell
 target\manual\main.exe practice ArrayList
@@ -309,7 +357,7 @@ target\manual\main.exe practice ArrayList
 
 Expected result: matched sources, `Primary source`, and a checklist.
 
-38. Generate a source-backed mini quiz:
+44. Generate a source-backed mini quiz:
 
 ```powershell
 target\manual\main.exe quiz ArrayList
@@ -317,7 +365,7 @@ target\manual\main.exe quiz ArrayList
 
 Expected result: matched sources, primary source context, quiz questions, and suggested answers.
 
-39. Review a compiler error note:
+45. Review a compiler error note:
 
 ```powershell
 target\manual\main.exe review-error Cangjie-error-note
@@ -325,7 +373,7 @@ target\manual\main.exe review-error Cangjie-error-note
 
 Expected result: matched error sources, `Primary source`, and a debugging checklist.
 
-40. Generate a source-backed error fix suggestion:
+46. Generate a source-backed error fix suggestion:
 
 ```powershell
 target\manual\main.exe fix-error Cangjie-error-note
@@ -333,7 +381,7 @@ target\manual\main.exe fix-error Cangjie-error-note
 
 Expected result: matched error sources, primary source context, fix steps, and a Cangjie fix draft.
 
-41. Export a Markdown acceptance report:
+47. Export a Markdown acceptance report:
 
 ```powershell
 target\manual\main.exe export-report acceptance_report
@@ -341,7 +389,7 @@ target\manual\main.exe export-report acceptance_report
 
 Expected result: `docs/acceptance_report.md` is created with project identity, knowledge statistics, capabilities, and limits.
 
-42. Add a personal syntax note:
+48. Add a personal syntax note:
 
 ```powershell
 target\manual\main.exe add-note my_note Cangjie-my-note
@@ -353,19 +401,19 @@ Multi-word note content is supported:
 target\manual\main.exe add-note my_note Cangjie personal syntax note
 ```
 
-43. Search the added note:
+49. Search the added note:
 
 ```powershell
 target\manual\main.exe ask Cangjie-my-note
 ```
 
-44. Add a course-summary knowledge item:
+50. Add a course-summary knowledge item:
 
 ```powershell
 target\manual\main.exe add-official course_if_note Cangjie-if-expression-note
 ```
 
-45. Show knowledge categories:
+51. Show knowledge categories:
 
 ```powershell
 target\manual\main.exe categories

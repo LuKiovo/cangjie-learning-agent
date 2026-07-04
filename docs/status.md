@@ -31,6 +31,12 @@
 - Markdown command sheet export.
 - Delivery artifact index command.
 - Markdown delivery index export.
+- Rubric alignment command.
+- Markdown rubric export.
+- Teacher summary command.
+- Markdown teacher summary export.
+- Classroom rehearsal checklist command.
+- Markdown rehearsal checklist export.
 - Source-backed mini quiz command.
 - Source-backed Cangjie example draft command.
 - Source-backed error fix suggestion command.

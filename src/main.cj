@@ -29,6 +29,12 @@ func printHelp(): Unit {
     println("- export-command-sheet <name>: export a Markdown command sheet under docs")
     println("- delivery-index: show project delivery artifact index")
     println("- export-delivery-index <name>: export a Markdown delivery artifact index under docs")
+    println("- rubric: show grading rubric alignment")
+    println("- export-rubric <name>: export a Markdown grading rubric under docs")
+    println("- teacher-summary: show a teacher-facing project summary")
+    println("- export-teacher-summary <name>: export a Markdown teacher summary under docs")
+    println("- rehearsal: show classroom rehearsal checklist")
+    println("- export-rehearsal <name>: export a Markdown rehearsal checklist under docs")
     println("- sources <keyword>: list matched source files only")
     println("- why-source <keyword>: explain primary source score selection")
     println("- show-source <keyword>: print the first matched source content")
@@ -137,6 +143,7 @@ func printProjectSummary(officialCount: Int64, userNotesCount: Int64, officialCh
     println("- matched source listing, source content inspection, and scored primary source selection")
     println("- source-backed operation trace and engineering roadmap")
     println("- classroom command sheet and delivery artifact index")
+    println("- rubric, teacher summary, and rehearsal checklist")
     println("Current limits:")
     println("- no real LLM API request yet")
     println("- no interactive desktop GUI yet")
@@ -174,6 +181,8 @@ func printSelfCheck(officialCount: Int64, userNotesCount: Int64): Unit {
     println("PASS engineering trace commands: trace, export-trace")
     println("PASS roadmap commands: roadmap, export-roadmap")
     println("PASS delivery commands: command-sheet, export-command-sheet, delivery-index, export-delivery-index")
+    println("PASS review package commands: rubric, teacher-summary, rehearsal")
+    println("PASS review package exports: export-rubric, export-teacher-summary, export-rehearsal")
     println("PASS source explanation command: why-source")
     println("PASS personalization commands: add-note, add-example, add-error, add-official")
     println("PASS import commands: import-note, import-example, import-error, import-official")
@@ -204,6 +213,7 @@ func buildReportText(officialCount: Int64, userNotesCount: Int64, officialCharac
     text += "- Matched source listing, source content inspection, and scored primary source selection\n"
     text += "- Source-backed operation trace and engineering roadmap\n"
     text += "- Classroom command sheet and delivery artifact index\n"
+    text += "- Rubric, teacher summary, and rehearsal checklist\n"
     text += "- Local summary, version, and self-check commands\n\n"
     text += "## Current Limits\n\n"
     text += "- Real LLM API request is not completed yet\n"
@@ -380,16 +390,22 @@ main(): Int64 {
         println("33. target\\manual\\main.exe export-command-sheet command_sheet")
         println("34. target\\manual\\main.exe delivery-index")
         println("35. target\\manual\\main.exe export-delivery-index delivery_index")
-        println("36. target\\manual\\main.exe example ArrayList")
-        println("37. target\\manual\\main.exe practice ArrayList")
-        println("38. target\\manual\\main.exe quiz ArrayList")
-        println("39. target\\manual\\main.exe review-error Cangjie-error-note")
-        println("40. target\\manual\\main.exe fix-error Cangjie-error-note")
-        println("41. target\\manual\\main.exe export-report acceptance_report")
-        println("42. target\\manual\\main.exe add-note my_note Cangjie-my-note")
-        println("43. target\\manual\\main.exe ask Cangjie-my-note")
-        println("44. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
-        println("45. target\\manual\\main.exe categories")
+        println("36. target\\manual\\main.exe rubric")
+        println("37. target\\manual\\main.exe export-rubric rubric")
+        println("38. target\\manual\\main.exe teacher-summary")
+        println("39. target\\manual\\main.exe export-teacher-summary teacher_summary")
+        println("40. target\\manual\\main.exe rehearsal")
+        println("41. target\\manual\\main.exe export-rehearsal rehearsal")
+        println("42. target\\manual\\main.exe example ArrayList")
+        println("43. target\\manual\\main.exe practice ArrayList")
+        println("44. target\\manual\\main.exe quiz ArrayList")
+        println("45. target\\manual\\main.exe review-error Cangjie-error-note")
+        println("46. target\\manual\\main.exe fix-error Cangjie-error-note")
+        println("47. target\\manual\\main.exe export-report acceptance_report")
+        println("48. target\\manual\\main.exe add-note my_note Cangjie-my-note")
+        println("49. target\\manual\\main.exe ask Cangjie-my-note")
+        println("50. target\\manual\\main.exe add-official course_if_note Cangjie-if-expression-note")
+        println("51. target\\manual\\main.exe categories")
         return 0
     }
 
@@ -447,6 +463,23 @@ main(): Int64 {
         let officialCharacters = countKnowledgeCharacters(officialPath)
         let userNotesCharacters = countKnowledgeCharacters(userNotesPath)
         printDeliveryIndex(officialCount, userNotesCount, officialCharacters, userNotesCharacters)
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "rubric") {
+        printRubric()
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "teacher-summary") {
+        let officialCount = countKnowledgeFiles(officialPath)
+        let userNotesCount = countKnowledgeFiles(userNotesPath)
+        printTeacherSummary(officialCount, userNotesCount)
+        return 0
+    }
+
+    if (args.size > 1 && args[1] == "rehearsal") {
+        printRehearsal()
         return 0
     }
 
@@ -622,6 +655,21 @@ main(): Int64 {
 
     if (args.size > 1 && args[1] == "export-delivery-index" && args.size <= 2) {
         printUsageError("export-delivery-index", "target\\manual\\main.exe export-delivery-index <name>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-rubric" && args.size <= 2) {
+        printUsageError("export-rubric", "target\\manual\\main.exe export-rubric <name>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-teacher-summary" && args.size <= 2) {
+        printUsageError("export-teacher-summary", "target\\manual\\main.exe export-teacher-summary <name>")
+        return 1
+    }
+
+    if (args.size > 1 && args[1] == "export-rehearsal" && args.size <= 2) {
+        printUsageError("export-rehearsal", "target\\manual\\main.exe export-rehearsal <name>")
         return 1
     }
 
@@ -938,6 +986,36 @@ main(): Int64 {
         return 0
     }
 
+    if (args.size > 2 && args[1] == "export-rubric") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let rubricPath = exportRubric(args[2])
+        println("Exported rubric: ${rubricPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 2 && args[1] == "export-teacher-summary") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let teacherSummaryPath = exportTeacherSummary(args[2], officialCount, userNotesCount)
+        println("Exported teacher summary: ${teacherSummaryPath.toString()}")
+        return 0
+    }
+
+    if (args.size > 2 && args[1] == "export-rehearsal") {
+        if (!isSafeKnowledgeName(args[2])) {
+            printNameError(args[2])
+            return 1
+        }
+        let rehearsalPath = exportRehearsal(args[2])
+        println("Exported rehearsal checklist: ${rehearsalPath.toString()}")
+        return 0
+    }
+
     if (args.size > 3 && args[1] == "export-llm-request") {
         if (!isSafeKnowledgeName(args[2])) {
             printNameError(args[2])
@@ -1195,6 +1273,12 @@ main(): Int64 {
         println("Tip: use export-command-sheet <name> to export classroom commands.")
         println("Tip: use delivery-index to show delivery artifacts.")
         println("Tip: use export-delivery-index <name> to export delivery artifacts.")
+        println("Tip: use rubric to show grading alignment.")
+        println("Tip: use export-rubric <name> to export grading alignment.")
+        println("Tip: use teacher-summary to show a teacher-facing summary.")
+        println("Tip: use export-teacher-summary <name> to export a teacher summary.")
+        println("Tip: use rehearsal to show a classroom rehearsal checklist.")
+        println("Tip: use export-rehearsal <name> to export a rehearsal checklist.")
         println("Tip: use llm-status to check LLM API configuration.")
         println("Tip: pass a keyword after the executable to search local knowledge files.")
         println("Tip: use add-note <name> <content> to add a syntax note.")
