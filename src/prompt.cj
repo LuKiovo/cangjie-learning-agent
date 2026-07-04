@@ -77,8 +77,8 @@ func buildLlmRequestDraft(question: String, totalMatches: Int64, primarySource: 
     text += "````text\n"
     text += buildLlmPromptText(question, totalMatches, primarySource, sourceText)
     text += "\n````\n\n"
-    text += "## Future HTTP Mapping\n\n"
-    text += "When a Cangjie HTTP client is connected, send the prompt payload as the user message/content field, together with the configured model and authorization header.\n"
+    text += "## HTTP Mapping\n\n"
+    text += "The live command `llm-ask` sends this prompt through an OpenAI-compatible chat-completions request. The agent workflow is implemented in Cangjie; HTTPS transport is executed through `curl` from `std.process` because this local SDK has no high-level HTTPS JSON client.\n"
     return text
 }
 

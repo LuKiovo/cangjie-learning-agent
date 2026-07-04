@@ -578,7 +578,7 @@ Checks:
 
 - The Cangjie CLI supports `llm-request <question>`.
 - The command searches local knowledge before building the request draft.
-- The draft includes configuration names, prompt payload, local match count, primary source, and future HTTP mapping notes.
+- The draft includes configuration names, prompt payload, local match count, primary source, and HTTP mapping notes.
 
 ## 59. Markdown LLM Request Export
 
@@ -789,3 +789,15 @@ Checks:
 - The Cangjie CLI supports `export-rehearsal <name>`.
 - The command writes a Markdown rehearsal checklist under `docs/`.
 - The exported checklist supports final classroom demonstration.
+
+## 80. Real LLM API Command
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `llm-ask <question>`.
+- The command searches local knowledge before sending the prompt.
+- The command uses environment variables for endpoint, model, and API key without storing secrets in source files.
+- The command calls an OpenAI-compatible HTTPS endpoint through Cangjie orchestration and `curl` transport.
+- The command prints the LLM answer and the selected local source path.

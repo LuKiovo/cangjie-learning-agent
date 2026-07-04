@@ -22,7 +22,8 @@ docs/roadmap.md
 docs/rubric.md
 docs/source_map.md
 docs/teacher_summary.md
-llm_responses/sample_response.md
+llm_responses/*.md
+!llm_responses/README.md
 
 # Build outputs
 build/

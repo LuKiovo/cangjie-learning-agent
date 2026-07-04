@@ -2,9 +2,9 @@
 
 The project does not store API keys in source files.
 
-Set these environment variables before enabling real LLM calls:
+Set these environment variables before running a live LLM call:
 
-- `CANGJIE_AGENT_LLM_ENDPOINT`
+- `CANGJIE_AGENT_LLM_ENDPOINT` (optional, defaults to `https://api.openai.com/v1/chat/completions`)
 - `CANGJIE_AGENT_LLM_MODEL`
 - `CANGJIE_AGENT_API_KEY`
 
@@ -16,9 +16,37 @@ target\manual\main.exe llm-status
 
 The command only prints whether each value is configured. It never prints the API key.
 
+PowerShell example:
+
+```powershell
+$env:CANGJIE_AGENT_LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions"
+$env:CANGJIE_AGENT_LLM_MODEL = "your-model-name"
+$env:CANGJIE_AGENT_API_KEY = "your-api-key"
+```
+
+The project uses Cangjie code for the agent workflow and calls `curl` from `std.process` for the HTTPS transport, because this local Cangjie SDK exposes socket/process modules but no high-level HTTPS JSON client.
+
+## Real source-backed API call
+
+After setting the environment variables, run:
+
+```powershell
+target\manual\main.exe llm-ask match
+```
+
+The command:
+
+- searches local official/course files and user notes
+- builds a source-backed prompt
+- sends an OpenAI-compatible chat-completions request
+- prints the model answer
+- prints the local source path again after the answer
+
+LLM response Markdown files under `llm_responses/` are ignored by Git so classroom tests do not upload private answer artifacts.
+
 ## Source-backed prompt preview
 
-Before real HTTP calls are enabled, the CLI can build the prompt that would be sent to an LLM:
+The CLI can still build the prompt without calling the API:
 
 ```powershell
 target\manual\main.exe prompt match
@@ -37,7 +65,7 @@ This keeps the future API integration tied to the local knowledge base instead o
 
 ## LLM request draft
 
-The CLI can also build a source-backed request draft that is ready to connect to a future Cangjie HTTP client:
+The CLI can also build a source-backed request draft for review:
 
 ```powershell
 target\manual\main.exe llm-request match
@@ -49,11 +77,11 @@ The draft includes:
 - environment variable names for endpoint, model, and API key
 - the source-backed prompt payload
 - local match count and primary source
-- a note explaining how the payload maps to a future HTTP request
+- a note explaining how the payload maps to the HTTPS request
 
 ## Local LLM response archive
 
-When a response is obtained externally or after a future HTTP client is connected, save it locally:
+When a response is obtained externally or should be archived locally, save it:
 
 ```powershell
 target\manual\main.exe import-llm-response sample_response docs\match_answer.md

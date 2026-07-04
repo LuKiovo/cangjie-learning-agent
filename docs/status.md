@@ -47,6 +47,7 @@
 - Local-only teacher slide policy.
 - LLM environment configuration status check.
 - Source-backed LLM prompt preview.
+- Real OpenAI-compatible LLM API command through `llm-ask`.
 - Multi-word command input for questions and knowledge content.
 - Multi-word keyword fallback retrieval.
 - Scored primary source selection.
@@ -63,14 +64,13 @@
 
 ## Not Completed Yet
 
-- Real LLM API request and response parsing.
-- Direct HTTP transport for LLM calls.
 - Interactive desktop GUI.
 - PDF-to-text import inside the Cangjie app.
 - Vector search or embedding-based retrieval.
+- Optional replacement of curl transport if a high-level Cangjie HTTPS JSON client becomes available.
 
 ## Recommended Next Milestones
 
-1. Implement a real LLM request path using Cangjie/stdlib or stdx HTTP capability.
+1. Live-test `llm-ask` after setting a valid API key and model.
 2. Connect the existing static dashboard to a more interactive desktop or web surface if required.
 3. Add richer document import from teacher materials after deciding the allowed file formats.

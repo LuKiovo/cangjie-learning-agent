@@ -115,7 +115,16 @@ Expected result: matched sources, source count, primary source, local source con
 target\manual\main.exe llm-request match
 ```
 
-Expected result: request draft with configuration names, prompt payload, local match count, primary source, and future HTTP mapping notes.
+Expected result: request draft with configuration names, prompt payload, local match count, primary source, and HTTP mapping notes.
+
+### Live LLM API call
+
+```powershell
+target\manual\main.exe llm-status
+target\manual\main.exe llm-ask match
+```
+
+Expected result: after model and API key environment variables are set, the command sends a source-backed OpenAI-compatible request and prints the answer with the local source path.
 
 14. Export a Markdown LLM request draft:
 
