@@ -6,6 +6,20 @@ func defaultLlmEndpoint(): String {
     return "https://api.deepseek.com/chat/completions"
 }
 
+func normalizeLlmEndpoint(endpoint: String): String {
+    if (endpoint.endsWith("/chat/completions")) {
+        return endpoint
+    }
+    if (endpoint.endsWith("/")) {
+        return endpoint + "chat/completions"
+    }
+    return endpoint + "/chat/completions"
+}
+
+func configuredLlmEndpoint(): String {
+    return normalizeLlmEndpoint(envOrDefault("CANGJIE_AGENT_LLM_ENDPOINT", defaultLlmEndpoint()))
+}
+
 func jsonEscape(text: String): String {
     return text
         .replace("\\", "\\\\")
@@ -83,7 +97,7 @@ func extractLlmContent(response: String): String {
 }
 
 func callLlmApi(prompt: String): (Int64, Array<Byte>, Array<Byte>) {
-    let endpoint = envOrDefault("CANGJIE_AGENT_LLM_ENDPOINT", defaultLlmEndpoint())
+    let endpoint = configuredLlmEndpoint()
     let model = envOrDefault("CANGJIE_AGENT_LLM_MODEL", "")
     let apiKey = envOrDefault("CANGJIE_AGENT_API_KEY", "")
 
@@ -97,6 +111,7 @@ func callLlmApi(prompt: String): (Int64, Array<Byte>, Array<Byte>) {
     let payload = buildChatCompletionJson(model, prompt)
     let arguments = [
         "-sS",
+        "--fail-with-body",
         "-X",
         "POST",
         endpoint,
@@ -113,7 +128,7 @@ func callLlmApi(prompt: String): (Int64, Array<Byte>, Array<Byte>) {
 func printLlmApiAnswer(question: String, totalMatches: Int64, primarySource: String, sourceText: String): Int64 {
     let prompt = buildLlmPromptText(question, totalMatches, primarySource, sourceText)
     println("LLM transport: curl HTTPS POST from Cangjie std.process")
-    println("Endpoint: ${envOrDefault("CANGJIE_AGENT_LLM_ENDPOINT", defaultLlmEndpoint())}")
+    println("Endpoint: ${configuredLlmEndpoint()}")
     println("Model configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_LLM_MODEL", ""))}")
     println("API key configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_API_KEY", ""))}")
     println("Security: API key is read from environment variables and is not stored.")
@@ -158,7 +173,7 @@ func buildLlmApiAnswerText(question: String, totalMatches: Int64, primarySource:
     let stderrText = String.fromUtf8(result[2])
 
     var text = "LLM transport: curl HTTPS POST from Cangjie std.process\n"
-    text += "Endpoint: ${envOrDefault("CANGJIE_AGENT_LLM_ENDPOINT", defaultLlmEndpoint())}\n"
+    text += "Endpoint: ${configuredLlmEndpoint()}\n"
     text += "Model configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_LLM_MODEL", ""))}\n"
     text += "API key configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_API_KEY", ""))}\n\n"
 

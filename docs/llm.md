@@ -26,6 +26,16 @@ $env:CANGJIE_AGENT_API_KEY = "your-api-key"
 
 The project uses Cangjie code for the agent workflow and calls `curl` from `std.process` for the HTTPS transport, because this local Cangjie SDK exposes socket/process modules but no high-level HTTPS JSON client. If your key belongs to another domestic OpenAI-compatible provider, replace the endpoint and model with that provider's values.
 
+For Alibaba Cloud Model Studio / Bailian compatible mode, set the base URL and model like this:
+
+```powershell
+$env:CANGJIE_AGENT_LLM_ENDPOINT = "https://your-resource.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
+$env:CANGJIE_AGENT_LLM_MODEL = "qwen-plus"
+$env:CANGJIE_AGENT_API_KEY = "your-api-key"
+```
+
+The program normalizes the endpoint automatically. A base URL ending with `/compatible-mode/v1` is sent as `/compatible-mode/v1/chat/completions`.
+
 ## Real source-backed API call
 
 After setting the environment variables, run:

@@ -11,7 +11,7 @@ func isConfigured(value: String): Bool {
 }
 
 func printLlmStatus(): Unit {
-    let endpoint = envOrDefault("CANGJIE_AGENT_LLM_ENDPOINT", defaultLlmEndpoint())
+    let endpoint = configuredLlmEndpoint()
     let model = envOrDefault("CANGJIE_AGENT_LLM_MODEL", "")
     let apiKey = envOrDefault("CANGJIE_AGENT_API_KEY", "")
 
