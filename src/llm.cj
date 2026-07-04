@@ -1,6 +1,7 @@
 package cangjie_learning_agent
 
 import std.process.*
+import std.collection.*
 
 func defaultLlmEndpoint(): String {
     return "https://api.deepseek.com/chat/completions"
@@ -38,6 +39,40 @@ func jsonUnescape(text: String): String {
         .replace("\\\\", "\\")
 }
 
+func bytesIndexOf(data: Array<Byte>, pattern: Array<Byte>, startIndex: Int64): Int64 {
+    if (pattern.size == 0 || data.size < pattern.size || startIndex >= data.size) {
+        return -1
+    }
+
+    var index = startIndex
+    while (index <= data.size - pattern.size) {
+        var matched = true
+        var patternIndex: Int64 = 0
+        while (patternIndex < pattern.size) {
+            if (data[index + patternIndex] != pattern[patternIndex]) {
+                matched = false
+                break
+            }
+            patternIndex += 1
+        }
+        if (matched) {
+            return index
+        }
+        index += 1
+    }
+    return -1
+}
+
+func bytesToString(data: Array<Byte>, startIndex: Int64, endIndex: Int64): String {
+    let bytes = ArrayList<Byte>()
+    var index = startIndex
+    while (index < endIndex) {
+        bytes.add(data[index])
+        index += 1
+    }
+    return String.fromUtf8(bytes.toArray())
+}
+
 func buildChatCompletionJson(model: String, prompt: String): String {
     var text = "{"
     text += "\"model\":\"${jsonEscape(model)}\","
@@ -51,29 +86,30 @@ func buildChatCompletionJson(model: String, prompt: String): String {
 }
 
 func extractJsonStringValue(json: String, key: String): String {
-    let marker = "\"${key}\""
-    let markerIndex = json.indexOf(marker) ?? -1
+    let data = json.toArray()
+    let marker = "\"${key}\"".toArray()
+    let markerIndex = bytesIndexOf(data, marker, 0)
     if (markerIndex < 0) {
         return ""
     }
-    let colonIndex = json.indexOf(":", markerIndex + marker.size) ?? -1
+    let colonIndex = bytesIndexOf(data, ":".toArray(), markerIndex + marker.size)
     if (colonIndex < 0) {
         return ""
     }
-    var quoteIndex = json.indexOf("\"", colonIndex + 1) ?? -1
+    let quoteIndex = bytesIndexOf(data, "\"".toArray(), colonIndex + 1)
     if (quoteIndex < 0) {
         return ""
     }
     var endIndex = quoteIndex + 1
     var escaped = false
-    while (endIndex < json.size) {
-        let current = json[endIndex..(endIndex + 1)]
+    while (endIndex < data.size) {
+        let current = data[endIndex]
         if (escaped) {
             escaped = false
-        } else if (current == "\\") {
+        } else if (current == 92) {
             escaped = true
-        } else if (current == "\"") {
-            return jsonUnescape(json[(quoteIndex + 1)..endIndex])
+        } else if (current == 34) {
+            return jsonUnescape(bytesToString(data, quoteIndex + 1, endIndex))
         }
         endIndex += 1
     }
