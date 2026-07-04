@@ -7,6 +7,23 @@ agent_flow.svg
 tools/agent_flow_diagram.cj
 流程图&架构图/
 
+# Local generated demo/review artifacts
+docs/arraylist_card.md
+docs/arraylist_session.md
+docs/command_sheet.md
+docs/dashboard.html
+docs/delivery_index.md
+docs/final_check.md
+docs/match_answer.md
+docs/match_llm_request.md
+docs/match_trace.md
+docs/rehearsal.md
+docs/roadmap.md
+docs/rubric.md
+docs/source_map.md
+docs/teacher_summary.md
+llm_responses/sample_response.md
+
 # Build outputs
 build/
 dist/
