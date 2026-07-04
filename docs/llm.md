@@ -4,7 +4,7 @@ The project does not store API keys in source files.
 
 Set these environment variables before running a live LLM call:
 
-- `CANGJIE_AGENT_LLM_ENDPOINT` (optional, defaults to `https://api.openai.com/v1/chat/completions`)
+- `CANGJIE_AGENT_LLM_ENDPOINT` (optional, defaults to `https://api.deepseek.com/chat/completions`)
 - `CANGJIE_AGENT_LLM_MODEL`
 - `CANGJIE_AGENT_API_KEY`
 
@@ -19,12 +19,12 @@ The command only prints whether each value is configured. It never prints the AP
 PowerShell example:
 
 ```powershell
-$env:CANGJIE_AGENT_LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions"
-$env:CANGJIE_AGENT_LLM_MODEL = "your-model-name"
+$env:CANGJIE_AGENT_LLM_ENDPOINT = "https://api.deepseek.com/chat/completions"
+$env:CANGJIE_AGENT_LLM_MODEL = "deepseek-chat"
 $env:CANGJIE_AGENT_API_KEY = "your-api-key"
 ```
 
-The project uses Cangjie code for the agent workflow and calls `curl` from `std.process` for the HTTPS transport, because this local Cangjie SDK exposes socket/process modules but no high-level HTTPS JSON client.
+The project uses Cangjie code for the agent workflow and calls `curl` from `std.process` for the HTTPS transport, because this local Cangjie SDK exposes socket/process modules but no high-level HTTPS JSON client. If your key belongs to another domestic OpenAI-compatible provider, replace the endpoint and model with that provider's values.
 
 ## Real source-backed API call
 
@@ -43,6 +43,22 @@ The command:
 - prints the local source path again after the answer
 
 LLM response Markdown files under `llm_responses/` are ignored by Git so classroom tests do not upload private answer artifacts.
+
+## Interactive Web UI
+
+Start the Cangjie local Web server:
+
+```powershell
+target\manual\main.exe web 18080
+```
+
+Open:
+
+```text
+http://127.0.0.1:18080
+```
+
+The page supports local knowledge-base answers, real API answers, source display, and adding syntax notes.
 
 ## Source-backed prompt preview
 

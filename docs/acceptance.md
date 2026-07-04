@@ -801,3 +801,15 @@ Checks:
 - The command uses environment variables for endpoint, model, and API key without storing secrets in source files.
 - The command calls an OpenAI-compatible HTTPS endpoint through Cangjie orchestration and `curl` transport.
 - The command prints the LLM answer and the selected local source path.
+
+## 81. Interactive Web UI
+
+Status: initialized.
+
+Checks:
+
+- The Cangjie CLI supports `web [port]`.
+- The Web server is implemented with Cangjie `std.net`.
+- The page supports question input and local/API answer mode selection.
+- The page displays matched source information and answer text.
+- The page can save a syntax note into the local user knowledge base.

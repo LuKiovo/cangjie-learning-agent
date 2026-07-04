@@ -126,6 +126,14 @@ target\manual\main.exe llm-ask match
 
 Expected result: after model and API key environment variables are set, the command sends a source-backed OpenAI-compatible request and prints the answer with the local source path.
 
+### Interactive Web UI
+
+```powershell
+target\manual\main.exe web 18080
+```
+
+Open `http://127.0.0.1:18080` in a browser. Expected result: a Cangjie-served Web page lets the user ask questions, choose local/API answer mode, see source-backed answers, and add syntax notes.
+
 14. Export a Markdown LLM request draft:
 
 ```powershell

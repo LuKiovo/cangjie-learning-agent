@@ -3,7 +3,7 @@ package cangjie_learning_agent
 import std.process.*
 
 func defaultLlmEndpoint(): String {
-    return "https://api.openai.com/v1/chat/completions"
+    return "https://api.deepseek.com/chat/completions"
 }
 
 func jsonEscape(text: String): String {
@@ -148,4 +148,47 @@ func printLlmApiAnswer(question: String, totalMatches: Int64, primarySource: Str
         println("Source: none matched locally")
     }
     return 0
+}
+
+func buildLlmApiAnswerText(question: String, totalMatches: Int64, primarySource: String, sourceText: String): String {
+    let prompt = buildLlmPromptText(question, totalMatches, primarySource, sourceText)
+    let result = callLlmApi(prompt)
+    let exitCode = result[0]
+    let stdoutText = String.fromUtf8(result[1])
+    let stderrText = String.fromUtf8(result[2])
+
+    var text = "LLM transport: curl HTTPS POST from Cangjie std.process\n"
+    text += "Endpoint: ${envOrDefault("CANGJIE_AGENT_LLM_ENDPOINT", defaultLlmEndpoint())}\n"
+    text += "Model configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_LLM_MODEL", ""))}\n"
+    text += "API key configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_API_KEY", ""))}\n\n"
+
+    if (exitCode != 0) {
+        text += "LLM API call failed.\n"
+        if (!stderrText.isEmpty()) {
+            text += stderrText
+            text += "\n"
+        }
+        if (!stdoutText.isEmpty()) {
+            text += stdoutText
+            text += "\n"
+        }
+        return text
+    }
+
+    let answer = extractLlmContent(stdoutText)
+    text += "LLM answer:\n"
+    if (!answer.isEmpty()) {
+        text += answer
+        text += "\n\n"
+    } else {
+        text += "Could not extract message.content. Raw response follows:\n"
+        text += stdoutText
+        text += "\n\n"
+    }
+    if (!primarySource.isEmpty()) {
+        text += "Source: ${primarySource}\n"
+    } else {
+        text += "Source: none matched locally\n"
+    }
+    return text
 }
