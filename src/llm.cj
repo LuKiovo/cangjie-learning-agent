@@ -208,13 +208,16 @@ func buildLlmApiAnswerText(question: String, totalMatches: Int64, primarySource:
     let stdoutText = String.fromUtf8(result[1])
     let stderrText = String.fromUtf8(result[2])
 
-    var text = "LLM transport: curl HTTPS POST from Cangjie std.process\n"
-    text += "Endpoint: ${configuredLlmEndpoint()}\n"
-    text += "Model configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_LLM_MODEL", ""))}\n"
-    text += "API key configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_API_KEY", ""))}\n\n"
+    var diagnostic = "LLM transport: curl HTTPS POST from Cangjie std.process\n"
+    diagnostic += "Endpoint: ${configuredLlmEndpoint()}\n"
+    diagnostic += "Model configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_LLM_MODEL", ""))}\n"
+    diagnostic += "API key configured: ${isConfigured(envOrDefault("CANGJIE_AGENT_API_KEY", ""))}\n"
 
     if (exitCode != 0) {
-        text += "LLM API call failed.\n"
+        var text = "AI 回答\n\n"
+        text += "LLM API call failed.\n\n"
+        text += "诊断信息\n\n"
+        text += diagnostic
         if (!stderrText.isEmpty()) {
             text += stderrText
             text += "\n"
@@ -227,7 +230,7 @@ func buildLlmApiAnswerText(question: String, totalMatches: Int64, primarySource:
     }
 
     let answer = extractLlmContent(stdoutText)
-    text += "LLM answer:\n"
+    var text = "AI 回答\n\n"
     if (!answer.isEmpty()) {
         text += answer
         text += "\n\n"
@@ -236,10 +239,13 @@ func buildLlmApiAnswerText(question: String, totalMatches: Int64, primarySource:
         text += stdoutText
         text += "\n\n"
     }
+    text += "资料来源\n\n"
     if (!primarySource.isEmpty()) {
-        text += "Source: ${primarySource}\n"
+        text += "- Primary source: ${primarySource}\n"
     } else {
-        text += "Source: none matched locally\n"
+        text += "- Primary source: none matched locally\n"
     }
+    text += "\n诊断信息\n\n"
+    text += diagnostic
     return text
 }

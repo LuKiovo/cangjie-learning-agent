@@ -27,17 +27,8 @@ func printAgentAnswer(totalMatches: Int64, primarySource: String, sourceText: St
 }
 
 func buildAnswerReportText(question: String, totalMatches: Int64, primarySource: String, sourceText: String): String {
-    var text = "# Cangjie Answer Report: ${question}\n\n"
-    text += "## Question\n\n"
-    text += "${question}\n\n"
-    text += "## Local Source Result\n\n"
-    text += "- Match count: ${totalMatches}\n"
-    if (!primarySource.isEmpty()) {
-        text += "- Primary source: ${primarySource}\n\n"
-    } else {
-        text += "- Primary source: none\n\n"
-    }
-    text += "## Answer Draft\n\n"
+    var text = "本地库回答\n\n"
+    text += "问题：${question}\n\n"
     if (totalMatches > 0) {
         text += "The local knowledge base has related Cangjie material. Read the primary source, identify the syntax rule, and answer with the cited source path.\n\n"
         text += "Suggested answer structure:\n\n"
@@ -48,7 +39,14 @@ func buildAnswerReportText(question: String, totalMatches: Int64, primarySource:
     } else {
         text += "No matching local source was found. Add or import official/course knowledge before giving a confident answer.\n\n"
     }
-    text += "## Source Context\n\n"
+    text += "资料来源\n\n"
+    text += "- Match count: ${totalMatches}\n"
+    if (!primarySource.isEmpty()) {
+        text += "- Primary source: ${primarySource}\n\n"
+    } else {
+        text += "- Primary source: none\n\n"
+    }
+    text += "来源内容\n\n"
     if (!sourceText.isEmpty()) {
         text += "````text\n"
         text += sourceText
